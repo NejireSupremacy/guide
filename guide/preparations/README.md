@@ -1,4 +1,4 @@
-## Instalando Node.js y discord.js
+# Instalando Node.js y discord.js
 
 Para usar discord.js, necesitarás instalar [Node.js](https://nodejs.org/). discord.js v14 necesita de Node v16.9.0 o superior.
 
@@ -22,6 +22,10 @@ Para usar discord.js, necesitarás instalarlo a través de npm (el gestor de paq
 Navega a un lugar adecuado en tu máquina y crea una nueva carpeta llamada `discord-bot` (o lo que quieras). A continuación tendrás que abrir tu terminal.
 
 ### Opening the terminal
+
+::: tip
+Si utilizas [Visual Studio Code](https://code.visualstudio.com/), puedes pulsar `<code>Ctrl + </code>` para abrir su terminal integrado.
+:::
 
 En Windows, por otro lado:
 
