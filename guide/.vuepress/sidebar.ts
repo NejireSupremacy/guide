@@ -1,7 +1,7 @@
 export default {
 	'/voice/': [
 		{
-			text: 'Home',
+			text: 'Inicio',
 			children: [
 				'/',
 				'/requesting-more-content.md',
@@ -9,13 +9,13 @@ export default {
 			],
 		},
 		{
-			text: 'Getting Started',
+			text: 'Primeros pasos',
 			children: [
 				'/voice/',
 			],
 		},
 		{
-			text: 'Library',
+			text: 'Librería',
 			children: [
 				'/voice/life-cycles.md',
 				'/voice/voice-connections.md',
@@ -26,7 +26,7 @@ export default {
 	],
 	'/': [
 		{
-			text: 'Home',
+			text: 'Inicio',
 			children: [
 				'/',
 				'/requesting-more-content.md',
@@ -34,7 +34,7 @@ export default {
 			],
 		},
 		{
-			text: 'Installations & Preparations',
+			text: 'Instalaciones y preparativos',
 			children: [
 				'/preparations/',
 				'/preparations/setting-up-a-linter.md',
@@ -43,7 +43,7 @@ export default {
 			],
 		},
 		{
-			text: 'Creating Your Bot',
+			text: 'Creando tu bot',
 			children: [
 				'/creating-your-bot/',
 				'/creating-your-bot/main-file.md',
@@ -54,7 +54,7 @@ export default {
 			],
 		},
 		{
-			text: 'Slash Commands',
+			text: 'Comandos de barra',
 			children: [
 				'/slash-commands/response-methods.md',
 				'/slash-commands/advanced-creation.md',
@@ -65,7 +65,7 @@ export default {
 			]
 		},
 		{
-			text: 'Interactions',
+			text: 'Interacciones',
 			children: [
 				'/interactions/buttons.md',
 				'/interactions/select-menus.md',
@@ -74,7 +74,7 @@ export default {
 			]
 		},
 		{
-			text: 'Popular Topics',
+			text: 'Temas populares',
 			children: [
 				'/popular-topics/faq.md',
 				'/popular-topics/threads.md',
@@ -93,14 +93,14 @@ export default {
 			],
 		},
 		{
-			text: 'Miscellaneous',
+			text: 'Misc',
 			children: [
 				'/miscellaneous/cache-customization.md',
 				'/miscellaneous/useful-packages.md',
 			],
 		},
 		{
-			text: 'Databases',
+			text: 'Bases de datos',
 			children: [
 				'/sequelize/',
 				'/sequelize/currency.md',
@@ -122,14 +122,14 @@ export default {
 			],
 		},
 		{
-			text: 'Improving Your Dev Environment',
+			text: 'Mejorar el entorno de desarrollo',
 			children: [
 				'/improving-dev-environment/pm2.md',
 				'/improving-dev-environment/package-json-scripts.md',
 			],
 		},
 		{
-			text: 'Additional Information',
+			text: 'Información adicional',
 			children: [
 				'/additional-info/notation.md',
 				'/additional-info/es6-syntax.md',
