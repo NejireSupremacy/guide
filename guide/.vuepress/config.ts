@@ -20,7 +20,7 @@ const config = defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
 		['meta', { property: 'og:description', content: 'Imagina una guía... que explore las múltiples posibilidades de tu bot escrito en discord.js.' }],
 		['meta', { property: 'og:type', content: 'website' }],
 		['meta', { property: 'og:url', content: 'https://discordjs-guide-es.netlify.app/' }],
-		['meta', { property: 'og:locale', content: 'en_US' }],
+		['meta', { property: 'og:locale', content: 'es_ES' }],
 		['meta', { property: 'og:image', content: '/meta-image.png' }],
 	],
 	theme: path.join(__dirname, 'theme', 'index.ts'),
