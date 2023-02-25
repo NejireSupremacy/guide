@@ -5,7 +5,7 @@
 Clone the repo into your desired folder, `cd` into it, and install the dependencies.
 
 ```bash
-git clone https://github.com/discordjs/guide.git
+git clone https://github.com/NejireSupremacy/guide.git
 cd guide
 npm install
 ```

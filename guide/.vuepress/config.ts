@@ -27,7 +27,7 @@ const config = defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
 	themeConfig: {
 		contributors: false,
 		sidebar,
-		repo: 'discordjs/guide',
+		repo: 'NejireSupremacy/guide',
 		docsDir: 'guide',
 		sidebarDepth: 3,
 		editLinks: true,
