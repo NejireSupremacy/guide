@@ -39,7 +39,7 @@
 
 ## Paginas
 
-Todo el contenido se ha actualizado para utilizar la sintaxis de discord.js v14. La versión v13 de la guía se puede encontrar en [https://v13.discordjs-guide-es.netlify.app/](https://v13.discordjs-guide-es.netlify.app/). (sin traducir)
+Todo el contenido se ha actualizado para utilizar la sintaxis de discord.js v14. La versión v13 de la guía se puede encontrar en [este link](https://v13.discordjs.guide). (sin traducir)
 
 ### Novedades
 
