@@ -15,7 +15,7 @@ const { SlashCommandBuilder } = require('discord.js');
 
 const data = new SlashCommandBuilder()
 	.setName('guide')
-	.setDescription('Search discordjs.guide!')
+	.setDescription('Search discordjs-guide-es.netlify.app!')
 	.addStringOption(option =>
 		option.setName('query')
 			.setDescription('Phrase to search for')
@@ -67,7 +67,7 @@ client.on('interactionCreate', async interaction => {
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('guide')
-		.setDescription('Search discordjs.guide!')
+		.setDescription('Search discordjs-guide-es.netlify.app!')
 		.addStringOption(option =>
 			option.setName('query')
 				.setDescription('Phrase to search for')
@@ -103,7 +103,7 @@ The <DocsLink path="class/CommandInteractionOptionResolver?scrollTo=getFocused" 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('guide')
-		.setDescription('Search discordjs.guide!')
+		.setDescription('Search discordjs-guide-es.netlify.app!')
 		.addStringOption(option =>
 			option.setName('query')
 				.setDescription('Phrase to search for')
@@ -127,7 +127,7 @@ To distinguish between multiple options, you can pass `true` into <DocsLink path
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('guide')
-		.setDescription('Search discordjs.guide!')
+		.setDescription('Search discordjs-guide-es.netlify.app!')
 		.addStringOption(option =>
 			option.setName('query')
 				.setDescription('Phrase to search for')

@@ -12,11 +12,11 @@ Esta guía está dirigida a usuarios que no están familiarizados o no tienen ex
 
 Hay muchos temas diferentes cubiertos, tales como:
 
-- Cómo [preparar tu bot](https://discordjs.guide/preparations/) desde cero;
-- Cómo [crear](https://discordjs.guide/creating-your-bot/), [organizar](https://discordjs.guide/creating-your-bot/command-handling.html) y ampliar tus comandos;
-- Explicaciones en profundidad y ejemplos sobre temas populares (por ejemplo, [reacciones](https://discordjs.guide/popular-topics/reactions.html), [incrustaciones (embeds)](https://discordjs.guide/popular-topics/embeds.html), [canvas](https://discordjs.guide/popular-topics/canvas.html));
-- Trabajo con bases de datos (por ejemplo, [sequelize](https://discordjs.guide/sequelize/) y [keyv](https://discordjs.guide/keyv/));
-- Introducción al [sharding](https://discordjs.guide/sharding/);
+- Cómo [preparar tu bot](https://discordjs-guide-es.netlify.app/preparations/) desde cero;
+- Cómo [crear](https://discordjs-guide-es.netlify.app/creating-your-bot/), [organizar](https://discordjs-guide-es.netlify.app/creating-your-bot/command-handling.html) y ampliar tus comandos;
+- Explicaciones en profundidad y ejemplos sobre temas populares (por ejemplo, [reacciones](https://discordjs-guide-es.netlify.app/popular-topics/reactions.html), [incrustaciones (embeds)](https://discordjs-guide-es.netlify.app/popular-topics/embeds.html), [canvas](https://discordjs-guide-es.netlify.app/popular-topics/canvas.html));
+- Trabajo con bases de datos (por ejemplo, [sequelize](https://discordjs-guide-es.netlify.app/sequelize/) y [keyv](https://discordjs-guide-es.netlify.app/keyv/));
+- Introducción al [sharding](https://discordjs-guide-es.netlify.app/sharding/);
 - Y mucho más.
 
 ## Contribuyendo

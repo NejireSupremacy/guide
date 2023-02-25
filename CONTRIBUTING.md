@@ -231,7 +231,7 @@ If you want to include an image in a page, the image you add should be saved to 
 -
 - ![Final result](https://i.imgur.com/AfFp7pu.png)
 -
-- If you want to read more about this, you can check out the page on [that other cool stuff](https://discordjs.guide/#/some-really-cool-stuff).
+- If you want to read more about this, you can check out the page on [that other cool stuff](https://discordjs-guide-es.netlify.app/#/some-really-cool-stuff).
 
 + Here's what the final result would look like:
 +
