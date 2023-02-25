@@ -30,7 +30,7 @@
 	</DiscordMessage>
 </DiscordMessages>
 
-## Site
+## Sitio
 
 - Actualizado a [VuePress v2](https://v2.vuepress.vuejs.org/)
 - Nuevo tema adaptado a [discord.js documentation site](https://discord.js.org/)
