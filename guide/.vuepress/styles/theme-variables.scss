@@ -108,6 +108,44 @@ html.guide-theme-blurple {
 	--c-text-accent: var(--c-brand-light);
 }
 
+html.guide-theme-orange {
+	--theme-430: var(--orange-430);
+	--theme-460: var(--orange-460);
+	--theme-500: var(--orange-500);
+	--theme-530: var(--orange-530);
+	--theme-560: var(--orange-560);
+	--theme-600: var(--orange-600);
+	--theme-630: var(--orange-630);
+
+	// Overrides
+
+	// brand colors
+	--c-brand: var(--theme-560);
+	--c-brand-light: var(--theme-460);
+
+	// text colors
+	--c-text-accent: var(--c-brand-light);
+}
+
+html.guide-theme-purple {
+	--theme-430: var(--purple-430);
+	--theme-460: var(--purple-460);
+	--theme-500: var(--purple-500);
+	--theme-530: var(--purple-530);
+	--theme-560: var(--purple-560);
+	--theme-600: var(--purple-600);
+	--theme-630: var(--purple-630);
+
+	// Overrides
+
+	// brand colors
+	--c-brand: var(--theme-560);
+	--c-brand-light: var(--theme-460);
+
+	// text colors
+	--c-text-accent: var(--c-brand-light);
+}
+
 html.dark {
 	--c-headers: #fff;
 	--c-bg-scrollbar: var(--c-bg);
