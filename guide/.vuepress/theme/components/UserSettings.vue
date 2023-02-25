@@ -1,7 +1,7 @@
 <template>
 	<div class="sidebar-group" :class="{ 'sidebar-group-collapsed': !showSettings }">
 		<button class="sidebar-heading sidebar-item" @click="showSettings = !showSettings">
-			Settings
+			Ajustes
 			<ChevronDown class="menu-icon" />
 		</button>
 		<ul v-show="showSettings">
