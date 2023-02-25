@@ -1,57 +1,57 @@
-# Setting up a bot application
+# Configurar una aplicación
 
-## Creating your bot
+## Creando tu bot
 
-Now that you've installed Node, discord.js, and hopefully a linter, you're almost ready to start coding! The next step you need to take is setting up an actual Discord bot application via Discord's website.
+Ahora que has instalado Node, discord.js y, con suerte, un linter, ¡estás casi listo para empezar a programar! El siguiente paso que debes dar es configurar una aplicación bot de Discord real a través del sitio web de Discord.
 
-It's effortless to create one. The steps you need to take are as follows:
+Crear uno no supone ningún esfuerzo. Los pasos a seguir son los siguientes:
 
-1. Open the [Discord developer portal](https://discord.com/developers/applications) and log into your account.
-2. Click on the "New Application" button.
-3. Enter a name and confirm the pop-up window by clicking the "Create" button.
+1. Abre el [portal para desarrolladores de Discord](https://discord.com/developers/applications) e inicia sesión en tu cuenta.
+2. Haz clic en el botón "New Application".
+3. Introduce un nombre y confirma la ventana emergente haciendo clic en el botón "Create".
 
-You should see a page like this:
+Debería ver una página como ésta:
 
 ![Successfully created application](./images/create-app.png)
 
-You can edit your application's name, description, and avatar here. Once you've saved your changes, move on by selecting the "Bot" tab in the left pane.
+Aquí puedes editar el nombre, la descripción y el avatar de tu aplicación. Una vez que hayas guardado los cambios, sigue adelante seleccionando la pestaña "Bot" en el panel izquierdo.
 
 ![Create a bot UI](./images/create-bot.png)
 
-Click the "Add Bot" button on the right and confirm the pop-up window by clicking "Yes, do it!". Congratulations, you're now the proud owner of a shiny new Discord bot! You're not entirely done, though.
+Haz clic en el botón "Add Bot" de la derecha y confirma la ventana emergente haciendo clic en "Yes, do it!". Enhorabuena, ya eres el orgulloso propietario de un nuevo y reluciente bot de Discord. Pero no has terminado del todo.
 
-## Your bot's token
+## El token de tu bot
 
 ::: danger
-This section is critical, so pay close attention. It explains what your bot token is, as well as the security aspects of it.
+Esta sección es crítica, así que presta mucha atención. Explica qué es tu token bot, así como sus aspectos de seguridad.
 :::
 
-After creating a bot user, you'll see a section like this:
+Después de crear un bot, verás una sección como esta:
 
 ![Bot application](./images/created-bot.png)
 
-In this panel, you can give your bot a snazzy avatar, set its username, and make it public or private. Your bot's token will be revealed when you press the "Reset Token" button and confirm. When we ask you to paste your bot's token somewhere, this is the value that you need to put in. If you happen to lose your bot's token at some point, you need to come back to this page and reset your bot's token again which will reveal the new token, invalidating all old ones.
+En este panel, puedes dar a tu bot un avatar elegante, establecer su nombre de usuario y hacerlo público o privado. El token de tu bot se revelará cuando pulses el botón "Reset Token" y confirmes. Cuando te pidamos que pegues el token de tu bot en algún sitio, este es el valor que tienes que poner. Si pierdes el token de tu bot en algún momento, tienes que volver a esta página y restablecer el token de tu bot de nuevo, lo que revelará el nuevo token, invalidando todos los antiguos.
 
-### What is a token, anyway?
+### ¿Qué es un token?
 
-A token is essentially your bot's password; it's what your bot uses to login to Discord. With that said, **it is vital that you do not ever share this token with anybody, purposely or accidentally**. If someone does manage to get a hold of your bot's token, they can use your bot as if it were theirs—this means they can perform malicious acts with it.
+Un token es esencialmente la contraseña de tu bot; es lo que tu bot utiliza para iniciar sesión en Discord. Dicho esto, **es vital que nunca compartas este token con nadie, ni a propósito ni accidentalmente**. Si alguien consigue hacerse con el token de tu bot, podrá utilizarlo como si fuera suyo, lo que significa que podrá realizar actos maliciosos con él.
 
-Tokens look like this: `NzkyNzE1NDU0MTk2MDg4ODQy.X-hvzA.Ovy4MCQywSkoMRRclStW4xAYK7I` (don't worry, we immediately reset this token before even posting it here!). If it's any shorter and looks more like this: `kxbsDRU5UfAaiO7ar9GFMHSlmTwYaIYn`, you copied your client secret instead. Make sure to copy the token if you want your bot to work!
+Los tokens tienen este aspecto: `NzkyNzE1NDU0MTk2MDg4ODQy.X-hvzA.Ovy4MCQywSkoMRRclStW4xAYK7I` (no te preocupes, reseteamos este token inmediatamente antes de publicarlo aquí). Si es más corto y se parece más a esto `kxbsDRU5UfAaiO7ar9GFMHSlmTwYaIYn`, has copiado tu secreto de cliente en su lugar. Asegúrate de copiar el token si quieres que tu bot funcione.
 
-### Token leak scenario
+### Escenario de perdida de token
 
-Let's imagine that you have a bot on over 1,000 servers, and it took you many, many months of coding and patience to get it on that amount. Your bot's token gets leaked somewhere, and now someone else has it. That person can:
+Imaginemos que tienes un bot en más de 1.000 servidores, y que te ha llevado muchos, muchos meses de escribir código y paciencia conseguirlo en esa cantidad. El token de tu bot se filtra en algún sitio, y ahora lo tiene otra persona. Esa persona puede:
 
-* Spam every server your bot is on;
-* DM spam as many users as possible;
-* Delete as many channels as possible;
-* Kick or ban as many server members as possible;
-* Make your bot leave all of the servers it has joined;
+* Hacer spam en todos los servidores en los que esté tu bot;
+* Hacer spam mediante MD a tantos usuarios como sea posible;
+* Borrar tantos canales como sea posible;
+* Expulsar o banear a tantos miembros del servidor como sea posible;
+* Hacer que tu bot abandone todos los servidores a los que se ha unido;
 
-All that and much, much more. Sounds pretty terrible, right? So make sure to keep your bot's token as safe as possible!
+Todo eso y mucho, mucho más. Suena bastante terrible, ¿verdad? Así que asegúrate de mantener el token de tu bot lo más seguro posible.
 
-In the [initial files](/creating-your-bot/) page of the guide, we cover how to safely store your bot's token in a configuration file.
+En la página [archivos iniciales](/creando-tu-bot/) de la guía, cubrimos cómo almacenar de forma segura el token de tu bot en un archivo de configuración.
 
 ::: danger
-If your bot token has been compromised by committing it to a public repository, posting it in discord.js support etc. or otherwise see your bot's token in danger, return to this page and press "Reset Token". This will invalidate all old tokens belonging to your bot. Keep in mind that you will need to update your bot's token where you used it before.
+Si el token de tu bot se ha visto comprometido al enviarlo a un repositorio público, publicarlo en el soporte de discord.js, etc., o ves que el token de tu bot está en peligro, vuelve a esta página y pulsa "Reset Token". Esto invalidará todos los tokens antiguos pertenecientes a tu bot. Ten en cuenta que tendrás que actualizar el token de tu bot donde lo usabas antes.
 :::

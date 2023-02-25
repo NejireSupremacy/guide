@@ -1,73 +1,78 @@
-# Installing Node.js and discord.js
+## Instalando Node.js y discord.js
 
-## Installing Node.js
-
-To use discord.js, you'll need to install [Node.js](https://nodejs.org/). discord.js v14 requires Node v16.9.0 or higher.
+Para usar discord.js, necesitarás instalar [Node.js](https://nodejs.org/). discord.js v14 necesita de Node v16.9.0 o superior.
 
 ::: tip
-To check if you already have Node installed on your machine \(e.g., if you're using a VPS\), run `node -v` in your terminal. If it outputs `v16.9.0` or higher, then you're good to go! Otherwise, continue reading.
+Para comprobar si ya tienes Node instalado en tu máquina (por ejemplo, si estás usando un VPS), ejecuta `node -v` en tu terminal. Si el resultado es `v16.9.0` o superior, ¡entonces está listo! Si no, sigue leyendo.
 :::
 
-On Windows, it's as simple as installing any other program. Download the latest version from [the Node.js website](https://nodejs.org/), open the downloaded file, and follow the steps from the installer.
+En Windows, es tan sencillo como instalar cualquier otro programa. Descarga la última versión desde [el sitio web de Node.js](https://nodejs.org/), abre el archivo descargado y sigue los pasos del instalador.
 
-On macOS, either:
+En macOS, por otro lado:
 
-- Download the latest version from [the Node.js website](https://nodejs.org/), open the package installer, and follow the instructions
-- Use a package manager like [Homebrew](https://brew.sh/) with the command `brew install node`
+- Descargue la última versión desde [el sitio web de Node.js](https://nodejs.org/), abra el instalador del paquete y siga las instrucciones
+- Utiliza un gestor de paquetes como [Homebrew](https://brew.sh/) con el comando `brew install node`
 
-On Linux, you can consult [this page](https://nodejs.org/en/download/package-manager/) to determine how you should install Node.
+En Linux, puede consultar [esta página](https://nodejs.org/es/download/package-manager/) para determinar cómo debe instalar Node.
 
-## Preparing the essentials
+## Preparando lo esencial
 
-To use discord.js, you'll need to install it via npm \(Node's package manager\). npm comes with every Node installation, so you don't have to worry about installing that. However, before you install anything, you should set up a new project folder.
+Para usar discord.js, necesitarás instalarlo a través de npm (el gestor de paquetes de Node). npm viene con cada instalación de Node, así que no tienes que preocuparte de instalarlo. Sin embargo, antes de instalar nada, debes crear una nueva carpeta de proyecto.
 
-Navigate to a suitable place on your machine and create a new folder named `discord-bot` (or whatever you want). Next you'll need to open your terminal.
+Navega a un lugar adecuado en tu máquina y crea una nueva carpeta llamada `discord-bot` (o lo que quieras). A continuación tendrás que abrir tu terminal.
 
 ### Opening the terminal
 
 ::: tip
-If you use [Visual Studio Code](https://code.visualstudio.com/), you can press <code>Ctrl + `</code> (backtick) to open its integrated terminal.
+Si utilizas [Visual Studio Code](https://code.visualstudio.com/), puedes pulsar `<code>`Ctrl + `````</code>```` (comilla invertida) para abrir su terminal integrado.
 :::
 
-On Windows, either:
+En Windows, por otro lado:
 
-- `Shift + Right-click` inside your project directory and choose the "Open command window here" option
-- Press `Win + R` and run `cmd.exe`, and then `cd` into your project directory
+- Mayúsculas + Botón derecho del ratón dentro del directorio de su proyecto y elija la opción "Abrir en Terminal".
+- Pulsa `Win + R` y ejecuta `cmd.exe`, y luego `cd` en el directorio de tu proyecto
 
-On macOS, either:
-- Open Launchpad or Spotlight and search for "Terminal"
-- In your "Applications" folder, under "Utilities", open the Terminal app
+En macOS, por otro lado:
 
-On Linux, you can quickly open the terminal with `Ctrl + Alt + T`.
+- Abra Launchpad o Spotlight y busque "Terminal".
+- En su carpeta "Aplicaciones", en "Utilidades", abra la aplicación Terminal
 
-With the terminal open, run the `node -v` command to make sure you've successfully installed Node.js. If it outputs `v16.9.0` or higher, great!
+En Linux, puedes abrir rápidamente el terminal con `Ctrl + Alt + T`.
 
-### Initiating a project folder
+Con la terminal abierta, ejecuta el comando `node -v` para asegurarte de que has instalado correctamente Node.js. Si sale `v16.9.0` o superior, ¡genial!
+
+### Iniciando el proyecto
 
 :::: code-group
 ::: code-group-item npm
+
 ```sh:no-line-numbers
 npm init
 ```
+
 :::
 ::: code-group-item yarn
+
 ```sh:no-line-numbers
 yarn init
 ```
+
 :::
 ::: code-group-item pnpm
+
 ```sh:no-line-numbers
 pnpm init
 ```
+
 :::
 ::::
 
-This is the next command you'll be running. This command creates a `package.json` file for you, which will keep track of the dependencies your project uses, as well as other info.
+Ese es el siguiente comando que ejecutarás. Este comando crea un archivo `package.json` para ti, que mantendrá un registro de las dependencias que utiliza tu proyecto, así como otra información.
 
-This command will ask you a sequence of questions–you should fill them out as you see fit. If you're not sure of something or want to skip it as a whole, leave it blank and press enter.
+Ese comando te hará una secuencia de preguntas que deberás rellenar como mejor te parezca. Si no estás seguro de algo o quieres saltártelo entero, déjalo en blanco y pulsa enter.
 
 ::: tip
-To get started quickly, you can run the following command to have it fill out everything for you.
+Para empezar rápidamente, puedes ejecutar el siguiente comando para que lo rellene todo por ti.
 
 <CodeGroup>
   <CodeGroupItem title="npm">
@@ -76,50 +81,56 @@ To get started quickly, you can run the following command to have it fill out ev
 npm init -y
 ```
 
-  </CodeGroupItem>
+</CodeGroupItem>
   <CodeGroupItem title="yarn">
 
 ```sh:no-line-numbers
 yarn init -y
 ```
 
-  </CodeGroupItem>
+</CodeGroupItem>
   <CodeGroupItem title="pnpm">
 
 ```sh:no-line-numbers
 pnpm init
 ```
 
-  </CodeGroupItem>
+</CodeGroupItem>
 </CodeGroup>
 :::
 
-Once you're done with that, you're ready to install discord.js!
+Una vez hecho esto, ¡ya puedes instalar discord.js!
 
-## Installing discord.js
+## Instalando discord.js
 
-Now that you've installed Node.js and know how to open your console and run commands, you can finally install discord.js! Run the following command in your terminal:
+Ahora que has instalado Node.js y sabes cómo abrir la consola y ejecutar comandos, ¡por fin puedes instalar discord.js! Ejecuta el siguiente comando en tu terminal:
 
 :::: code-group
 ::: code-group-item npm
+
 ```sh:no-line-numbers
 npm install discord.js
 ```
+
 :::
 ::: code-group-item yarn
+
 ```sh:no-line-numbers
 yarn add discord.js
 ```
+
 :::
 ::: code-group-item pnpm
+
 ```sh:no-line-numbers
 pnpm add discord.js
 ```
+
 :::
 ::::
 
-And that's it! With all the necessities installed, you're almost ready to start coding your bot.
+Y ya está. Con todo lo necesario instalado, estás casi listo para empezar a codificar tu bot.
 
-## Installing a linter
+## Instalando un linter
 
-While you are coding, it's possible to run into numerous syntax errors or code in an inconsistent style. You should [install a linter](/preparations/setting-up-a-linter.md) to ease these troubles. While code editors generally can point out syntax errors, linters coerce your code into a specific style as defined by the configuration. While this is not required, it is advised.
+Mientras escribes tu código, es posible que te encuentres con numerosos errores de sintaxis o que escribas con un estilo incoherente. Deberías [instalar un linter](/preparations/setting-up-a-linter.md) para aliviar estos problemas. Mientras que los editores de código generalmente pueden señalar errores de sintaxis, los linters obligan a tu código a seguir un estilo específico definido por la configuración. Aunque esto no es obligatorio, es aconsejable.

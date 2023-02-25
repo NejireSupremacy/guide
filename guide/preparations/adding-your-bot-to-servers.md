@@ -1,42 +1,42 @@
-# Adding your bot to servers
+# Agregando tu bot a servidores
 
-After you [set up a bot application](/preparations/setting-up-a-bot-application.md), you'll notice that it's not in any servers yet. So how does that work?
+Después de [Configurar una aplicación](/preparations/setting-up-a-bot-application.md), te darás cuenta de que aún no está en ningún servidor. ¿Cómo funciona eso?
 
-Before you're able to see your bot in your own (or other) servers, you'll need to add it by creating and using a unique invite link using your bot application's client id.
+Antes de que puedas ver tu bot en tu propio servidor (o en otros), tendrás que añadirlo creando y utilizando un enlace de invitación único con el identificador de cliente de tu aplicación de bot.
 
-## Bot invite links
+## Links de invitación de bots
 
-The basic version of one such link looks like this:
+La versión simple de uno de estos enlaces es la siguiente:
 
 ```:no-line-numbers
 https://discord.com/api/oauth2/authorize?client_id=123456789012345678&permissions=0&scope=bot%20applications.commands
 ```
 
-The structure of the URL is quite simple:
+La estructura del URL es bastante simple:
 
-* `https://discord.com/api/oauth2/authorize` is Discord's standard structure for authorizing an OAuth2 application (such as your bot application) for entry to a Discord server.
-* `client_id=...` is to specify _which_ application you want to authorize. You'll need to replace this part with your client's id to create a valid invite link.
-* `permissions=...` describes what permissions your bot will have on the server you are adding it to.
-* `scope=bot%20applications.commands` specifies that you want to add this application as a Discord bot, with the ability to create slash commands.
+* `https://discord.com/api/oauth2/authorize` es la estructura estándar de Discord para autorizar una aplicación OAuth2 (como tu aplicación bot) para la entrada a un servidor de Discord.
+* `client_id=...` es para especificar _qué_ aplicación quieres autorizar. Necesitarás reemplazar esta parte con el id de tu cliente para crear un enlace de invitación válido.
+* `permissions=...` describe qué permisos tendrá tu bot en el servidor al que lo estás añadiendo.
+* `scope=bot%20applications.commands` especifica que quieres añadir esta aplicación como un bot de Discord, con la capacidad de crear comandos de barra.
 
 ::: warning
-If you get an error message saying "Bot requires a code grant", head over to your application's settings and disable the "Require OAuth2 Code Grant" option. You shouldn't enable this option unless you know why you need to.
+Si recibes un mensaje de error que dice "Bot requires a code grant", dirígete a la configuración de tu aplicación y desactiva la opción "Require OAuth2 Code Grant". No deberías activar esta opción a menos que sepas por qué lo necesitas.
 :::
 
-## Creating and using your invite link
+## Creando y utilizando tu link de invitación
 
-To create an invite link, head back to the [My Apps](https://discord.com/developers/applications/me) page under the "Applications" section, click on your bot application, and open the OAuth2 page.
+Para crear un enlace de invitación, vuelve a la página [Mis aplicaciones](https://discord.com/developers/applications/me) en la sección "Applications", haz clic en tu aplicación bot y abre la página OAuth2.
 
-In the sidebar, you'll find the OAuth2 URL generator. Select the `bot` and `applications.commands` options. Once you select the `bot` option, a list of permissions will appear, allowing you to configure the permissions your bot needs.
+En la barra lateral, encontrarás el generador de URL OAuth2. Selecciona las opciones `bot` y `applications.commands`. Una vez que selecciones la opción `bot`, aparecerá una lista de permisos, permitiéndote configurar los permisos que tu bot necesita.
 
-Grab the link via the "Copy" button and enter it in your browser. You should see something like this (with your bot's username and avatar):
+Selecciona el enlace mediante el botón "Copiar" e introdúcelo en tu navegador. Deberías ver algo como esto (con el nombre de usuario y el avatar de tu bot):
 
 ![Bot Authorization page](./images/bot-auth-page.png)
 
-Choose the server you want to add it to and click "Authorize". Do note that you'll need the "Manage Server" permission on a server to add your bot there. This should then present you a nice confirmation message:
+Elige el servidor al que quieres añadirlo y haz clic en "Autorizar". Ten en cuenta que necesitarás el permiso "Gestionar servidor" en un servidor para añadir tu bot allí. A continuación debería aparecer un bonito mensaje de confirmación:
 
 ![Bot authorized](./images/bot-authorized.png)
 
-Congratulations! You've successfully added your bot to your Discord server. It should show up in your server's member list somewhat like this:
+¡Enhorabuena! Has añadido con éxito tu bot a tu servidor de Discord. Debería aparecer en la lista de miembros de tu servidor más o menos así:
 
 ![Bot in server's member list](./images/bot-in-memberlist.png)

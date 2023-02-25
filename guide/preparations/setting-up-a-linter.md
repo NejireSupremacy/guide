@@ -1,54 +1,59 @@
-# Setting up a linter
+# Configurando un linter
 
-As a developer, it's a good idea to make your development process as streamlined as possible. Linters check syntax and help you produce consistent code that follows specific style rules that you can define yourself or inherit from existing configurations. Although it's not required, installing a linter will help you immensely.
+Como desarrollador, es una buena idea hacer que su proceso de desarrollo sea lo más ágil posible. Los linters comprueban la sintaxis y te ayudan a producir código consistente que sigue reglas de estilo específicas que puedes definir tú mismo o heredar de configuraciones existentes. Aunque no es obligatorio, instalar un linter te ayudará enormemente.
 
-## Installing a code editor
+## Instalando un editor de código
 
-First, you will need a proper code editor. Using programs such as Notepad and Notepad++ is discouraged, as they're inefficient for projects like these. If you aren't using one of the editors listed below, it's advised to switch.
+En primer lugar, necesitarás un editor de código adecuado. Se desaconseja el uso de programas como Notepad y Notepad++, ya que son ineficaces para este tipo de proyectos. A continuación se enumeraran unos editores recomendados.
 
-* [Visual Studio Code](https://code.visualstudio.com/) is a prevalent choice; it is known for being fast and powerful. It supports various languages, has a terminal, built-in IntelliSense support, and autocomplete for both JavaScript and TypeScript. This is the recommended choice.
-* [Sublime Text](https://www.sublimetext.com/) is another popular editor that's easy to use and write code with.
+* [Visual Studio Code](https://code.visualstudio.com/) es una opción frecuente y es conocido por ser rápido y potente. Soporta varios lenguajes, tiene un terminal, soporte integrado de IntelliSense, y autocompletado tanto para JavaScript como para TypeScript. Es la opción recomendada y favorita por la comunidad.
+* [Sublime Text](https://www.sublimetext.com/) es otro editor popular que es fácil de usar y escribir código.
 
-## Installing a linter
+## Instalando un linter
 
-Install the [ESLint package](https://www.npmjs.com/package/eslint) inside your project directory.
+Install the [Módulo package](https://www.npmjs.com/package/eslint) inside your project directory.
 
 :::: code-group
 ::: code-group-item npm
+
 ```sh:no-line-numbers
 npm install --save-dev eslint
 ```
+
 :::
 ::: code-group-item yarn
+
 ```sh:no-line-numbers
 yarn add eslint --dev
 ```
+
 :::
 ::: code-group-item pnpm
+
 ```sh:no-line-numbers
 pnpm add --save-dev eslint
 ```
+
 :::
 ::::
 
+Una de las ventajas de los editores de código es su capacidad para integrar linters a través de plugins. Instala los plugins adecuados para el editor que elijas.
 
-One of the advantages proper code editors have is their ability to integrate linters via editor plugins. Install the appropriate plugin(s) for your editor of choice.
-
-* [ESLint for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-* [ESLint for Sublime Text](https://packagecontrol.io/packages/ESLint)
+* [ESLint para Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+* [ESLint para Sublime Text](https://packagecontrol.io/packages/ESLint)
 
 ::: tip
-You can view plugins directly inside your editor.
+Puedes ver los plugins directamente dentro de tu editor.
 
-- Visual Studio Code: Press `Ctrl + Shift + X`
-- Sublime Text: Press `Ctrl + Shift + P` and search for "Install Package" (available via [Package Control](https://packagecontrol.io/installation))
+- Visual Studio Code: Presiona  `Ctrl + Shift + X`
+- Sublime Text: Presiona `Ctrl + Shift + P` y busca por "Install Package" (disponible en [Package Control](https://packagecontrol.io/installation))
 
-After that, search for the appropriate plugin and install it.
+A continuación, busque el plugin adecuado e instálelo.
 :::
 
-## Setting up ESLint rules
+## Configuración de las reglas de ESLint
 
-ESLint may display many warnings and errors about your code when you start using it but don't let this startle you. To get started, create a file in your project directory named `.eslintrc.json` and copy the code below into the file:
+ESLint puede mostrarte muchas advertencias y errores sobre tu código cuando empieces a usarlo, pero no dejes que esto te asuste. Para empezar, cree un archivo en el directorio de su proyecto llamado `.eslintrc.json` y copie el siguiente código en el archivo:
 
 ```json
 {
@@ -66,11 +71,11 @@ ESLint may display many warnings and errors about your code when you start using
 }
 ```
 
-This is the basis of how an ESLint file will look. The `rules` object is where you'll define what rules you want to apply to ESLint. For example, if you want to make sure you never miss a semicolon, the `"semi": ["error", "always"]` rule is what you'll want to add inside that object.
+Esta es la base de cómo se verá un archivo ESLint. El objeto `rules` es donde definirá qué reglas quiere aplicar a ESLint. Por ejemplo, si quiere asegurarse de que nunca se salta un punto y coma, la regla `"semi": ["error", "always"]` es lo que querrá añadir dentro de ese objeto.
 
-You can find a list of all of ESLint's rules on [their website](https://eslint.org/docs/rules). There are indeed many rules, and it may be overwhelming at first, so if you don't want to go through everything on your own yet, you can use these rules:
+Puede encontrar una lista de todas las reglas de ESLint en [su sitio web](https://eslint.org/docs/rules) (Solamente en ingles). De hecho, hay muchas reglas, y puede ser abrumador al principio, así que si no quiere revisar todo por su cuenta todavía, puede usar estas reglas:
 
-```json {11-47}
+```json
 {
 	"extends": "eslint:recommended",
 	"env": {
@@ -122,15 +127,15 @@ You can find a list of all of ESLint's rules on [their website](https://eslint.o
 }
 ```
 
-The major points of this setup would be:
+Los puntos principales de esta configuración serían:
 
-* Allowing you to debug with `console.log()`;
-* Prefer using `const` over `let` or `var`, as well as disallow `var`;
-* Disapproving of variables with the same name in callbacks;
-* Requiring single quotes over double quotes;
-* Requiring semicolons. While not required in JavaScript, it's considered one of the most common best practices to follow;
-* Requiring accessing properties to be on the same line;
-* Requiring indenting to be done with tabs;
-* Limiting nested callbacks to 4. If you hit this error, it is a good idea to consider refactoring your code.
+* Permitir depurar con `console.log()`;
+* Preferir el uso de `const` sobre `let` o `var`, así como no permitir `var`;
+* Desaprobar variables con el mismo nombre en callbacks;
+* Requerir comillas simples en lugar de dobles;
+* Requerir punto y coma. Aunque no es obligatorio en JavaScript, se considera una de las mejores prácticas a seguir;
+* Requerir que el acceso a las propiedades esté en la misma línea;
+* Requerir que la separación se haga con tabs;
+* Limitar las llamadas de retorno anidadas a 4. Si se encuentra con este error, es una buena idea considerar la refactorización de su código.
 
-If your current code style is a bit different, or you don't like a few of these rules, that's perfectly fine! Just head over to the [ESLint docs](https://eslint.org/docs/rules/), find the rule(s) you want to modify, and change them accordingly.
+Si tu estilo de código actual es un poco diferente, o no te gustan algunas de estas reglas, ¡está perfectamente bien! Simplemente diríjase a [ESLint docs](https://eslint.org/docs/rules/) (Solamente en ingles), encuentre la(s) regla(s) que desea modificar, y cámbielas según corresponda.
