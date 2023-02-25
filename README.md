@@ -21,4 +21,4 @@ Hay muchos temas diferentes cubiertos, tales como:
 
 ## Contribuyendo
 
-Si estás interesado en contribuir a la guía, deberías consultar nuestra página [GitHub Projects](https://github.com/discordjs/guide/projects) o [open issues](https://github.com/discordjs/guide/issues). Hay una [guía de contribuciones](https://github.com/discordjs/guide/blob/main/CONTRIBUTING.md) que deberías leer una vez que decidas con qué quieres contribuir.
+Si estás interesado en contribuir a la guía, deberías consultar nuestra página [GitHub Projects](https://github.com/discordjs/guide/projects) u [open issues](https://github.com/discordjs/guide/issues). Hay una [guía de contribuciones](https://github.com/discordjs/guide/blob/main/CONTRIBUTING.md) que deberías leer una vez que decidas con qué quieres contribuir.
