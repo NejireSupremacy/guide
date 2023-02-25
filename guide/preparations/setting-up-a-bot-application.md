@@ -50,7 +50,7 @@ Imaginemos que tienes un bot en más de 1.000 servidores, y que te ha llevado mu
 
 Todo eso y mucho, mucho más. Suena bastante terrible, ¿verdad? Así que asegúrate de mantener el token de tu bot lo más seguro posible.
 
-En la página [archivos iniciales](/creando-tu-bot/) de la guía, cubrimos cómo almacenar de forma segura el token de tu bot en un archivo de configuración.
+En la página [archivos iniciales](/creating-your-bot/) de la guía, cubrimos cómo almacenar de forma segura el token de tu bot en un archivo de configuración.
 
 ::: danger
 Si el token de tu bot se ha visto comprometido al enviarlo a un repositorio público, publicarlo en el soporte de discord.js, etc., o ves que el token de tu bot está en peligro, vuelve a esta página y pulsa "Reset Token". Esto invalidará todos los tokens antiguos pertenecientes a tu bot. Ten en cuenta que tendrás que actualizar el token de tu bot donde lo usabas antes.

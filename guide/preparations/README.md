@@ -23,10 +23,6 @@ Navega a un lugar adecuado en tu máquina y crea una nueva carpeta llamada `disc
 
 ### Opening the terminal
 
-::: tip
-Si utilizas [Visual Studio Code](https://code.visualstudio.com/), puedes pulsar `<code>Ctrl + </code>` para abrir su terminal integrado.
-:::
-
 En Windows, por otro lado:
 
 - Mayúsculas + Botón derecho del ratón dentro del directorio de su proyecto y elija la opción "Abrir en Terminal".
