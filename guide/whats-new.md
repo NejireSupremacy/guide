@@ -39,7 +39,7 @@
 
 ## Paginas
 
-Todo el contenido se ha actualizado para utilizar la sintaxis de discord.js v14. La versión v13 de la guía se puede encontrar en [https://v13.discordjs.guide/](https://v13.discordjs.guide/).
+Todo el contenido se ha actualizado para utilizar la sintaxis de discord.js v14. La versión v13 de la guía se puede encontrar en [https://v13.discordjs.guide/](https://v13.discordjs.guide/). (sin traducir)
 
 ### Novedades
 
@@ -57,7 +57,7 @@ Todo el contenido se ha actualizado para utilizar la sintaxis de discord.js v14.
 - [Manejo de comandos](/creating-your-bot/command-handling.md/): Actualizado para usar comandos de barra oblicua
   - Secciones obsoletas eliminadas
 - Fragmentos de `client.on('message')` actualizados a `client.on('interactionCreate')`.
-  - [El contenido de los mensajes se convertirá en una nueva intent privilegiada el 31 de agosto de 2022](https://support-dev.discord.com/hc/articles/4404772028055)
+  - [El contenido de los mensajes se convertirá en un nuevo intent privilegiado el 31 de agosto de 2022](https://support-dev.discord.com/hc/articles/4404772028055)
 
 <DiscordMessages>
 	<DiscordMessage profile="bot">
