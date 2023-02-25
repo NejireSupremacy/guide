@@ -2,7 +2,7 @@
 	<img src="guide/images/branding/banner-blurple-small.png" title="discord.js Guide" alt="discord.js Guide" />
 </div>
 
-# Guia de Discord.JS (Adaptada al español)
+# Guía de Discord.JS (Adaptada al español)
 
 Imagina una guía... que explore las múltiples posibilidades de tu bot escrito con [discord.js](https://github.com/discordjs/discord.js).
 
