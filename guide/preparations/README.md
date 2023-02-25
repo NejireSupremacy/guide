@@ -21,7 +21,7 @@ Para usar discord.js, necesitarás instalarlo a través de npm (el gestor de paq
 
 Navega a un lugar adecuado en tu máquina y crea una nueva carpeta llamada `discord-bot` (o lo que quieras). A continuación tendrás que abrir tu terminal.
 
-### Opening the terminal
+### Abriendo la terminal
 
 En Windows, por otro lado:
 
