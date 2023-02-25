@@ -76,6 +76,19 @@ const { setTheme } = useColorTheme();
 						background-color: var(--blurple-530)
 					}
 				}
+
+				&.orange-theme {
+					background-color: var(--orange-500);
+					&:hover {
+						background-color: var(--orange-530)
+					}
+				}
+				&.purple-theme {
+					background-color: var(--purple-500);
+					&:hover {
+						background-color: var(--purple-530)
+					}
+				}
 			}
 		}
 	}
