@@ -10,7 +10,7 @@
 }
 </style>
 
-# What's new
+# Qué hay de nuevo
 
 <DiscordMessages>
 	<DiscordMessage profile="bot">

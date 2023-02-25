@@ -1,4 +1,4 @@
-# Requesting more content
+# Pidiendo más contenido
 
 Ya que esta guía está hecha específicamente para la comunidad discord.js, queremos asegurarnos de ofrecer el contenido más relevante y actualizado. Por supuesto, haremos adiciones a las páginas actuales y añadiremos otras nuevas cuando lo consideremos oportuno, pero atendiendo a las peticiones es como sabemos que estamos proporcionando el contenido que todos desean.
 
