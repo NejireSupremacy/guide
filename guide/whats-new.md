@@ -61,9 +61,12 @@ Todo el contenido se ha actualizado para utilizar la sintaxis de discord.js v14.
 
 <DiscordMessages>
 	<DiscordMessage profile="bot">
-		Thank you to all of those that contributed to the development of discord.js and the guide!
+		Gracias a todos los que han contribuido al desarrollo de discord.js y traducción de la guía.
 		<span class="emoji-container">
 			<img class="emoji-image" title="heart" alt=":heart:" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@v14.0.2/assets/72x72/2764.png" />
+		</span>
+		<span class="emoji-container">
+			<img class="emoji-image" title="pat" alt=":pats:" src="https://cdn.discordapp.com/emojis/929127508933242912.gif?size=96&quality=lossless"
 		</span>
 	</DiscordMessage>
 </DiscordMessages>
