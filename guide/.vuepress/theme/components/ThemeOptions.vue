@@ -16,6 +16,20 @@
 					@click.prevent="setTheme({ colorTheme: 'blurple', persist: true })"
 				></button>
 			</li>
+			<li>
+				<button
+					class="orange-theme"
+					title="Orange theme"
+					@click.prevent="setTheme({ colorTheme: 'orange', persist: true })"
+				></button>
+			</li>
+			<li>
+				<button
+					class="purple-theme"
+					title="Purple theme"
+					@click.prevent="setTheme({ colorTheme: 'purple', persist: true })"
+				></button>
+			</li>
 		</ul>
 	</div>
 </template>
