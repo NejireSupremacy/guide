@@ -1,11 +1,11 @@
 # Requesting more content
 
-Since this guide is made specifically for the discord.js community, we want to be sure to provide the most relevant and up-to-date content. We will, of course, make additions to the current pages and add new ones as we see fit, but fulfilling requests is how we know we're providing content you all want the most.
+Ya que esta guía está hecha específicamente para la comunidad discord.js, queremos asegurarnos de ofrecer el contenido más relevante y actualizado. Por supuesto, haremos adiciones a las páginas actuales y añadiremos otras nuevas cuando lo consideremos oportuno, pero atendiendo a las peticiones es como sabemos que estamos proporcionando el contenido que todos desean.
 
-Requests may be as simple as "add an example to the [frequently asked questions](/popular-topics/faq.html) page", or as elaborate as "add a page regarding [sharding](/sharding/)". We'll do our best to fulfill all requests, as long as they're reasonable.
+Las peticiones pueden ser tan simples como "añade un ejemplo a la página [preguntas frecuentes](/popular-topics/faq.html)", o tan elaboradas como "añade una página sobre [sharding](/sharding/)". Haremos todo lo posible por satisfacer todas las peticiones, siempre que sean razonables.
 
-To make a request, simply head over to [the repo's issue tracker](https://github.com/discordjs/guide/issues) and [create a new issue](https://github.com/discordjs/guide/issues/new)! Title it appropriately, and let us know exactly what you mean inside the issue description. Make sure that you've looked around the site before making a request; what you want to request might already exist!
+¡Para hacer una petición, simplemente dirígete al[ issue tracker del repositorio](https://github.com/discordjs/guide/issues) y [crea un nuevo issue](https://github.com/discordjs/guide/issues/new)! Ponle un título apropiado y dinos exactamente a qué te refieres en la descripción de la incidencia. Asegúrate de que has echado un vistazo al sitio antes de hacer una solicitud; ¡puede que lo que quieres solicitar ya exista!
 
 ::: tip
-Remember that you can always [fork the repo](https://github.com/discordjs/guide) and [make a pull request](https://github.com/discordjs/guide/pulls) if you want to add anything to the guide yourself!
+Recuerda que siempre puedes [forkear el repo](https://github.com/discordjs/guide) y [crear un pull request](https://github.com/discordjs/guide/pulls) si quieres añadir algo a la guía.
 :::
