@@ -30,7 +30,7 @@ Elige el que prefieras, aprende algo de JavaScript y, cuando te sientas lo sufic
 
 ## Colaboradores principales
 
-Este proyecto es mantenido por las siguientes personas, que han contribuido con su tiempo y esfuerzo para hacer que esta guía sea accesible para todos:
+Este proyecto es mantenido principalmente por las siguientes personas, que han contribuido con su tiempo y esfuerzo para hacer que esta guía sea accesible para todos:
 
 <DiscordMessages>
 	<DiscordMessage profile="nejire">
