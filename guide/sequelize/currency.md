@@ -96,7 +96,7 @@ Ahora que los modelos están definidos, debe crearlos en su base de datos para a
 
 Cree un archivo llamado `dbInit.js` en el directorio base (*no* en la carpeta `models`).
 
-::: cuidado
+::: danger
 Asegúrese de usar la versión 5 o posterior de Sequelize! La versión 4, como se usa en esta guía, representará una amenaza de seguridad. Puede leer más sobre este problema en el [rastreador de problemas de Sequelize](https://github.com/sequelize/sequelize/issues/7310)
 :::
 
@@ -134,7 +134,7 @@ Aca se extraen los dos modelos y la tabla de unión de las respectivas declaraci
 
 Una nueva función aquí es la función `.upsert()`. Es una palabra hibrida para **up**date or in**sert**. `upsert` se usa aquí para evitar crear duplicados si ejecuta este archivo varias veces. Eso no debería suceder porque `name` se define como *unique*, pero no hay daño en ser seguro. Upsert también tiene un bono agradable: si ajusta el costo, el elemento respectivo también debe tener su costo actualizado.
 
-::: consejo
+::: tip
 Ejecute `node dbInit.js` para crear las tablas de la base de datos. A menos que haga un cambio en los modelos, nunca necesitará tocar el archivo nuevamente. Si cambia un modelo, puede ejecutar `node dbInit.js --force` o `node dbInit.js -f` para sincronizar forzadamente sus tablas. Es importante tener en cuenta que esto **vaciará** y **recreará** sus tablas de modelos.
 :::
 
@@ -185,15 +185,15 @@ Reflect.defineProperty(Users.prototype, 'getItems', {
 module.exports = { Users, CurrencyShop, UserItems };
 ```
 
-Note that the connection object could be abstracted in another file and had both `dbInit.js` and `dbObjects.js` use that connection file, but it's not necessary to overly abstract things.
+Nota que el objeto de conexión podría ser abstraído en otro archivo y tener tanto `dbInit.js` como `dbObjects.js` usar ese archivo de conexión, pero no es necesario abstraer demasiado las cosas.
 
-Another new method here is the `.belongsTo()` method. Using this method, you add `CurrencyShop` as a property of `UserItem` so that when you do `userItem.item`, you get the respectively attached item. You use `item_id` as the foreign key so that it knows which item to reference.
+Otro nuevo método aquí es el método `.belongsTo()`. Usando este método, agrega `CurrencyShop` como una propiedad de `UserItem` para que cuando haga `userItem.item`, obtenga el elemento respectivamente adjunto. Usa `item_id` como clave foránea para que sepa a qué elemento debe hacer referencia.
 
-You then add some methods to the `Users` object to finish up the junction: add items to users, and get their current inventory. The code inside should be somewhat familiar from the last tutorial. `.findOne()` is used to get the item if it exists in the user's inventory. If it does, increment it; otherwise, create it.
+Luego, agrega algunos métodos al objeto `Users` para terminar la unión: agregar elementos a los usuarios y obtener su inventario actual. El código dentro debe ser algo familiar de la última guía. `.findOne()` se usa para obtener el elemento si existe en el inventario del usuario. Si lo hace, incrementarlo; de lo contrario, créelo.
 
-Getting items is similar; use `.findAll()` with the user's id as the key. The `include` key is for associating the CurrencyShop with the item. You must explicitly tell Sequelize to honor the `.belongsTo()` association; otherwise, it will take the path of the least effort.
+Obtener elementos es similar; use `.findAll()` con el id del usuario como la clave. La clave `include` es para asociar el CurrencyShop con el elemento. Debe decirle explícitamente a Sequelize que honre la asociación `.belongsTo()`; de lo contrario, tomará el camino del menor esfuerzo.
 
-## Application code
+## Código de la aplicación
 
 Create an `app.js` file in the base directory with the following skeleton code to put it together.
 
@@ -318,13 +318,13 @@ else if (commandName === 'transfer') {
 	const transferAmount = interaction.options.getInteger('amount');
 	const transferTarget = interaction.options.getUser('user');
 
-	if (transferAmount > currentAmount) return interaction.reply(`Sorry ${interaction.user}, you only have ${currentAmount}.`);
-	if (transferAmount <= 0) return interaction.reply(`Please enter an amount greater than zero, ${interaction.user}.`);
+	if (transferAmount > currentAmount) return interaction.reply(`Lo siento ${interaction.user}, tu solo tienes ${currentAmount}.`);
+	if (transferAmount <= 0) return interaction.reply(`Porfavor ingresa una cantidad mayor a 0, ${interaction.user}.`);
 
 	addBalance(interaction.user.id, -transferAmount);
 	addBalance(transferTarget.id, transferAmount);
 
-	return interaction.reply(`Successfully transferred ${transferAmount}💰 to ${transferTarget.tag}. Your current balance is ${getBalance(interaction.user.id)}💰`);
+	return interaction.reply(`Transferido exitosamente ${transferAmount}💰 a ${transferTarget.tag}. Your current balance is ${getBalance(interaction.user.id)}💰`);
 }
 ```
 
@@ -343,9 +343,9 @@ else if (commandName === 'buy') {
 	const itemName = interaction.options.getString('item');
 	const item = await CurrencyShop.findOne({ where: { name: { [Op.like]: itemName } } });
 
-	if (!item) return interaction.reply(`That item doesn't exist.`);
+	if (!item) return interaction.reply(`Ese item no existe.`);
 	if (item.cost > getBalance(interaction.user.id)) {
-		return interaction.reply(`You currently have ${getBalance(interaction.user.id)}, but the ${item.name} costs ${item.cost}!`);
+		return interaction.reply(`Acualmente tienes ${getBalance(interaction.user.id)}, pero el ${item.name} cuesta ${item.cost}!`);
 	}
 
 	const user = await Users.findOne({ where: { user_id: interaction.user.id } });
