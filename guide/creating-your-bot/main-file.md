@@ -1,49 +1,51 @@
-# Creating the main file
+# Creando el archivo principal
 
 ::: tip
-This page assumes you've already prepared the [configuration files](/creating-your-bot/#creating-configuration-files) from the previous page. We're using the `config.json` approach, however feel free to substitute your own!
+Esta página asume que ya has preparado los [archivos de configuración](/creating-your-bot/#creating-configuration-files) de la página anterior. Estamos utilizando el método `config.json`, sin embargo, ¡siéntete libre de sustituirlo por el tuyo propio!
 :::
 
-Open your code editor and create a new file. We suggest that you save the file as `index.js`, but you may name it whatever you wish.
+Abra su editor de código y cree un nuevo archivo. Te sugerimos que guardes el archivo como `index.js`, pero puedes ponerle el nombre que desees.
 
-Here's the base code to get you started:
+Aquí tienes el código base para empezar:
 
 ```js
-// Require the necessary discord.js classes
+// Requiere las clases discord.js necesarias
 const { Client, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
 
-// Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+// Crea una nueva instancia del cliente
+const client = new Client({ 
+	intents: [GatewayIntentBits.Guilds] 
+});
 
-// When the client is ready, run this code (only once)
-// We use 'c' for the event parameter to keep it separate from the already defined 'client'
+// Cuando el cliente esté listo, ejecute este código (sólo una vez)
+// Utilizamos "c" para el parámetro de evento para mantenerlo separado del ya definido "cliente".
 client.once(Events.ClientReady, c => {
 	console.log(`Ready! Logged in as ${c.user.tag}`);
 });
 
-// Log in to Discord with your client's token
+// Conéctate a Discord con el token de tu cliente
 client.login(token);
 ```
 
-This is how you create a client instance for your Discord bot and log in to Discord. The `GatewayIntentBits.Guilds` intents option is necessary for the discord.js client to work as you expect it to, as it ensures that the caches for guilds, channels, and roles are populated and available for internal use.
+Así es como creas una instancia del cliente para tu bot de Discord e inicias sesión en Discord. El opcion de `GatewayIntentBits.Guilds` para los intents es necesaria para que el cliente discord.js funcione como esperas, ya que garantiza que las cachés de guilds, canales y roles se rellenen y estén disponibles para uso interno.
 
 ::: tip
-The term "guild" is used by the Discord API and in discord.js to refer to a Discord server.
+El término "guild" es utilizado por la API de Discord y en discord.js para referirse a un servidor de Discord.
 :::
 
-Intents also define which events Discord should send to your bot, and you may wish to enable more than just the minimum. You can read more about the other intents on the [Intents topic](/popular-topics/intents).
+Los intents también definen los eventos que Discord debe enviar a tu bot, y es posible que desees habilitar más que sólo el mínimo. Puedes leer más sobre los otros intentos en [Sobre los intents](/popular-topics/intents).
 
-## Running your application
+## Ejecutando tu aplicación
 
-Open your terminal and run `node index.js` to start the process. If you see "Ready!" after a few seconds, you're good to go! The next step is to start adding [slash commands](/creating-your-bot/slash-commands.md) to develop your bot's functionality.
+Abre tu terminal y ejecuta `node index.js` para iniciar el proceso. Si ves "¡Listo!" después de unos segundos, ¡estás listo! El siguiente paso es empezar a añadir [comandos de barra](/creando-tu-bot/slash-commands.md) para desarrollar la funcionalidad de tu bot.
 
 ::: tip
-You can open your `package.json` file and edit the `"main": "index.js"` field to point to your main file. You can then run `node .` in your terminal to start the process!
+Puede abrir su archivo `package.json` y editar el campo `"main": "index.js"` para que apunte a tu archivo principal. A continuación, puedes ejecutar `node .` en tu terminal para iniciar el proceso.
 
-After closing the process with `Ctrl + C`, you can press the up arrow on your keyboard to bring up the latest commands you've run. Pressing up and then enter after closing the process is a quick way to start it up again.
+Después de cerrar el proceso con `Ctrl + C`, puedes pulsar la flecha hacia arriba de tu teclado para que aparezcan los últimos comandos que has ejecutado. Pulsar arriba y luego enter después de cerrar el proceso es una forma rápida de iniciarlo de nuevo.
 :::
 
-#### Resulting code
+#### Resultado final
 
 <ResultingCode path="creating-your-bot/initial-files" />

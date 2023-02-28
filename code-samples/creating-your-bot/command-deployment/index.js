@@ -3,7 +3,9 @@ const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+	intents: [GatewayIntentBits.Guilds]
+});
 
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
@@ -16,26 +18,26 @@ for (const file of commandFiles) {
 }
 
 client.once(Events.ClientReady, () => {
-	console.log('Ready!');
+	console.log('Listo!');
 });
 
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
-
 	const command = client.commands.get(interaction.commandName);
 
-	if (!command) return;
+	if (!command) {
+		console.error(`No se ha encontrado ningún comando que coincida con ${interaction.commandName}.`);
+		return;
+	}
 
-	try {
-		await command.execute(interaction);
-	} catch (error) {
+	await command.execute(interaction).catch(async error => {
 		console.error(error);
 		if (interaction.replied || interaction.deferred) {
-			await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
+			await interaction.followUp({ content: 'Se ha producido un error al ejecutar este comando!', ephemeral: true });
 		} else {
-			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+			await interaction.reply({ content: 'Se ha producido un error al ejecutar este comando.', ephemeral: true });
 		}
-	}
+	});
 });
 
 client.login(token);

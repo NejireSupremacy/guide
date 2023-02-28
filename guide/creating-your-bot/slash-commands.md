@@ -1,30 +1,30 @@
-# Creating slash commands
+# Creando comandos de barra
 
 <DiscordMessages>
 	<DiscordMessage profile="bot">
 		<template #interactions>
 			<DiscordInteraction profile="user" :command="true">ping</DiscordInteraction>
 		</template>
-		Pong!
+		Pong! 🏓
 	</DiscordMessage>
 </DiscordMessages>
 
-Discord allows developers to register [slash commands](https://discord.com/developers/docs/interactions/application-commands), which provide users a first-class way of interacting directly with your application. 
+Discord permite a los desarrolladores registrar [comandos de barra](https://discord.com/developers/docs/interactions/application-commands), que proporcionan a los usuarios una forma de primera clase de interactuar directamente con su aplicación.
 
-Slash commands provide a huge number of benefits over manual message parsing, including:
+Los comandos de barra proporcionan un gran número de beneficios sobre el análisis manual de mensajes, incluyendo:
 
-- Integration with the Discord client interface.
-- Automatic command detection and parsing of the associated options/arguments.
-- Typed argument inputs for command options, e.g. "String", "User", or "Role".
-- Validated or dynamic choices for command options.
-- In-channel private responses (ephemeral messages).
-- Pop-up form-style inputs for capturing additional information.
+- Integración con la interfaz de cliente de Discord.
+- Detección automática de comandos y análisis de las opciones/argumentos asociados.
+- Introducción de argumentos para las opciones de comandos, por ejemplo, "Cadena de carácteres", "Usuario" o "Rol".
+- Opciones validadas o dinámicas para opciones de comandos.
+- Respuestas privadas en el canal (mensajes efímeros).
+- Formularios emergentes para obtener información adicional.
 
 ...and many more!
 
-## Before you continue
+## Antes de continuar
 
-Assuming you've followed the guide so far, your project directory should look something like this:
+Suponiendo que hayas seguido la guía hasta ahora, el directorio de tu proyecto debería tener este aspecto o parecido:
 
 ```:no-line-numbers
 discord-bot/
@@ -35,19 +35,19 @@ discord-bot/
 └── package.json
 ```
 
-To go from this starter code to fully functional slash commands, there are three key pieces of code that need to be written. They are:
+Para pasar de este código inicial a comandos de barra completamente funcionales, hay tres piezas clave de código que necesitan ser escritas. Ellos son:
 
-1. The individual command files, containing their definitions and functionality.
-2. The command handler, which dynamically reads the files and executes the commands.
-3. The command deployment script, to register your slash commands with Discord so they appear in the interface.
+* Los archivos de comandos individuales, que contienen sus definiciones y funcionalidad.
+* El manejador de comandos, que lee dinámicamente los archivos y ejecuta los comandos.
+* El script de despliegue de comandos, para registrar tus comandos slash con Discord para que aparezcan en la interfaz.
 
-These steps can be done in any order, but all are required before the commands are fully functional. This section of the guide will use the order listed above. So let's get started!
+Estos pasos pueden realizarse en cualquier orden, pero todos son necesarios antes de que los comandos sean completamente funcionales. Esta sección de la guía utilizará el orden indicado anteriormente. Así que, ¡empecemos!
 
-## Individual command files
+## Archivos de comando individuales
 
-Create a new folder named `commands`, which is where you'll store all of your command files. You'll be using the <DocsLink section="builders" path="class/SlashCommandBuilder"/> class to construct the command definitions.
+Cree una nueva carpeta llamada `commands`, que es donde almacenará todos sus archivos de comandos. Utilizarás la clase `<DocsLink section="builders" path="class/SlashCommandBuilder"/>` para construir las definiciones de los comandos.
 
-At a minimum, the definition of a slash command must have a name and a description. Slash command names must be between 1-32 characters and contain no capital letters, spaces, or symbols other than `-` and `_`. Using the builder, a simple `ping` command definition would look like this:
+Como mínimo, la definición de un comando de barra debe tener un nombre y una descripción. Los nombres de las órdenes de barra deben tener entre 1 y 32 caracteres y no deben contener mayúsculas, espacios ni símbolos distintos de `-` y `_`. Utilizando el constructor, una definición simple de una orden `ping` tendría este aspecto:
 
 ```js
 new SlashCommandBuilder()
@@ -55,87 +55,96 @@ new SlashCommandBuilder()
 	.setDescription('Replies with Pong!');
 ```
 
-A slash command also requires a function to run when the command is used, to respond to the interaction. Using an interaction response method confirms to Discord that your bot successfully received the interaction, and has responded to the user. Discord enforces this to ensure that all slash commands provide a good user experience (UX). Failing to respond will cause Discord to show that the command failed, even if your bot is performing other actions as a result.
+Un comando de barra también requiere una función que se ejecute cuando se utiliza el comando, para responder a la interacción. El uso de un método de respuesta a la interacción confirma a Discord que tu bot ha recibido correctamente la interacción y ha respondido al usuario. Discord impone esto para garantizar que todos los comandos de barra proporcionen una buena experiencia de usuario (UX). Si no respondes, Discord mostrará que el comando ha fallado, aunque tu bot esté realizando otras acciones como resultado.
 
-The simplest way to acknowledge and respond to an interaction is the `interaction.reply()` method. Other methods of replying are covered on the [Response methods](/slash-commands/response-methods.md) page later in this section.
+La forma más sencilla de reconocer y responder a una interacción es el método `interaction.reply()`. Otros métodos de respuesta se tratan en la página [Métodos de respuesta](/slash-commands/response-methods.md) más adelante en esta sección.
 
 <!-- eslint-skip -->
 
 ```js
 async execute(interaction) {
-	await interaction.reply('Pong!')
+	await interaction.reply({ content: 'Pong! 🏓' });
 }
 ```
 
-Put these two together by creating a `commands/ping.js` file for your first command. Inside this file, you're going to define and export two items.
-- The `data` property, which will provide the command definition shown above for registering to Discord.
-- The `execute` method, which will contain the functionality to run from our event handler when the command is used.
+Junta estos dos creando un archivo `commands/ping.js` para tu primer comando. Dentro de este archivo, vas a definir y exportar dos elementos.
 
-These are placed inside `module.exports` so they can be read by other files; namely the command loader and command deployment scripts mentioned earlier.
+- La propiedad `data`, que proporcionará la definición del comando que se muestra arriba para registrarse en Discord.
+- El método `execute`, que contendrá la funcionalidad a ejecutar desde nuestro manejador de eventos cuando se utilice el comando.
+
+Estos se colocan dentro de `module.exports` (CommonJS) para que puedan ser leídos por otros archivos; a saber, el cargador de comandos y los scripts de despliegue de comandos mencionados anteriormente.
 
 :::: code-group
 ::: code-group-item commands/ping.js
+
 ```js
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ping')
-		.setDescription('Replies with Pong!'),
+		.setDescription('Responde con Pong! 🏓'),
 	async execute(interaction) {
-		await interaction.reply('Pong!');
+		await interaction.reply('Pong! 🏓');
 	},
 };
 ```
+
 :::
 ::::
 
 ::: tip
-[`module.exports`](https://nodejs.org/api/modules.html#modules_module_exports) is how you export data in Node.js so that you can [`require()`](https://nodejs.org/api/modules.html#modules_require_id) it in other files.
+[`module.exports`](https://nodejs.org/api/modules.html#modules_module_exports) es la forma por defecto de exportar datos en Node.js para que puedas [`require()`](https://nodejs.org/api/modules.html#modules_require_id) en otros archivos.
 
-If you need to access your client instance from inside a command file, you can access it via `interaction.client`. If you need to access external files, packages, etc., you should `require()` them at the top of the file.
+Si necesitas acceder a tu instancia de cliente desde dentro de un fichero de comandos, puedes hacerlo a través de `interaction.client`. Si necesita acceder a archivos externos, paquetes, etc., debe `require()` en la parte superior del archivo.
 :::
 
-That's it for your basic ping command. Below are examples of two more commands we're going to build upon throughout the guide, so create two more files for these before you continue reading.
+Eso es todo para tu comando ping básico. A continuación hay ejemplos de dos comandos más que vamos a desarrollar a lo largo de la guía, así que crea dos archivos más para estos antes de continuar leyendo.
 
 :::: code-group
 ::: code-group-item commands/user.js
+
 ```js
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('user')
-		.setDescription('Provides information about the user.'),
+		.setDescription('Proporciona información sobre el usuario.'),
 	async execute(interaction) {
-		// interaction.user is the object representing the User who ran the command
-		// interaction.member is the GuildMember object, which represents the user in the specific guild
-		await interaction.reply(`This command was run by ${interaction.user.username}, who joined on ${interaction.member.joinedAt}.`);
+		// interaction.user es el objeto que representa al usuario que ejecutó el comando
+		// interaction.member es el objeto GuildMember, que representa al usuario en el gremio específico
+		const { user, member } = interaction;
+		await interaction.reply(`This command was run by ${user.username}, who joined on ${member.joinedAt}.`);
 	},
 };
 ```
+
 :::
 ::: code-group-item commands/server.js
+
 ```js
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('server')
-		.setDescription('Provides information about the server.'),
+		.setDescription('Proporciona información sobre el servidor.'),
 	async execute(interaction) {
-		// interaction.guild is the object representing the Guild in which the command was run
-		await interaction.reply(`This server is ${interaction.guild.name} and has ${interaction.guild.memberCount} members.`);
+		// interaction.guild es el objeto que representa al servidor en el que se ejecutó el comando
+		const { guild } = interaction;
+		await interaction.reply(`This server is ${guild.name} and has ${guild.memberCount} members.`);
 	},
 };
 ```
+
 :::
 ::::
 
-#### Next steps
+#### Siguientes pasos
 
-You can implement additional commands by creating additional files in the `commands` folder, but these three are the ones we're going to use for the examples as we go on. For now let's move on to the code you'll need for command handling, to load the files and respond to incoming interactions.
+Puedes implementar comandos adicionales mediante la creación de archivos adicionales en la carpeta `commands`, pero estos tres son los que vamos a utilizar para los ejemplos a medida que avanzamos. Por ahora vamos a pasar al código que necesitarás para el manejo de comandos, para cargar los archivos y responder a las interacciones entrantes.
 
-#### Resulting code
+#### Resultado final
 
 <ResultingCode path="creating-your-bot/slash-commands" />

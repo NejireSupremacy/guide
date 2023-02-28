@@ -1,8 +1,8 @@
-# Event handling
+# Gestión de eventos
 
-Node.js uses an event-driven architecture, making it possible to execute code when a specific event occurs. The discord.js library takes full advantage of this. You can visit the <DocsLink path="class/Client" /> documentation to see the full list of events.
+Node.js utiliza una arquitectura basada en eventos, lo que permite ejecutar código cuando se produce un evento específico. La librería discord.js saca el máximo partido de esto. Puedes visitar la documentación `<DocsLink path="class/Client" />` para ver la lista completa de eventos.
 
-If you've followed the guide up to this point, your `index.js` file will have listeners for two events: `ClientReady` and `InteractionCreate`.
+Si has seguido la guía hasta este punto, tu archivo `index.js` tendrá escuchas para dos eventos: `ClientReady` e `InteractionCreate`.
 
 ```js
 const { Client, Events, GatewayIntentBits } = require('discord.js');
@@ -11,23 +11,22 @@ const { token } = require('./config.json');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.once(Events.ClientReady, c => {
-	console.log(`Ready! Logged in as ${c.user.tag}`);
+	console.log(`¡Listo! Conectado como ${c.user.tag}`);
 });
 
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
-
 	const command = interaction.client.commands.get(interaction.commandName);
 
 	if (!command) {
-		console.error(`No command matching ${interaction.commandName} was found.`);
+		console.error(`No se ha encontrado ningún comando que coincida con ${interaction.commandName}.`);
 		return;
 	}
 
 	try {
 		await command.execute(interaction);
 	} catch (error) {
-		console.error(`Error executing ${interaction.commandName}`);
+		console.error(`Error al ejecutar ${interaction.commandName}`);
 		console.error(error);
 	}
 });
@@ -35,11 +34,11 @@ client.on(Events.InteractionCreate, async interaction => {
 client.login(token);
 ```
 
-Currently, the event listeners are in the `index.js` file. <DocsLink path="class/Client?scrollTo=e-ready" /> emits once when the `Client` becomes ready for use, and <DocsLink path="class/Client?scrollTo=e-interactionCreate" /> emits whenever an interaction is received. Moving the event listener code into individual files is simple, and we'll be taking a similar approach to the [command handler](/creating-your-bot/command-handling.md).
+Actualmente, los escuchadores de eventos están en el archivo `index.js`. `<DocsLink path="class/Client?scrollTo=e-ready" />` emite una vez cuando el `Client` está listo para su uso, y `<DocsLink path="class/Client?scrollTo=e-interactionCreate" />` emite cada vez que se recibe una interacción. Trasladar el código del receptor de eventos a archivos individuales es sencillo, y adoptaremos un enfoque similar al del [manejador de comandos](/creando-tu-bot/manejador-de-comandos.md).
 
-## Individual event files
+## Archivos de eventos individuales
 
-Your project directory should look something like this:
+El directorio de tu proyecto debería tener este aspecto o parecido:
 
 ```:no-line-numbers
 discord-bot/
@@ -52,10 +51,11 @@ discord-bot/
 └── package.json
 ```
 
-Create an `events` folder in the same directory. You can then take your existing events code in `index.js` and move them to `events/ready.js` and `events/interactionCreate.js` files.
+Crea una carpeta `events` en el mismo directorio. A continuación, puede tomar su código de eventos existentes en `index.js` y moverlos a los archivos `events/ready.js` y `events/interactionCreate.js`.
 
 :::: code-group
 ::: code-group-item events/ready.js
+
 ```js
 const { Events } = require('discord.js');
 
@@ -63,12 +63,14 @@ module.exports = {
 	name: Events.ClientReady,
 	once: true,
 	execute(client) {
-		console.log(`Ready! Logged in as ${client.user.tag}`);
+		console.log(`¡Listo! Conectado como ${c.user.tag}`);
 	},
 };
 ```
+
 :::
 ::: code-group-item events/interactionCreate.js
+
 ```js
 const { Events } = require('discord.js');
 
@@ -76,35 +78,35 @@ module.exports = {
 	name: Events.InteractionCreate,
 	async execute(interaction) {
 		if (!interaction.isChatInputCommand()) return;
-
 		const command = interaction.client.commands.get(interaction.commandName);
 
 		if (!command) {
-			console.error(`No command matching ${interaction.commandName} was found.`);
+			console.error(`No se ha encontrado ningún comando que coincida con ${interaction.commandName}.`);
 			return;
 		}
 
 		try {
 			await command.execute(interaction);
 		} catch (error) {
-			console.error(`Error executing ${interaction.commandName}`);
+			console.error(`Error al ejecutar ${interaction.commandName}`);
 			console.error(error);
 		}
 	},
 };
 ```
+
 :::
 ::::
 
-The `name` property states which event this file is for, and the `once` property holds a boolean value that specifies if the event should run only once. You don't need to specify this in `interactionCreate.js` as the default behavior will be to run on every event instance. The `execute` function holds your event logic, which will be called by the event handler whenever the event emits.
+La propiedad `name` indica para qué evento es este archivo, y la propiedad `once` contiene un valor booleano que especifica si el evento debe ejecutarse sólo una vez. No necesitas especificar esto en `interactionCreate.js` ya que el comportamiento por defecto será ejecutarse en cada instancia del evento. La función `execute` contiene la lógica del evento, que será llamada por el manejador de eventos cada vez que el evento se emita.
 
-## Reading event files
+## Leyendo archivos de eventos
 
-Next, let's write the code for dynamically retrieving all the event files in the `events` folder. We'll be taking a similar approach to our [command handler](/creating-your-bot/command-handling.md). Place the code below in your `index.js`.
+A continuación, vamos a escribir el código para obtener dinámicamente todos los archivos de eventos en la carpeta `events`. Tomaremos un enfoque similar a nuestro [gestior de comandos](/creando-tu-bot/command-handling.md). Coloca el siguiente código en tu `index.js`.
 
-`fs.readdirSync().filter()` returns an array of all the file names in the given directory and filters for only `.js` files, i.e. `['ready.js', 'interactionCreate.js']`.
+`fs.readdirSync().filter()` devuelve una lista de todos los nombres de archivos en el directorio dado y filtra sólo los archivos `.js `, es decir, `['ready.js', 'interactionCreate.js']`.
 
-```js {3,5-12}
+```js
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 const eventsPath = path.join(__dirname, 'events');
@@ -121,16 +123,16 @@ for (const file of eventFiles) {
 }
 ```
 
-The <DocsLink path="class/Client" /> class in discord.js extends the [`EventEmitter`](https://nodejs.org/api/events.html#events_class_eventemitter) class. Therefore, the `client` object exposes the [`.on()`](https://nodejs.org/api/events.html#events_emitter_on_eventname_listener) and [`.once()`](https://nodejs.org/api/events.html#events_emitter_once_eventname_listener) methods that you can use to register event listeners. These methods take two arguments: the event name and a callback function.
+La clase `<DocsLink path="class/Client" />` en discord.js extiende la clase [`EventEmitter`](https://nodejs.org/api/events.html#events_class_eventemitter). Por lo tanto, el objeto `client` expone los métodos [`.on()`](https://nodejs.org/api/events.html#events_emitter_on_eventname_listener) y [`.once()`](https://nodejs.org/api/events.html#events_emitter_once_eventname_listener) que puedes utilizar para registrar escuchadores de eventos. Estos métodos toman dos argumentos: el nombre del evento y una función callback.
 
-The callback function passed takes argument(s) returned by its respective event, collects them in an `args` array using the `...` [rest parameter syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters), then calls `event.execute()` while passing in the `args` array using the `...` [spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax). They are used here because different events in discord.js have different numbers of arguments. The rest parameter collects these variable number of arguments into a single array, and the spread syntax then takes these elements and passes them to the `execute` function.
+La función callback pasada toma parametros devueltos por su respectivo evento, los recoge en un array `args` usando la `...` [sintaxis de parámetros de resto](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Functions/rest_parameters), luego llama a `event.execute()` mientras pasa el array `args` usando la `...` [sintaxis de extensión](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Spread_syntax). Se utilizan aquí porque diferentes eventos en discord.js tienen diferentes números de argumentos. El parámetro rest recoge estos parametros en un único array, y el `spread operator` toma estos elementos y los pasa a la función  `execute`.
 
-After this, listening for other events is as easy as creating a new file in the `events` folder. The event handler will automatically retrieve and register it whenever you restart your bot.
+Después de esto, escuchar otros eventos es tan fácil como crear un nuevo archivo en la carpeta `events`. El manejador de eventos lo recuperará y registrará automáticamente cada vez que reinicies tu bot.
 
 ::: tip
-In most cases, you can access your `client` instance in other files by obtaining it from one of the other discord.js structures, e.g. `interaction.client` in the `interactionCreate` event.
+En la mayoría de los casos, puedes acceder a tu instancia `client` en otros archivos obteniéndola de una de las otras estructuras de discord.js, por ejemplo `interaction.client` en el evento `interactionCreate`.
 :::
 
-## Resulting code
+## Resultado final
 
 <ResultingCode />

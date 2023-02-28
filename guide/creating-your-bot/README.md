@@ -1,92 +1,109 @@
-# Configuration files
+# Archivos de configuración
 
-Once you [add your bot to a server](/preparations/adding-your-bot-to-servers.md), the next step is to start coding and get it online! Let's start by creating a config file for your client token and a main file for your bot application.
+Una vez que hayas [añadido tu bot a un servidor](/preparations/adding-your-bot-to-servers.md), ¡el siguiente paso es empezar a escribir su código y ponerlo online! Empecemos creando un archivo de configuración para tu token de cliente y un archivo principal para tu aplicación bot.
 
-As explained in the ["What is a token, anyway?"](/preparations/setting-up-a-bot-application.md#what-is-a-token-anyway) section, your token is essentially your bot's password, and you should protect it as best as possible. This can be done through a `config.json` file or by using environment variables.
+Como se explica en la sección [&#34;¿Qué es un token?&#34;](/preparations/setting-up-a-bot-application.md#what-is-a-token-anyway), tu token es esencialmente la contraseña de tu bot, y deberías protegerlo lo mejor posible. Esto se puede hacer a través de un archivo config.json o mediante el uso de variables de entorno.
 
-Open your application in the [Discord Developer Portal](https://discord.com/developers/applications) and go to the "Bot" page to copy your token.
+Abre tu aplicación en el [Portal del Desarrolladores de Discord](https://discord.com/developers/applications) y ve a la página "Bot" para copiar tu token.
 
-## Using `config.json`
+## Uso de `config.json`
 
-Storing data in a `config.json` file is a common way of keeping your sensitive values safe. Create a `config.json` file in your project directory and paste in your token. You can access your token inside other files by using `require()`.
+Almacenar datos en un archivo `config.json` es una forma común de mantener seguros tus valores sensibles. Crea un archivo `config.json` en el directorio de tu proyecto y pega tu token. Puedes acceder a tu token dentro de otros archivos usando `require()`.
 
 :::: code-group
 ::: code-group-item config.json
+
 ```json
 {
-	"token": "your-token-goes-here"
+	"token": "tu-token-va-aquí"
 }
 ```
+
 :::
 ::: code-group-item Usage
+
 ```js
 const { token } = require('./config.json');
 
 console.log(token);
 ```
+
 :::
 ::::
 
 ::: danger
-If you're using Git, you should not commit this file and should [ignore it via `.gitignore`](/creating-your-bot/#git-and-gitignore).
+Si estás usando Git, no deberías insertar este archivo y deberías [ignorarlo mediante `.gitignore`](/creando-tu-bot/#git-y-gitignore).
 :::
 
-## Using environment variables
+## Uso de variables de entorno
 
-Environment variables are special values for your environment (e.g., terminal session, Docker container, or environment variable file). You can pass these values into your code's scope so that you can use them.
+Las variables de entorno son valores especiales para tu entorno (por ejemplo, sesión de terminal, contenedor Docker o archivo de variables de entorno). Puedes pasar estos valores al ámbito de tu código para poder utilizarlos.
 
-One way to pass in environment variables is via the command line interface. When starting your app, instead of `node index.js`, use `TOKEN=your-token-goes-here node index.js`. You can repeat this pattern to expose other values as well.
+Una forma de pasar variables de entorno es a través de la interfaz de línea de comandos. Cuando inicies tu aplicación, en lugar de `node index.js`, utiliza `TOKEN=tu-token-va-aquí node index.js`. Puedes repetir este patrón para exponer también otros valores.
 
-You can access the set values in your code via the `process.env` global variable, accessible in any file. Note that values passed this way will always be strings and that you might need to parse them to a number, if using them to do calculations.
+Puedes acceder a los valores establecidos en tu código a través de la variable global `process.env`, accesible en cualquier archivo. Ten en cuenta que los valores pasados de esta manera siempre serán cadenas y que puede que necesites parsearlos a un número, si los usas para hacer cálculos.
 
 :::: code-group
 ::: code-group-item Command line
+
 ```sh:no-line-numbers
-A=123 B=456 DISCORD_TOKEN=your-token-goes-here node index.js
+A=123 B=456 DISCORD_TOKEN=tu-token-va-aquí node index.js
 ```
+
 :::
 ::: code-group-item Usage
+
 ```js
 console.log(process.env.A);
 console.log(process.env.B);
 console.log(process.env.DISCORD_TOKEN);
 ```
+
 :::
 ::::
 
-### Using dotenv
+### Uso de dotenv
 
-Another common approach is storing these values in a `.env` file. This spares you from always copying your token into the command line. Each line in a `.env` file should hold a `KEY=value` pair.
+Otro enfoque común es almacenar estos valores en un archivo `.env`. Esto evita tener que copiar siempre el token en la línea de comandos. Cada línea en un archivo `.env` debe contener un `KEY=value` (LLAVE=valor).
 
-You can use the [`dotenv` package](https://www.npmjs.com/package/dotenv) for this. Once installed, require and use the package to load your `.env` file and attach the variables to `process.env`:
+Para ello puedes utilizar el [módulo `dotenv`](https://www.npmjs.com/package/dotenv). Una vez instalado, requiere y utiliza el paquete para cargar tu archivo `.env` y adjuntar las variables a `process.env`:
 
 :::: code-group
 ::: code-group-item npm
+
 ```sh:no-line-numbers
 npm install dotenv
 ```
+
 :::
 ::: code-group-item yarn
+
 ```sh:no-line-numbers
 yarn add dotenv
 ```
+
 :::
 ::: code-group-item pnpm
+
 ```sh:no-line-numbers
 pnpm add dotenv
 ```
+
 :::
 ::::
 
 :::: code-group
 ::: code-group-item .env
+
 ```
 A=123
 B=456
-DISCORD_TOKEN=your-token-goes-here
+DISCORD_TOKEN=tu-token-va-aquí
 ```
+
 :::
 ::: code-group-item Usage
+
 ```js
 const dotenv = require('dotenv');
 
@@ -96,26 +113,27 @@ console.log(process.env.A);
 console.log(process.env.B);
 console.log(process.env.DISCORD_TOKEN);
 ```
+
 :::
 ::::
 
 ::: danger
-If you're using Git, you should not commit this file and should [ignore it via `.gitignore`](/creating-your-bot/#git-and-gitignore).
+Si estás usando Git, no deberías insertar este archivo y deberías [ignorarlo mediante `.gitignore`](/creando-tu-bot/#git-y-gitignore).
 :::
 
-::: details Online editors (Glitch, Heroku, Replit, etc.)
-While we generally do not recommend using online editors as hosting solutions, but rather invest in a proper virtual private server, these services do offer ways to keep your credentials safe as well! Please see the respective service's documentation and help articles for more information on how to keep sensitive values safe:
+::: details Editores en línea (Glitch, Heroku, Replit, etc.)
+Aunque por lo general no recomendamos utilizar editores en línea como soluciones de alojamiento, sino invertir en un servidor privado virtual adecuado, estos servicios también ofrecen formas de mantener a salvo tus credenciales. Consulte la documentación y los artículos de ayuda de cada servicio para obtener más información sobre cómo mantener a salvo los valores confidenciales:
 
 - Glitch: [Storing secrets in .env](https://glitch.happyfox.com/kb/article/18)
 - Heroku: [Configuration variables](https://devcenter.heroku.com/articles/config-vars)
 - Replit: [Secrets and environment variables](https://docs.replit.com/repls/secrets-environment-variables)
-:::
+  :::
 
-## Git and `.gitignore`
+## Git y `.gitignore`
 
-Git is a fantastic tool to keep track of your code changes and allows you to upload progress to services like [GitHub](https://github.com/), [GitLab](https://about.gitlab.com/), or [Bitbucket](https://bitbucket.org/product). While this is super useful to share code with other developers, it also bears the risk of uploading your configuration files with sensitive values!
+Git es una herramienta fantástica para hacer un seguimiento de tus cambios de código y te permite subir el progreso a servicios como [GitHub](https://github.com/), [GitLab](https://about.gitlab.com/) o [Bitbucket](https://bitbucket.org/product). Aunque esto es súper útil para compartir código con otros desarrolladores, ¡también conlleva el riesgo de subir tus archivos de configuración con valores sensibles!
 
-You can specify files that Git should ignore in its versioning systems with a `.gitignore` file. Create a `.gitignore` file in your project directory and add the names of the files and folders you want to ignore:
+Puedes especificar archivos que Git debería ignorar en sus sistemas de versionado con un archivo `.gitignore`. Crea un archivo `.gitignore` en el directorio de tu proyecto y añade los nombres de los archivos y carpetas que quieras ignorar:
 
 ```
 node_modules
@@ -124,7 +142,7 @@ config.json
 ```
 
 ::: tip
-Aside from keeping credentials safe, `node_modules` should be included here. Since this directory can be restored based on the entries in your `package.json` and `package-lock.json` files by running `npm install`, it does not need to be included in Git.
+Aparte de mantener las credenciales seguras, `node_modules` debería incluirse aquí. Dado que este directorio se puede restaurar basándose en las entradas de los archivos `package.json` y `package-lock.json` ejecutando `npm install`, no es necesario incluirlo en Git.
 
-You can specify quite intricate patterns in `.gitignore` files, check out the [Git documentation on `.gitignore`](https://git-scm.com/docs/gitignore) for more information!
+Puedes especificar patrones bastante emredados en los archivos `.gitignore`, ¡consulta la [en la publicación en freecodecamp sobre `.gitignore`](https://www.freecodecamp.org/espanol/news/gitignore-explicado-que-es-y-como-agregar-a-tu-repositorio) para más información!
 :::

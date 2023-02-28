@@ -4,33 +4,33 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const commands = [];
-// Grab all the command files from the commands directory you created earlier
+// Obtenga todos los archivos de comandos del directorio de comandos que creaste anteriormente
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
-// Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
+// Obtenga la salida SlashCommandBuilder#toJSON() de los datos de cada comando para su despliegue
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	commands.push(command.data.toJSON());
 }
 
-// Construct and prepare an instance of the REST module
+// Construir y preparar una instancia del módulo REST
 const rest = new REST({ version: '10' }).setToken(token);
 
-// and deploy your commands!
+// ¡y despliega tus comandos!
 (async () => {
 	try {
-		console.log(`Started refreshing ${commands.length} application (/) commands.`);
+		console.log(`Se comenzaron a actualizar ${commands.length} comandos de tu aplicación (/).`);
 
-		// The put method is used to fully refresh all commands in the guild with the current set
+		// El método put se utiliza para actualizar completamente todos los comandos del gremio con el conjunto actual
 		const data = await rest.put(
 			Routes.applicationGuildCommands(clientId, guildId),
 			{ body: commands },
 		);
 
-		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+		console.log(`Se actualizaron con éxito ${data.length} comandos de tu aplicación (/).`);
 	} catch (error) {
-		// And of course, make sure you catch and log any errors!
+		// Y, por supuesto, asegúrate de detectar y registrar cualquier error.
 		console.error(error);
 	}
 })();
