@@ -38,7 +38,7 @@ Los intents también definen los eventos que Discord debe enviar a tu bot, y es 
 
 ## Ejecutando tu aplicación
 
-Abre tu terminal y ejecuta `node index.js` para iniciar el proceso. Si ves "¡Listo!" después de unos segundos, ¡estás listo! El siguiente paso es empezar a añadir [comandos de barra](/creando-tu-bot/slash-commands.md) para desarrollar la funcionalidad de tu bot.
+Abre tu terminal y ejecuta `node index.js` para iniciar el proceso. Si ves "¡Listo!" después de unos segundos, ¡estás listo! El siguiente paso es empezar a añadir [comandos de barra](/creating-your-bot/slash-commands.md) para desarrollar la funcionalidad de tu bot.
 
 ::: tip
 Puede abrir su archivo `package.json` y editar el campo `"main": "index.js"` para que apunte a tu archivo principal. A continuación, puedes ejecutar `node .` en tu terminal para iniciar el proceso.

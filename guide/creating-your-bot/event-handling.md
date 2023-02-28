@@ -34,7 +34,7 @@ client.on(Events.InteractionCreate, async interaction => {
 client.login(token);
 ```
 
-Actualmente, los escuchadores de eventos están en el archivo `index.js`. `<DocsLink path="class/Client?scrollTo=e-ready" />` emite una vez cuando el `Client` está listo para su uso, y `<DocsLink path="class/Client?scrollTo=e-interactionCreate" />` emite cada vez que se recibe una interacción. Trasladar el código del receptor de eventos a archivos individuales es sencillo, y adoptaremos un enfoque similar al del [manejador de comandos](/creando-tu-bot/manejador-de-comandos.md).
+Actualmente, los escuchadores de eventos están en el archivo `index.js`. `<DocsLink path="class/Client?scrollTo=e-ready" />` emite una vez cuando el `Client` está listo para su uso, y `<DocsLink path="class/Client?scrollTo=e-interactionCreate" />` emite cada vez que se recibe una interacción. Trasladar el código del receptor de eventos a archivos individuales es sencillo, y adoptaremos un enfoque similar al del [manejador de comandos](/creating-your-bot/manejador-de-comandos.md).
 
 ## Archivos de eventos individuales
 
@@ -102,7 +102,7 @@ La propiedad `name` indica para qué evento es este archivo, y la propiedad `onc
 
 ## Leyendo archivos de eventos
 
-A continuación, vamos a escribir el código para obtener dinámicamente todos los archivos de eventos en la carpeta `events`. Tomaremos un enfoque similar a nuestro [gestior de comandos](/creando-tu-bot/command-handling.md). Coloca el siguiente código en tu `index.js`.
+A continuación, vamos a escribir el código para obtener dinámicamente todos los archivos de eventos en la carpeta `events`. Tomaremos un enfoque similar a nuestro [gestior de comandos](/creating-your-bot/command-handling.md). Coloca el siguiente código en tu `index.js`.
 
 `fs.readdirSync().filter()` devuelve una lista de todos los nombres de archivos en el directorio dado y filtra sólo los archivos `.js `, es decir, `['ready.js', 'interactionCreate.js']`.
 
