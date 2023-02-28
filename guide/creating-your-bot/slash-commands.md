@@ -45,7 +45,7 @@ Estos pasos pueden realizarse en cualquier orden, pero todos son necesarios ante
 
 ## Archivos de comando individuales
 
-Cree una nueva carpeta llamada `commands`, que es donde almacenará todos sus archivos de comandos. Utilizarás la clase `<DocsLink section="builders" path="class/SlashCommandBuilder"/>` para construir las definiciones de los comandos.
+Cree una nueva carpeta llamada `commands`, que es donde almacenará todos sus archivos de comandos. Utilizarás la clase `<DocsLink section="builders" path="class/SlashCommandBuilder" />` para construir las definiciones de los comandos.
 
 Como mínimo, la definición de un comando de barra debe tener un nombre y una descripción. Los nombres de las órdenes de barra deben tener entre 1 y 32 caracteres y no deben contener mayúsculas, espacios ni símbolos distintos de `-` y `_`. Utilizando el constructor, una definición simple de una orden `ping` tendría este aspecto:
 

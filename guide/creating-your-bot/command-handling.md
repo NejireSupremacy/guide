@@ -21,14 +21,14 @@ const client = new Client({
 client.commands = new Collection();
 ```
 
-Recomendamos adjuntar una propiedad `.commands` a su instancia de cliente para que pueda acceder a sus comandos en otros archivos. El resto de los ejemplos de esta guía seguirán esta convención. Para los usuarios de TypeScript, recomendamos extender la clase Client base para añadir esta propiedad, [casting](https://midu.dev/type-casting-typescript/), o [augmenting the module type](https://www.typescriptlang.org/docs/handbook/modules.html#ambient-modules).
+Recomendamos adjuntar una propiedad `.commands` a su instancia de cliente para que pueda acceder a sus comandos en otros archivos. El resto de los ejemplos de esta guía seguirán esta convención. Para los usuarios de TypeScript, recomendamos extender la clase Client base para añadir esta propiedad, [casting](https://midu.dev/type-casting-typescript/), o [expandir los types de cierto módulo](https://www.typescriptlang.org/docs/handbook/modules.html#ambient-modules).
 
 ::: tip
 
 - El módulo [`fs`](https://nodejs.org/api/fs.html) es el módulo nativo del sistema de archivos de Node. `fs` se utiliza para leer el directorio `commands` e identificar nuestros archivos de comandos.
 - El módulo [`path`](https://nodejs.org/api/path.html) es el módulo nativo de utilidad de rutas de Node. `path` ayuda a construir rutas para acceder a archivos y directorios. Una de las ventajas del módulo `path` es que detecta automáticamente el sistema operativo y utiliza los joiners apropiados.
 - La clase `<DocsLink section="collection" path="class/Collection" />` extiende la clase nativa de JavaScript [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map), e incluye una funcionalidad más extensa y útil. La clase `Collection` se utiliza para almacenar y recuperar eficientemente comandos para su ejecución.
-- :::
+  :::
 
 A continuación, utilizando los módulos importados anteriormente, recupera dinámicamente tus archivos de comandos con algunas adiciones más al archivo `index.js`:
 
