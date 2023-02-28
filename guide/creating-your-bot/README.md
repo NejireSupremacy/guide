@@ -32,7 +32,7 @@ console.log(token);
 ::::
 
 ::: danger
-Si estás usando Git, no deberías insertar este archivo y deberías [ignorarlo mediante `.gitignore`](/creando-tu-bot/#git-y-gitignore).
+Si estás usando Git, no deberías insertar este archivo y deberías [ignorarlo mediante `.gitignore`](/creating-your-bot/#git-y-gitignore).
 :::
 
 ## Uso de variables de entorno
@@ -118,7 +118,7 @@ console.log(process.env.DISCORD_TOKEN);
 ::::
 
 ::: danger
-Si estás usando Git, no deberías insertar este archivo y deberías [ignorarlo mediante `.gitignore`](/creando-tu-bot/#git-y-gitignore).
+Si estás usando Git, no deberías insertar este archivo y deberías [ignorarlo mediante `.gitignore`](/creating-your-bot/#git-y-gitignore).
 :::
 
 ::: details Editores en línea (Glitch, Heroku, Replit, etc.)
