@@ -1,8 +1,8 @@
-# Parsing options
+# Analizando opciones
 
-## Command options
+## Opciones de comando
 
-In this section, we'll cover how to access the values of a command's options. Consider the following `ban` command example with two options:
+En esta sección, cubriremos cómo acceder a los valores de las opciones de un comando. Considere el siguiente ejemplo de comando `ban` con dos opciones:
 
 ```js {7-15}
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
@@ -10,49 +10,49 @@ const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ban')
-		.setDescription('Select a member and ban them.')
+		.setDescription('Seleccione un miembro y prohíbalo.')
 		.addUserOption(option =>
 			option
 				.setName('target')
-				.setDescription('The member to ban')
+				.setDescription('El miembro a banear')
 				.setRequired(true))
 		.addStringOption(option =>
 			option
 				.setName('reason')
-				.setDescription('The reason for banning'))
+				.setDescription('La razón de la banear'))
 		.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
 		.setDMPermission(false),
 };
 ```
 
-In the execute method, you can retrieve the value of these two options from the `CommandInteractionOptionResolver` as shown below:
+En el método de ejecución, puede recuperar el valor de estas dos opciones de `CommandInteractionOptionResolver` como se muestra a continuación:
 
 ```js {4-8}
 module.exports = {
 	// data: new SlashCommandBuilder()...
 	async execute(interaction) {
 		const target = interaction.options.getUser('target');
-		const reason = interaction.options.getString('reason') ?? 'No reason provided';
+		const reason = interaction.options.getString('reason') ?? 'No se proporcionó ninguna razón';
 
-		await interaction.reply(`Banning ${target.username} for reason: ${reason}`);
+		await interaction.reply(`Baneando a ${target.username} por la razón: ${reason}`);
 		await interaction.guild.members.ban(target);
 	},
 };
 ```
 
-Since `reason` isn't a required option, the example above uses the `??` [nullish coalescing operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator) to set a default value in case the user does not supply a value for `reason`.
+Dado que `reason` no es una opción obligatoria, el ejemplo anterior utiliza el `??` [nullish coalescing operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator) para establecer un valor predeterminado en caso de que el usuario no proporcione un valor por `reason`.
 
-If the target user is still in the guild where the command is being run, you can also use `.getMember('target')` to get their `GuildMember` object.
+Si el usuario objetivo todavía está en el gremio donde se ejecuta el comando, también puedes usar `.getMember('target')` para obtener su objeto `GuildMember`.
 
 ::: tip
-If you want the Snowflake of a structure instead, grab the option via `get()` and access the Snowflake via the `value` property. Note that you should use `const { value: name } = ...` here to [destructure and rename](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) the value obtained from the <DocsLink path="typedef/CommandInteractionOption" /> structure to avoid identifier name conflicts.
+Si desea el Snowflake de una estructura, tome la opción a través de `get()` y acceda al Snowflake a través de la propiedad `value`. Tenga en cuenta que debe usar `const { value: name } = ...` aquí para [desestructurar y cambiar el nombre](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) el valor obtenido de la estructura <DocsLink path="typedef/CommandInteractionOption" /> para evitar conflictos de nombres de identificadores.
 :::
 
-In the same way as the above examples, you can get values of any type using the corresponding `CommandInteractionOptionResolver#get_____()` method. `String`, `Integer`, `Number` and `Boolean` options all provide the respective primitive types, while `User`, `Channel`, `Role`, and `Mentionable` options will provide either the respective discord.js class instance if your application has a bot user in the guild or a raw API structure for commands-only deployments.
+De la misma manera que en los ejemplos anteriores, puede obtener valores de cualquier tipo utilizando el método `CommandInteractionOptionResolver#get_____()` correspondiente. Las opciones `String`, `Integer`, `Number` y `Boolean` proporcionan los respectivos tipos primitivos, mientras que las opciones `User`, `Channel`, `Role` y `Mentionable` proporcionarán la respectiva clase de discord.js instanciada si su aplicación tiene un usuario bot en el gremio o una estructura de API sin procesar para implementaciones de solo comandos.
 
-### Choices
+### Opciones
 
-If you specified preset choices for your String, Integer, or Number option, getting the selected choice is exactly the same as the free-entry options above. Consider the [gif command](/slash-commands/advanced-creation.html#choices) example you looked at earlier:
+Si especificó opciones preestablecidas para su opción String, Integer o Number, obtener la opción seleccionada es exactamente lo mismo que las opciones de entrada libre anteriores. Considere el ejemplo [comando gif](/slash-commands/advanced-creation.html#choices) que vio anteriormente:
 
 ```js {11-15,17}
 const { SlashCommandBuilder } = require('discord.js');
@@ -60,30 +60,30 @@ const { SlashCommandBuilder } = require('discord.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('gif')
-		.setDescription('Sends a random gif!')
+		.setDescription('¡Envía un gif al azar!')
 		.addStringOption(option =>
 			option.setName('category')
-				.setDescription('The gif category')
+				.setDescription('La categoría del gif')
 				.setRequired(true)
 				.addChoices(
 					{ name: 'Funny', value: 'gif_funny' },
 					{ name: 'Meme', value: 'gif_meme' },
 					{ name: 'Movie', value: 'gif_movie' },
-				)),
+				));
 	async execute(interaction) {
 		const category = interaction.options.getString('category');
-		// category must be one of 'gif_funny', 'gif_meme', or 'gif_movie'
+		// la categoría debe ser 'gif_funny', 'gif_meme' o 'gif_movie'
 	},
 };
 ```
 
-Notice that nothing changes - you still use `getString()` to get the choice value. The only difference is that in this case, you can be sure it's one of only three possible values.
+Tenga en cuenta que nada cambia: todavía usa `getString()` para obtener el valor de elección. La única diferencia es que, en este caso, puede estar seguro de que es uno de los tres valores posibles.
 
-### Subcommands
+### SubComandos
 
-If you have a command that contains subcommands, the `CommandInteractionOptionResolver#getSubcommand()` will tell you which subcommand was used. You can then get any additional options of the selected subcommand using the same methods as above.
+Si tiene un comando que contiene subcomandos, `CommandInteractionOptionResolver#getSubcommand()` le dirá qué subcomando se usó. A continuación, puede obtener cualquier opción adicional del subcomando seleccionado utilizando los mismos métodos anteriores.
 
-The snippet below uses the same `info` command from the [subcommand creation guide](/slash-commands/advanced-creation.md#subcommands) to demonstrate how you can control the logic flow when replying to different subcommands:
+El siguiente fragmento utiliza el mismo comando `info` de la [guía de creación de subcomandos](/slash-commands/advanced-creation.md#subcommands) para demostrar cómo puede controlar el flujo lógico al responder a diferentes subcomandos:
 
 ```js {4,12}
 module.exports = {
@@ -95,10 +95,10 @@ module.exports = {
 			if (user) {
 				await interaction.reply(`Username: ${user.username}\nID: ${user.id}`);
 			} else {
-				await interaction.reply(`Your username: ${interaction.user.username}\nYour ID: ${interaction.user.id}`);
+				await interaction.reply(`Tu username: ${interaction.user.username}\nTu ID: ${interaction.user.id}`);
 			}
 		} else if (interaction.options.getSubcommand() === 'server') {
-			await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`);
+			await interaction.reply(`Nombre del server: ${interaction.guild.name}\nTotal de miembros: ${interaction.guild.memberCount}`);
 		}
 	},
 };

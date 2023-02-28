@@ -1,216 +1,226 @@
-# Advanced command creation
+# Creación de comandos avanzados
 
-The examples we've covered so far have all been fairly simple commands, such as `ping`, `server`, and `user` which all have standard static responses. However, there's much more you can do with the full suite of slash command tools!
+Los ejemplos que hemos cubierto hasta ahora han sido comandos bastante simples, como "ping", "server" y "user", que tienen respuestas estáticas estándar. Sin embargo, hay mucho más que puede hacer con el conjunto completo de herramientas de comando de barra.
 
-## Adding options
+## Agregar opciones
 
-Application commands can have additional `options`. Think of these options as arguments to a function, and as a way for the user to provide the additional information the command requires. 
+Los comandos de la aplicación pueden tener `options` adicionales. Piense en estas opciones como argumentos para una función y como una forma para que el usuario proporcione la información adicional que requiere el comando.
 
 ::: tip
-If you've already added options to your commands and need to know how to receive and parse them, refer to the [Parsing options](/slash-commands/parsing-options.md) page in this section of the guide.
+Si ya agregó opciones a sus comandos y necesita saber cómo recibirlos y analizarlos, consulte la página [Opciones de análisis](/slash-commands/parsing-options.md) en esta sección de la guía.
 :::
 
-Options require at minimum a name and description. The same restrictions apply to option names as slash command names - 1-32 characters containing no capital letters, spaces, or symbols other than `-` and `_`. You can specify them as shown in the `echo` command below, which prompt the user to enter a String for the `input` option.
+Las opciones requieren como mínimo un nombre y una descripción. Se aplican las mismas restricciones a los nombres de las opciones que a los nombres de los comandos de barra: de 1 a 32 caracteres que no contengan letras mayúsculas, espacios ni símbolos que no sean `-` y `_`. Puede especificarlos como se muestra en el comando `say` a continuación, que solicita al usuario que ingrese una cadena para la opción `input`.
 
 ```js {6-8}
 const { SlashCommandBuilder } = require('discord.js');
 
 const data = new SlashCommandBuilder()
-	.setName('echo')
-	.setDescription('Replies with your input!')
+	.setName('say')
+	.setDescription('¡Responde con tu input!')
 	.addStringOption(option =>
 		option.setName('input')
-			.setDescription('The input to echo back'));
+			.setDescription('La entrada para decir'));
 ```
 
-## Option types
+## Tipos de opciones
 
-By specifying the `type` of an `ApplicationCommandOption` using the corresponding method you are able to restrict what the user can provide as input, and for some options, leverage the automatic parsing of options into proper objects by Discord. 
+Al especificar el `type` de una `ApplicationCommandOption` utilizando el método correspondiente, puede restringir lo que el usuario puede proporcionar como entrada y, para algunas opciones, aprovechar el análisis automático de opciones en objetos adecuados por parte de Discord.
 
-The example above uses `addStringOption`, the simplest form of standard text input with no additional validation. By leveraging additional option types, you could change the behavior of this command in many ways, such as using a Channel option to direct the response to a specific channel:
+El ejemplo anterior usa `addStringOption`, la forma más simple de entrada de texto estándar sin validación adicional. Al aprovechar los tipos de opciones adicionales, puede cambiar el comportamiento de este comando de muchas maneras, como usar una opción de `Channel` para dirigir la respuesta a un canal específico:
 
 ```js {9-11}
 const { SlashCommandBuilder } = require('discord.js');
 
 const data = new SlashCommandBuilder()
-	.setName('echo')
-	.setDescription('Replies with your input!')
+	.setName('say')
+	.setDescription('¡Responde con tu input!')
 	.addStringOption(option =>
 		option.setName('input')
-			.setDescription('The input to echo back'))
+			.setDescription('La entrada para decir'))
 	.addChannelOption(option =>
 		option.setName('channel')
-			.setDescription('The channel to echo into'));
+			.setDescription('El canal donde se dirá'));
 ```
 
-Or a Boolean option to give the user control over making the response ephemeral.
+O una opción booleana para darle al usuario control sobre hacer que la respuesta sea efímera.
 
 ```js {9-11}
 const { SlashCommandBuilder } = require('discord.js');
 
 const data = new SlashCommandBuilder()
-	.setName('echo')
-	.setDescription('Replies with your input!')
+	.setName('say')
+	.setDescription('¡Responde con tu input!')
 	.addStringOption(option =>
 		option.setName('input')
-			.setDescription('The input to echo back'))
+			.setDescription('La entrada para decir'))
 	.addBooleanOption(option =>
 		option.setName('ephemeral')
-			.setDescription('Whether or not the echo should be ephemeral'));
+			.setDescription('Si debería o no decirlo de forma efímera'));
 ```
 
-Listed below is a short description of the different types of options that can be added. For more information, refer to the `add_____Option` methods in the <DocsLink section="builders" path="class/SlashCommandBuilder" /> documentation.
+A continuación se incluye una breve descripción de los diferentes tipos de opciones que se pueden agregar. Para obtener más información, consulte los métodos `add_____Option` en la documentación de <DocsLink section="builders" path="class/SlashCommandBuilder" />.
 
-* `String`, `Integer`, `Number` and `Boolean` options all accept primitive values of their associated type.
-  * `Integer` only accepts whole numbers.
-  * `Number` accepts both whole numbers and decimals.
-* `User`, `Channel`, `Role` and `Mentionable` options will show a selection list in the Discord interface for their associated type, or will accept a Snowflake (id) as input.
-* `Attachment` options prompt the user to make an upload along with the slash command.
-* `Subcommand` and `SubcommandGroup` options allow you to have branching pathways of subsequent options for your commands - more on that later on this page.
+* Las opciones `String`, `Integer`, `Number` y `Boolean` aceptan valores primitivos de su tipo asociado.
+   * `Integer` solo acepta números enteros.
+   * `Number` acepta tanto números enteros como decimales.
+* Las opciones `User`, `Channel`, `Role` y `Mentionable` mostrarán una lista de selección en la interfaz de Discord para su tipo asociado, o aceptarán un Snowflake (id) como entrada.
+* Las opciones de `Attachment` solicitan al usuario que adjunte un archivo al comando de barra.
+* Las opciones `Subcommand` y `SubcommandGroup` le permiten tener vías de bifurcación de opciones subsiguientes para sus comandos; más sobre eso más adelante en esta página.
 
 ::: tip
-Refer to the Discord API documentation for detailed explanations on the [`SUB_COMMAND` and `SUB_COMMAND_GROUP` option types](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups).
+Consulte la documentación de la API de Discord para obtener explicaciones detalladas sobre [los tipos de opción `SUB_COMMAND` y `SUB_COMMAND_GROUP`](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups).
+
 :::
 
-## Required options
+## Opciones requeridas
 
-With option types covered, you can start looking at additional forms of validation to ensure the data your bot receives is both complete and accurate. The simplest addition is making options required, to ensure the command cannot be executed without a required value. This validation can be applied to options of any type.
+Con los tipos de opciones cubiertos, puede comenzar a buscar formas adicionales de validación para asegurarse de que los datos que recibe su bot sean completos y precisos. La adición más simple es hacer que las opciones sean requeridas, para garantizar que el comando no se pueda ejecutar sin un valor requerido. Esta validación se puede aplicar a opciones de cualquier tipo.
 
-Review the `echo` example again and use `setRequired(true)` to mark the `input` option as required.
+Revise el ejemplo `say` nuevamente y use `setRequired(true)` para marcar la opción `input` como requerida.
 
 ```js {9}
 const { SlashCommandBuilder } = require('discord.js');
 
 const data = new SlashCommandBuilder()
-	.setName('echo')
-	.setDescription('Replies with your input!')
+	.setName('say')
+	.setDescription('¡Responde con tu input!')
 	.addStringOption(option =>
 		option.setName('input')
-			.setDescription('The input to echo back')
+			.setDescription('La entrada para decir'))
 			.setRequired(true));
 ```
 
-## Choices
+## Opciones
 
-The `String`, `Number`, and `Integer` option types can have `choices`. If you would prefer users select from predetermined values rather than free entry, `choices` can help you enforce this. This is particularly useful when dealing with external datasets, APIs, and similar, where specific input formats are required.
+Los tipos de opción `String`, `Number` y `Integer` pueden tener `choices`. Si prefiere que los usuarios seleccionen entre valores predeterminados en lugar de una entrada libre, `choices` puede ayudarlo a hacer cumplir esto. Esto es particularmente útil cuando se trata de conjuntos de datos externos, API y similares, donde se requieren formatos de entrada específicos.
 
 ::: warning
-If you specify `choices` for an option, they'll be the **only** valid values users can pick!
+Si especifica `choices` para una opción, ¡serán los **únicos** valores válidos que los usuarios pueden elegir!
 :::
 
-Specify choices by using the `addChoices()` method from within the option builder, such as <DocsLink section="builders" path="class/SlashCommandBuilder?scrollTo=addStringOption" type="method" />. Choices require a `name` which is displayed to the user for selection, and a `value` that your bot will receive when that choice is selected, as if the user had typed it into the option manually.
+Especifique las opciones mediante el método `addChoices()` desde el generador de opciones, como <DocsLink section="builders" path="class/SlashCommandBuilder?scrollTo=addStringOption" type="method" />. Las opciones requieren un "nombre" que se muestra al usuario para la selección, y un "valor" que su bot recibirá cuando se seleccione esa opción, como si el usuario la hubiera ingresado en la opción manualmente.
 
-The `gif` command example below allows users to select from predetermined categories of gifs to send:
+El siguiente ejemplo de comando `gif` permite a los usuarios seleccionar entre categorías predeterminadas de gifs para enviar:
 
 ```js {10-14}
 const { SlashCommandBuilder } = require('discord.js');
 
 const data = new SlashCommandBuilder()
 	.setName('gif')
-	.setDescription('Sends a random gif!')
+	.setDescription('¡Envía un gif al azar!')
 	.addStringOption(option =>
 		option.setName('category')
-			.setDescription('The gif category')
+			.setDescription('La categoría del gif')
 			.setRequired(true)
 			.addChoices(
+
 				{ name: 'Funny', value: 'gif_funny' },
 				{ name: 'Meme', value: 'gif_meme' },
 				{ name: 'Movie', value: 'gif_movie' },
 			));
 ```
 
-If you have too many choices to display (the maximum is 25), you may prefer to provide dynamic choices based on what the user has typed so far. This can be achieved using [autocomplete](/slash-commands/autocomplete.md).
+Si tiene demasiadas opciones para mostrar (el máximo es 25), es posible que prefiera proporcionar opciones dinámicas basadas en lo que el usuario ha escrito hasta el momento. Esto se puede lograr usando [autocomplete](/slash-commands/autocomplete.md).
 
-## Further validation
+## Validación adicional
 
-Even without predetermined choices, additional restrictions can still be applied on otherwise free inputs.
+Incluso sin opciones predeterminadas, aún se pueden aplicar restricciones adicionales en entradas que de otro modo serían libres.
 
-* For `String` options, `setMaxLength()` and `setMinLength()` can enforce length limitations.
-* For `Integer` and `Number` options, `setMaxValue()` and `setMinValue()` can enforce range limitations on the value.
-* For `Channel` options, `addChannelTypes()` can restrict selection to specific channel types, e.g. `ChannelType.GuildText`.
+* Para las opciones `String`, `setMaxLength()` y `setMinLength()` pueden imponer limitaciones de longitud.
+* Para las opciones `Integer` y `Number`, `setMaxValue()` y `setMinValue()` pueden imponer limitaciones de rango en el valor.
+* Para las opciones de `Channel`, `addChannelTypes()` puede restringir la selección a tipos de canales específicos, p. `ChannelType.GuildText` para solo recibir canales de texto.
 
-We'll use these to show you how to enhance your `echo` command from earlier with extra validation to ensure it won't (or at least shouldn't) break when used:
+Los usaremos para mostrarle cómo mejorar su comando `say` anterior con una validación adicional para garantizar que no se rompa (o al menos no debería) cuando se usa:
 
 ```js {9-10, 14-15}
 const { SlashCommandBuilder } = require('discord.js');
 
 const data = new SlashCommandBuilder()
-	.setName('echo')
-	.setDescription('Replies with your input!')
+	.setName('say')
+	.setDescription('¡Responde con tu input!')
 	.addStringOption(option =>
 		option.setName('input')
-			.setDescription('The input to echo back')
-			// Ensure the text will fit in an embed description, if the user chooses that option
+			.setDescription('La entrada para decir'))
+			// Asegúrese de que el texto se ajuste a un embed description, si el usuario elige esa opción
 			.setMaxLength(2000))
 	.addChannelOption(option =>
 		option.setName('channel')
-			.setDescription('The channel to echo into')
-			// Ensure the user can only select a TextChannel for output
+			.setDescription('El canal donde se dirá')
+			// Asegúrese de que el usuario solo pueda seleccionar un TextChannel para la salida
 			.addChannelTypes(ChannelType.GuildText))
 	.addBooleanOption(option =>
 		option.setName('embed')
-			.setDescription('Whether or not the echo should be embedded'));
+			.setDescription('Si el eco debe estar en un embed o no'));
 ```
 
-## Subcommands
+## SubComandos
 
-Subcommands are available with the `.addSubcommand()` method. This allows you to branch a single command to require different options depending on the subcommand chosen.
+Los subcomandos están disponibles con el método `.addSubcommand()`. Esto le permite bifurcar un solo comando para requerir diferentes opciones según el subcomando elegido.
 
-With this approach, you can merge the `user` and `server` information commands from the previous section into a single `info` command with two subcommands. Additionally, the `user` subcommand has a `User` type option for targeting other users, while the `server` subcommand has no need for this, and would just show info for the current guild.
+Con este enfoque, puede fusionar los comandos de información `user` y `server` de la sección anterior en un solo comando `info` con dos subcomandos. Además, el subcomando `user` tiene una opción de tipo `User` para apuntar a otros usuarios, mientras que el subcomando `server` no necesita esto, y solo mostraría información para el servidor actual.
 
 ```js {6-14}
 const { SlashCommandBuilder } = require('discord.js');
 
 const data = new SlashCommandBuilder()
 	.setName('info')
-	.setDescription('Get info about a user or a server!')
+	.setDescription('¡Obtenga información sobre un usuario o un servidor!')
 	.addSubcommand(subcommand =>
 		subcommand
 			.setName('user')
-			.setDescription('Info about a user')
-			.addUserOption(option => option.setName('target').setDescription('The user')))
+			.setDescription('Información sobre un usuario')
+			.addUserOption(option => option.setName('target').setDescription('El usuario')))
 	.addSubcommand(subcommand =>
 		subcommand
 			.setName('server')
-			.setDescription('Info about the server'));
+			.setDescription('Información sobre el servidor'));
 ```
 
-## Localizations
+## Localizaciones
 
-The names and descriptions of slash commands can be localized to the user's selected language. You can find the list of accepted locales on the [discord API documentation](https://discord.com/developers/docs/reference#locales).
+Los nombres y las descripciones de los comandos de barra se pueden localizar en el idioma seleccionado por el usuario. Puede encontrar la lista de locales aceptados en la [documentación de la API de discord](https://discord.com/developers/docs/reference#locales).
 
-Setting localizations with `setNameLocalizations()` and `setDescriptionLocalizations()` takes the format of an object, mapping location codes (e.g. `pl` and `de`) to their localized strings.
+Establecer localizaciones con `setNameLocalizations()` y `setDescriptionLocalizations()` toma el formato de un objeto, asignando códigos de ubicación (por ejemplo, `pl`, `de` y `en`) a sus cadenas localizadas.
 
 <!-- eslint-skip -->
 ```js {5-8,10-12,18-25}
 const { SlashCommandBuilder } = require('discord.js');
 
 const data = new SlashCommandBuilder()
-	.setName('dog')
+	.setName('perro')
 	.setNameLocalizations({
+
 		pl: 'pies',
 		de: 'hund',
+		en: 'dog',
 	})
-	.setDescription('Get a cute picture of a dog!')
+	.setDescription('¡Consigue una linda foto de un perro!')
 	.setDescriptionLocalizations({
+
 		pl: 'Słodkie zdjęcie pieska!',
 		de: 'Poste ein niedliches Hundebild!',
+		en: 'Get a cute picture of a dog!',
 	})
 	.addStringOption(option =>
 		option
-			.setName('breed')
-			.setDescription('Breed of dog')
+			.setName('raza')
+			.setDescription('Raza de perro')
 			.setNameLocalizations({
+
 				pl: 'rasa',
 				de: 'rasse',
+				en: 'breed',
 			})
 			.setDescriptionLocalizations({
+
 				pl: 'Rasa psa',
 				de: 'Hunderasse',
+				en: 'Breed of dog',
 			}),
 	);
 ```
 
-#### Next steps
+#### Próximos pasos
 
-For more information on receiving and parsing the different types of options covered on this page, refer to [Parsing options](/slash-commands/parsing-options.md), or for more general information on how you can respond to slash commands, check out [Response methods](/slash-commands/response-methods.md).
+Para obtener más información sobre cómo recibir y analizar los diferentes tipos de opciones cubiertas en esta página, consulte [analizando opciones](/slash-commands/parsing-options.md), o para obtener información más general sobre cómo puede responder a los comandos de barra, consulte [Métodos de respuesta](/slash-commands/response-methods.md).

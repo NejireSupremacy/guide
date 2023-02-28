@@ -1,7 +1,8 @@
 import djsAvatar from './assets/discord-avatar-djs.png';
-import { 
+import {
     NejireAvatar,
-    FreeAvatar
+    FreeAvatar,
+	SocramAvatar
 } from './assets/avatars';
 
 export default {
@@ -28,7 +29,12 @@ export default {
             author: 'Free 公園',
             avatar: FreeAvatar,
             roleColor: '#ff0b3f'
-        }
+        },
+		socram: {
+			author: 'Socram09',
+			avatar: SocramAvatar,
+			roleColor: '#ff96ed',
+		}
 	}
 
 }

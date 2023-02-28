@@ -39,6 +39,9 @@ Este proyecto es mantenido principalmente por las siguientes personas, que han c
 	<DiscordMessage profile="free">
 		La cosa importante no es dejar de preguntar. La curiosidad tiene su propia razón de ser.
 	</DiscordMessage>
+	<DiscordMessage profile="socram">
+		Programar es una travesía, lo divertido es el viaje, lo gratificante la solución.
+	</DiscordMessage>
 </DiscordMessages>
 
 <a></a>

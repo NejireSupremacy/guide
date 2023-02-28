@@ -1,24 +1,24 @@
-# Deleting commands
+# Borrar comandos
 
 ::: tip
-This page is a follow-up to [command deployment](/creating-your-bot/command-deployment.md). To delete commands, you need to register them in the first place.
+Esta página es una continuación de [subiendo tus comandos](/creating-your-bot/command-deployment.md). Para eliminar comandos, es necesario registrarlos en primer lugar.
 :::
 
-You may have decided that you don't need a command anymore and don't want your users to be confused when they encounter a removed command.
+Puede que hayas decidido que ya no necesitas un comando y no quieres que tus usuarios se confundan cuando se encuentren con un comando eliminado.
 
-## Deleting specific commands
+## Borrar comandos específicos
 
-To delete a specific command, you will need its id. Head to **Server Settings -> Integrations -> Bots and Apps** and choose your bot. Then, right click a command and click **Copy ID**.
+Para eliminar un comando específico, necesitarás su id. Ve a **Configuración del servidor -> Integraciones -> Bots y aplicaciones** y elige tu bot. A continuación, haz clic con el botón derecho en un comando y haz clic en **Copiar ID**.
 
 ::: tip
-You need to have [Developer Mode](https://support.discord.com/hc/articles/206346498) enabled for this to show up!
+Necesitas tener activado el [Modo Desarrollador](https://support.discord.com/hc/articles/206346498) para que aparezca.
 :::
 
 ![bots-and-apps](./images/bots-and-apps.png)
 
 ![commands-copy-id](./images/commands-copy-id.png)
 
-Edit your `deploy-commands.js` as shown below, or put it into its own file to clearly discern it from the deploy workflow:
+Edite su `deploy-commands.js` como se muestra a continuación, o póngalo en su propio archivo para discernirlo claramente del flujo de trabajo de despliegue:
 
 ```js{9-17}
 const { REST, Routes } = require('discord.js');
@@ -28,22 +28,22 @@ const rest = new REST({ version: '10' }).setToken(token);
 
 // ...
 
-// for guild-based commands
+// para comandos basados en servidores
 rest.delete(Routes.applicationGuildCommand(clientId, guildId, 'commandId'))
-	.then(() => console.log('Successfully deleted guild command'))
+	.then(() => console.log('Comando de servidor eliminado con éxito'))
 	.catch(console.error);
 
-// for global commands
+// para comandos globales
 rest.delete(Routes.applicationCommand(clientId, 'commandId'))
-	.then(() => console.log('Successfully deleted application command'))
+	.then(() => console.log('Se ha eliminado correctamente el comando de aplicación'))
 	.catch(console.error);
 ```
 
-Where `'commandId'` is the id of the command you want to delete. Run your deploy script and it will delete the command.
+Donde `'commandId'` es el id del comando que quieres borrar. Ejecute el script de despliegue y se eliminará el comando.
 
-## Deleting all commands
+## Borrar todos los comandos
 
-To delete all commands in the respective scope (one guild, all global commands) you can pass an empty array when setting commands.
+Para eliminar todos los comandos en el ámbito respectivo (un servidor, todos los comandos globales) puedes pasar un array vacío al establecer los comandos.
 
 ```js{9-18}
 const { REST, Routes } = require('discord.js');
@@ -53,15 +53,15 @@ const rest = new REST({ version: '10' }).setToken(token);
 
 // ...
 
-// for guild-based commands
+// para comandos basados en servidores
 rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: [] })
-	.then(() => console.log('Successfully deleted all guild commands.'))
+	.then(() => console.log('Eliminados con éxito todos los comandos del servidor.'))
 	.catch(console.error);
 
-// for global commands
+// para comandos globales
 rest.put(Routes.applicationCommands(clientId), { body: [] })
-	.then(() => console.log('Successfully deleted all application commands.'))
+	.then(() => console.log('Eliminados con éxito todos los comandos de la aplicación.'))
 	.catch(console.error);
 ```
 
-Discord's API doesn't currently provide an easy way to delete guild-based commands that occur on multiple guilds from all places at once. Each will need a call of the above endpoint, while specifying the respective guild and command id. Note, that the same command will have a different id, if deployed to a different guild!
+La API de Discord no ofrece actualmente una forma sencilla de eliminar comandos basados en servidores que se producen en varios clanes desde todos los lugares a la vez. Cada uno necesitará una llamada al punto final anterior, especificando el servidor respectivo y el id del comando. Ten en cuenta que el mismo comando tendrá un id diferente si se despliega en un clan distinto.

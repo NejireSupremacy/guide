@@ -1,16 +1,18 @@
-# Command response methods
+# Métodos de respuesta de comandos
 
-There are multiple ways of responding to a slash command; each of these are covered in the following segments. Using an interaction response method confirms to Discord that your bot successfully received the interaction, and has responded to the user. Discord enforces this to ensure that all slash commands provide a good user experience (UX). Failing to respond will cause Discord to show that the command failed, even if your bot is performing other actions as a result.
+Hay múltiples formas de responder a un comando de barra; cada uno de estos son cubiertos en el siguiente segmento. El uso de un método de respuesta a interacciones confirmará a Discord que su bot recibió con éxito la interacción, y ha respondido al usuario. Discord aplica esto para garantizar que todos los comandos de barra brinden una buena experiencia de usuario (UX). Si no responde, Discord mostrará que el comando falló, incluso si su bot está realizando otras acciones como resultado.
 
-The most common way of sending a response is by using the `ChatInputCommandInteraction#reply()` method, as you have done in earlier examples. This method acknowledges the interaction and sends a new message in response.
+Las formas más comunes de enviar una respuesta es usando el método `ChatInputCommandInteraction#reply()`, como lo ha hecho en ejemplos anteriores. Este método reconoce a interacción y envía un nuevo mensaje en respuesta.
 
 ```js {6}
 module.exports = {
+
 	data: new SlashCommandBuilder()
 		.setName('ping')
-		.setDescription('Replies with Pong!'),
+		.setDescription('¡Responde con Pong!'),
 	async execute(interaction) {
-		await interaction.reply('Pong!');
+
+		await interaction.reply('¡Pong!');
 	},
 };
 ```
@@ -20,31 +22,34 @@ module.exports = {
 		<template #interactions>
 			<DiscordInteraction profile="user" :command="true">ping</DiscordInteraction>
 		</template>
-		Pong!
+		¡Pong!
 	</DiscordMessage>
 </DiscordMessages>
 
 ::: warning
-Initially an interaction token is only valid for three seconds, so that's the timeframe in which you are able to use the `ChatInputCommandInteraction#reply()` method. Responses that require more time ("Deferred Responses") are explained later in this page.
+Inicialmente, un token de interacción es solo válido por tres segundos, por lo que ese es el periodo de tiempo en el que puede utilizar el método `ChatInputCommandInteraction#reply()`. Las respuestas que requieren más tiempo ("Respuestas diferidas") se explican más adelante en esta página.
+
 :::
 
-## Ephemeral responses
+## Respuestas efímeras
 
-You may not always want everyone who has access to the channel to see a slash command's response. Previously, you would have had to DM the user to achieve this, potentially encountering the high rate limits associated with DM messages, or simply being unable to do so, if the user's DMs were disabled. 
+Es posible que no siempre desee que todos los que tienen acceso al canal vean la respuesta de un comando de barra. Anteriormente, habría tenido que enviar un mensaje privado (DM) al usuario para lograr esto, lo que podría encontrar altos límites (ratelimits) asociados con los DM, o simplemente no poder enviarlo, si los DM del usuario están deshabilitados.
 
-Thankfully, Discord provides a way to hide response messages from everyone but the executor of the slash command. This type of message is called an `ephemeral` message and can be set by providing `ephemeral: true` in the `InteractionReplyOptions`, as follows:
+Afortunadamente, Discord proporciona una forma de ocultar los mensajes de respuesta de todos menos el ejecutor del comando de barra. Este tipo de mensaje es llamado un mensaje "efímero" y se puede configurar proporcionando `ephemeral: true` en `InteractionReplyOptions`, de la siguiente manera:
 
 ```js {5}
 client.on(Events.InteractionCreate, async interaction => {
+
 	if (!interaction.isChatInputCommand()) return;
 
 	if (interaction.commandName === 'ping') {
-		await interaction.reply({ content: 'Secret Pong!', ephemeral: true });
+
+		await interaction.reply({ content: '¡Pong oculto!', ephemeral: true });
 	}
 });
 ```
 
-Now when you run your command again, you should see something like this:
+Ahora, cuando ejecute su comando de nuevo, debería ver algo como esto:
 
 <DiscordMessages>
 	<DiscordMessage profile="bot">
@@ -55,60 +60,65 @@ Now when you run your command again, you should see something like this:
 				:ephemeral="true"
 			>ping</DiscordInteraction>
 		</template>
-		Secret Pong!
+		¡Pong oculto!
 	</DiscordMessage>
 </DiscordMessages>
 
-Ephemeral responses are *only* available for interaction responses; another great reason to use the new and improved slash command user interface.
+Las respuestas efímeras *solo* están disponibles para la respuesta de la interacción; otra gran razón para utilizar la nueva y mejorada interfaz de usuario del comando de barra.
 
-## Editing responses
+## Edición de respuestas
 
-After you've sent an initial response, you may want to edit that response for various reasons. This can be achieved with the `ChatInputCommandInteraction#editReply()` method:
+Después de enviar una respuesta inicial, es posible que desee editar esa respuesta por varios motivos. Esto se puede lograr con el método `ChatInputCOmmandInteraction#editReply()`: 
 
 ::: warning
-After the initial response, an interaction token is valid for 15 minutes, so this is the timeframe in which you can edit the response and send follow-up messages. You also **cannot** edit the ephemeral state of a message, so ensure that your first response sets this correctly.
+Después de la respuesta iniciar, el token de una interacción es válido por 15 minutos, por lo que este es el periodo de tiempo en el cual puede editar la respuesta y enviar mensajes de seguimiento. Tampoco **puede** editar el estado efímero del mensaje, así que asegúrese de que su primera respuesta establezca esto correctamente.
+
 :::
 
 ```js {1,8-9}
 const wait = require('node:timers/promises').setTimeout;
 
 client.on(Events.InteractionCreate, async interaction => {
+
 	if (!interaction.isChatInputCommand()) return;
 
 	if (interaction.commandName === 'ping') {
-		await interaction.reply('Pong!');
+
+		await interaction.reply('¡Pong!');
 		await wait(2000);
-		await interaction.editReply('Pong again!');
+		await interaction.editReply('¡Pong otra vez!');
 	}
 });
 ```
 
-In fact, editing your interaction response is necessary to [calculate the ping](/popular-topics/faq.html#how-do-i-check-the-bot-s-ping) properly for this command.
+De hecho, es necesario editar su respuesta de interacción para [calcular el ping][/popular-topics/faq.html#how-do-i-check-the-bot-s-ping] correctamente para este comando.
 
-## Deferred responses
+## Respuestas diferidas
 
-As previously mentioned, Discord requires an acknowledgement from your bot within three seconds that the interaction was received. Otherwise, Discord considers the interaction to have failed and the token becomes invalid. But what if you have a command that performs a task which takes longer than three seconds before being able to reply?
+Como se mencionó anteriormente, Discord requiere un reconocimiento de su bot dentro de los tres segundos posteriores a la recepción de la interacción. De lo contrario, Discord considerará que la interacción ha fallado y el token dejara de ser válido. Pero, ¿qué sucede si tiene un comando que realiza una tarea que demora más de tres segundos antes de poder responder?
 
-In this case, you can make use of the `ChatInputCommandInteraction#deferReply()` method, which triggers the `<application> is thinking...` message. This also acts as the initial response, to confirm to Discord that the interaction was received successfully and gives you a 15-minute timeframe to complete your tasks before responding.
+En este caso, puede hacer uso del método `ChatInputCommandInteraction#deferReply()`, que activa el mensaje `<aplicación> está pensando…`. Esto también actúa como una respuesta inicial, para confirmar a Discord que esa interacción se recibió con éxito y le da un plazo de 15 minutos para completar sus tareas antes de responder.
 <!--- TODO: Thinking... message, once available in components -->
 
 ```js {7-9}
 const wait = require('node:timers/promises').setTimeout;
 
 client.on(Events.InteractionCreate, async interaction => {
+
 	if (!interaction.isChatInputCommand()) return;
 
 	if (interaction.commandName === 'ping') {
+
 		await interaction.deferReply();
 		await wait(4000);
-		await interaction.editReply('Pong!');
+		await interaction.editReply('¡Pong!');
 	}
 });
 ```
 
-If you have a command that performs longer tasks, be sure to call `deferReply()` as early as possible.
+Si tiene un comando que lleva a cabo tareas más largas, asegúrese de llamar a `deferReply()` lo antes posible.
 
-Note that if you want your response to be ephemeral, you must pass an `ephemeral` flag to the `InteractionDeferOptions` here:
+Tenga en cuenta que si desea que su respuesta sea efímera, debe pasar un indicador `ephemeral` a `InteractionDeferOptions` aquí:
 
 <!-- eslint-skip -->
 
@@ -116,54 +126,58 @@ Note that if you want your response to be ephemeral, you must pass an `ephemeral
 await interaction.deferReply({ ephemeral: true });
 ```
 
-It is not possible to edit a reply to change its ephemeral state once sent.
+No es posible editar una respuesta para cambiar su estado efímero una vez enviada.
 
 ::: tip
-If you want to make a proper ping command, one is available in our [FAQ](/popular-topics/faq.md#how-do-i-check-the-bot-s-ping).
+Si desea efectuar un comando de ping adecuado, hay uno disponible en nuestro [FAQ](/popular-topics/faq.md#how-do-i-check-the-bot-s-ping).
+
 :::
 
-## Follow-ups
+## Seguimientos
 
-The `reply()` and `deferReply()` methods are both *initial* responses, which tell Discord that your bot successfully received the interaction, but cannot be used to send additional messages. This is where follow-up messages come in. After having initially responded to an interaction, you can use `ChatInputCommandInteraction#followUp()` to send additional messages:
+Los métodos `reply()` y `deferReply()` son respuestas *iniciales*, los cuales le dicen a Discord que su bot recibió la interacción correctamente, pero no pueden ser usados para enviar un mensaje adicional. Aquí es donde entran los mensajes `follow-up`. Después de haber respondido inicialmente a una interacción, puede usar `ChatInputCommandInteraction#followUp()` para enviar mensajes adicionales:
 
 ::: warning
-After the initial response, an interaction token is valid for 15 minutes, so this is the timeframe in which you can edit the response and send follow-up messages.
+Después de la respuesta inicial, un token de interacción es válido durante 15 minutos, por lo que este es el período de tiempo en el que puede editar la respuesta y enviar mensajes de seguimiento.
+
 :::
 
 ```js {6}
 client.on(Events.InteractionCreate, async interaction => {
+
 	if (!interaction.isChatInputCommand()) return;
 
 	if (interaction.commandName === 'ping') {
-		await interaction.reply('Pong!');
-		await interaction.followUp('Pong again!');
+
+		await interaction.reply('¡Pong!');
+		await interaction.followUp('¡Pong otra vez!');
 	}
 });
 ```
 
-If you run this code you should end up having something that looks like this:
+Si ejecuta este código, debería terminar teniendo algo parecido a esto:
 
 <DiscordMessages>
 	<DiscordMessage profile="bot">
 		<template #interactions>
 			<DiscordInteraction profile="user" :command="true">ping</DiscordInteraction>
 		</template>
-		Pong!
+		¡Pong!
 	</DiscordMessage>
 	<DiscordMessage profile="bot">
 		<template #interactions>
-			<DiscordInteraction profile="bot">Pong!</DiscordInteraction>
+			<DiscordInteraction profile="bot">¡Pong!</DiscordInteraction>
 		</template>
-		Pong again!
+		¡Pong otra vez!
 	</DiscordMessage>
 </DiscordMessages>
 
-You can also pass an `ephemeral` flag to the `InteractionReplyOptions`:
+También puedes pasar un indicador `ephemeral` a `InteractionReplyOptions`:
 
 <!-- eslint-skip -->
 
 ```js
-await interaction.followUp({ content: 'Pong again!', ephemeral: true });
+await interaction.followUp({ content: '¡Pong otra vez!', ephemeral: true });
 ```
 
 <DiscordMessages>
@@ -171,56 +185,61 @@ await interaction.followUp({ content: 'Pong again!', ephemeral: true });
 		<template #interactions>
 			<DiscordInteraction profile="user" :command="true">ping</DiscordInteraction>
 		</template>
-		Pong!
+		¡Pong!
 	</DiscordMessage>
 	<DiscordMessage profile="bot">
 		<template #interactions>
-			<DiscordInteraction profile="bot" :ephemeral="true">Pong!</DiscordInteraction>
+			<DiscordInteraction profile="bot" :ephemeral="true">¡Pong!</DiscordInteraction>
 		</template>
-		Pong again!
+		¡Pong otra vez!
 	</DiscordMessage>
 </DiscordMessages>
 
-Note that if you use `followUp()` after a `deferReply()`, the first follow-up will edit the `<application> is thinking` message rather than sending a new one.
+Tenga en cuenta que si utiliza `followUp()` después de `deferReply()`, el primer seguimiento editará el mensaje `<aplicación> está pensando…` en lugar de enviar uno nuevo.
 
-That's all, now you know everything there is to know on how to reply to slash commands! 
+Eso es todo, ¡ahora sabes todo lo que hay que saber sobre cómo responder a los comandos de barra!
 
 ::: tip
-Interaction responses can use masked links (e.g. `[text](http://site.com)`) in the message content.
+Las respuestas de interacción pueden emplear enlaces enmascarados (por ejemplo, `[texto](http://sitio.com)`) en el contenido del mensaje.
+
 :::
 
-## Fetching and deleting responses
+## Obtener y eliminar respuestas
 
-In addition to replying to a slash command, you may also want to delete the initial reply. You can use `ChatInputCommandInteraction#deleteReply()` for this:
+Además de responder a un comando de barra, es posible que también desee eliminar la respuesta inicial. Puedes usar `ChatInputCommandInteraction#deleteReply()` para esto:
 
 <!-- eslint-skip -->
 
 ```js {2}
-await interaction.reply('Pong!');
+await interaction.reply('¡Pong!');
 await interaction.deleteReply();
 ```
 
-Lastly, you may require the `Message` object of a reply for various reasons, such as adding reactions. You can use the `ChatInputCommandInteraction#fetchReply()` method to fetch the `Message` instance of an initial response:
+Por último, es posible que necesite el objeto `Message` de una respuesta por varios motivos, como agregar reacciones. Puedes usar el método `ChatInputCommandInteraction#fetchReply()` para obtener la instancia `Message` de una respuesta inicial:
 
 <!-- eslint-skip -->
 
 ```js
-await interaction.reply('Pong!');
+await interaction.reply('¡Pong!');
 const message = await interaction.fetchReply();
 console.log(message);
 ```
 
-## Localized responses
+## Respuestas localizadas
 
-In addition to the ability to provide localized command definitions, you can also localize your responses. To do this, get the locale of the user with `ChatInputCommandInteraction#locale` and respond accordingly:
+Además de la capacidad de proporcionar definiciones de comandos localizadas, también puede localizar sus respuestas. Para hacer esto, obtenga la configuración regional del usuario con `ChatInputCommandInteraction#locale` y responda en consecuencia:
 
 ```js
+const locales = {
+
+	pl: 'Witaj Świecie!',
+	de: 'Hallo Welt!',
+	en: 'Hello World!',
+	es: '¡Hola Mundo!',
+};
 client.on(Events.InteractionCreate, interaction => {
-	const locales = {
-		pl: 'Witaj Świecie!',
-		de: 'Hallo Welt!',
-	};
-	interaction.reply(locales[interaction.locale] ?? 'Hello World (default is english)');
+
+	interaction.reply(locales[interaction.locale] ?? locales.es);
 });
 ```
 

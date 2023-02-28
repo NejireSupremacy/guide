@@ -1,55 +1,55 @@
-# Autocomplete
+# Autocompletar
 
-Autocomplete allows you to dynamically provide a selection of values to the user, based on their input, rather than relying on static choices. In this section we will cover how to add autocomplete support to your commands.
+`Autocomplete` le permite proporcionar dinámicamente una selección de valores al usuario, basándose en su entrada, en lugar de depender de opciones estáticas. En esta sección veremos cómo añadir la función de autocompletar a tus comandos.
 
 ::: tip
-This page is a follow-up to the [slash commands](/slash-commands/advanced-creation.md) section covering options and option choices. Please carefully read those pages first so that you can understand the methods used in this section.
+Esta página es una continuación de la sección [creación de comandos avanzados](/slash-commands/advanced-creation.md) que trata de las opciones y de la elección de opciones. Por favor, lea atentamente esas páginas primero para que pueda entender los métodos utilizados en esta sección.
 :::
 
-## Enabling autocomplete
+## Activar autocompletar
 
-To use autocomplete with your commands, *instead* of listing static choices, the option must be set to use autocompletion using <DocsLink section="builders" path="class/SlashCommandStringOption?scrollTo=setAutocomplete" type="method" />:
+Para utilizar el autocompletado con sus comandos, *en lugar* de listar las opciones estáticas, la opción debe configurarse para utilizar el autocompletado utilizando <DocsLink section="builders" path="class/SlashCommandStringOption?scrollTo=setAutocomplete" type="method" />:
 
 ```js {9}
 const { SlashCommandBuilder } = require('discord.js');
 
 const data = new SlashCommandBuilder()
 	.setName('guide')
-	.setDescription('Search discordjs-guide-es.netlify.app!')
+	.setDescription('Busca en discordjs-guide-es.netlify.app!')
 	.addStringOption(option =>
 		option.setName('query')
-			.setDescription('Phrase to search for')
+			.setDescription('Frase a buscar')
 			.setAutocomplete(true));
 ```
 
-## Responding to autocomplete interactions
+## Respuesta a las interacciones de autocompletar
 
-To handle an <DocsLink path="class/AutocompleteInteraction"/>, use the <DocsLink path="class/BaseInteraction?scrollTo=isAutocomplete"/> type guard to make sure the interaction instance is an autocomplete interaction. You can do this in a separate `interactionCreate` listener:
+Para manejar un <DocsLink path="class/AutocompleteInteraction"/>, utilice la protección de tipo (`type guard`) <DocsLink path="class/BaseInteraction?scrollTo=isAutocomplete"/> para asegurarse de que la instancia de interacción es una interacción de autocompletar. Puedes hacer esto en un listener `interactionCreate` separado:
 
 <!-- eslint-skip -->
 
 ```js
 client.on(Events.InteractionCreate, interaction => {
 	if (!interaction.isAutocomplete()) return;
-	// do autocomplete handling
+	// gestión de autocompletar
 });
 ```
 
-Or alternatively, by making a small change to your existing [Command handler](/creating-your-bot/command-handling.md) and adding an additional method to your individual command files.
+O alternativamente, haciendo un pequeño cambio en tu [manejador de comandos](/creating-your-bot/command-handling.md) y añadiendo un método adicional a tus archivos de comandos individuales.
 
-The example below shows how this might be applied to a conceptual version of the `guide` command to determine the closest topic to the search input:
+El siguiente ejemplo muestra cómo podría aplicarse esto a una versión conceptual del comando `guide` para determinar el tema más cercano a la entrada de búsqueda:
 
 :::: code-group
 ::: code-group-item index.js
 ```js {4,13}
 client.on(Events.InteractionCreate, async interaction => {
 	if (interaction.isChatInputCommand()) {
-		// command handling
+		// manejo de comandos
 	} else if (interaction.isAutocomplete()) {
 		const command = interaction.client.commands.get(interaction.commandName);
 
 		if (!command) {
-			console.error(`No command matching ${interaction.commandName} was found.`);
+			console.error(`No se ha encontrado ningún comando que coincida con ${interaction.commandName}.`);
 			return;
 		}
 
@@ -67,50 +67,50 @@ client.on(Events.InteractionCreate, async interaction => {
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('guide')
-		.setDescription('Search discordjs-guide-es.netlify.app!')
+		.setDescription('Busca en discordjs-guide-es.netlify.app!')
 		.addStringOption(option =>
 			option.setName('query')
-				.setDescription('Phrase to search for')
+				.setDescription('Frase a buscar')
 				.setAutocomplete(true)),
 	async autocomplete(interaction) {
-		// handle the autocompletion response (more on how to do that below)
+		// gestiona la respuesta de autocompletado (más adelante se explica cómo hacerlo)
 	},
 	async execute(interaction) {
-		// respond to the complete slash command
+		// responder al comando de barra completo
 	},
 };
 ```
 :::
 ::::
 
-The command handling is almost identical, but notice the change from `execute` to `autocomplete` in the new else-if branch. By adding a separate `autocomplete` function to the `module.exports` of commands that require autocompletion, you can safely separate the logic of providing dynamic choices from the code that needs to respond to the slash command once it is complete.
+El manejo de los comandos es casi idéntico, pero fíjate en el cambio de `execute` a `autocomplete` en la nueva rama else-if. Añadiendo una función `autocomplete` separada al `module.exports` de los comandos que requieren autocompletado, puedes separar de forma segura la lógica de proporcionar opciones dinámicas del código que necesita responder al comando slash una vez que se ha completado.
 
 :::tip
-You might have already moved this code to `events/interactionCreate.js` if you followed our [Event handling](/creating-your-bot/event-handling.md) guide too.
+Puede que ya hayas movido este código a `events/interactionCreate.js` si también has seguido nuestra guía [Manejo de eventos](/creating-your-bot/event-handling.md).
 :::
 
-### Sending results
+### Envío de resultados
 
-The <DocsLink path="class/AutocompleteInteraction"/> class provides the <DocsLink path="class/AutocompleteInteraction?scrollTo=respond"/> method to send a response. Using this, you can submit an array of <DocsLink path="typedef/ApplicationCommandOptionChoiceData" /> objects for the user to choose from. Passing an empty array will show "No options match your search" for the user.
+La clase <DocsLink path="class/AutocompleteInteraction"/> proporciona el método <DocsLink path="class/AutocompleteInteraction?scrollTo=respond"/> para enviar una respuesta. Usando esto, puede enviar una matriz de objetos <DocsLink path="typedef/ApplicationCommandOptionChoiceData" /> para que el usuario elija. Si se pasa una matriz vacía, se mostrará al usuario el mensaje "No hay opciones que coincidan con su búsqueda".
 
 ::: warning
-Unlike static choices, autocompletion suggestions are *not* enforced, and users may still enter free text.
+A diferencia de las opciones estáticas, las sugerencias de autocompletado *no* son obligatorias, y los usuarios pueden introducir texto libre.
 :::
 
-The <DocsLink path="class/CommandInteractionOptionResolver?scrollTo=getFocused" /> method returns the currently focused option's value, which can be used to applying filtering to the choices presented. For example, to only display options starting with the focused value you can use the `Array#filter()` method, then using `Array#map()`, you can transform the array into an array of <DocsLink path="typedef/ApplicationCommandOptionChoiceData" /> objects.
+El método <DocsLink path="class/CommandInteractionOptionResolver?scrollTo=getFocused" /> devuelve el valor de la opción actualmente enfocada, que puede utilizarse para aplicar filtros a las opciones presentadas. Por ejemplo, para mostrar sólo las opciones que comienzan con el valor enfocado se puede utilizar el método `Array#filter()`, luego utilizando `Array#map()`, se puede transformar el array en un array de objetos <DocsLink path="typedef/ApplicationCommandOptionChoiceData" />.
 
 ```js {10-15}
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('guide')
-		.setDescription('Search discordjs-guide-es.netlify.app!')
+		.setDescription('Buscar en discordjs-guide-es.netlify.app!')
 		.addStringOption(option =>
 			option.setName('query')
-				.setDescription('Phrase to search for')
+				.setDescription('Frase a buscar')
 				.setAutocomplete(true)),
 	async autocomplete(interaction) {
 		const focusedValue = interaction.options.getFocused();
-		const choices = ['Popular Topics: Threads', 'Sharding: Getting started', 'Library: Voice Connections', 'Interactions: Replying to slash commands', 'Popular Topics: Embed preview'];
+		const choices = ['Temas populares: Threads', 'Sharding: Primeros pasos', 'Biblioteca: Conexiones de voz', 'Interacciones: Responder a comandos de barra", "Temas populares: Incrustar vista previa'];
 		const filtered = choices.filter(choice => choice.startsWith(focusedValue));
 		await interaction.respond(
 			filtered.map(choice => ({ name: choice, value: choice })),
@@ -119,7 +119,7 @@ module.exports = {
 };
 ```
 
-### Handling multiple autocomplete options
+### Manejo de múltiples opciones de autocompletar
 
 To distinguish between multiple options, you can pass `true` into <DocsLink path="class/CommandInteractionOptionResolver?scrollTo=getFocused"/>, which will now return the full focused object instead of just the value. This is used to get the name of the focused option below, allowing for multiple options to each have their own set of suggestions:
 
@@ -127,21 +127,21 @@ To distinguish between multiple options, you can pass `true` into <DocsLink path
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('guide')
-		.setDescription('Search discordjs-guide-es.netlify.app!')
+		.setDescription('Busca en discordjs-guide-es.netlify.app!')
 		.addStringOption(option =>
 			option.setName('query')
-				.setDescription('Phrase to search for')
+				.setDescription('Frase a buscar')
 				.setAutocomplete(true))
 		.addStringOption(option =>
 			option.setName('version')
-				.setDescription('Version to search in')
+				.setDescription('Version en la que buscar')
 				.setAutocomplete(true)),
 	async autocomplete(interaction) {
 		const focusedOption = interaction.options.getFocused(true);
 		let choices;
 
 		if (focusedOption.name === 'query') {
-			choices = ['Popular Topics: Threads', 'Sharding: Getting started', 'Library: Voice Connections', 'Interactions: Replying to slash commands', 'Popular Topics: Embed preview'];
+			choices = ['Temas populares: Threads', 'Sharding: Primeros pasos', 'Biblioteca: Conexiones de voz', 'Interacciones: Responder a comandos de barra", "Temas populares: Incrustar vista previa'];
 		}
 
 		if (focusedOption.name === 'version') {
@@ -156,9 +156,9 @@ module.exports = {
 };
 ```
 
-### Accessing other values
+### Acceso a otros valores
 
-In addition to filtering based on the focused value, you may also wish to change the choices displayed based on the value of other arguments in the command. The following methods work the same in <DocsLink path="class/AutocompleteInteraction"/>:
+Además de filtrar basándose en el valor enfocado, puede que también desee cambiar las opciones mostradas basándose en el valor de otros argumentos del comando. Los siguientes métodos funcionan igual en <DocsLink path="class/AutocompleteInteraction"/>:
 
 ```js
 const string = interaction.options.getString('input');
@@ -167,11 +167,11 @@ const boolean = interaction.options.getBoolean('choice');
 const number = interaction.options.getNumber('num');
 ```
 
-However, the `.getUser()`, `.getMember()`, `.getRole()`, `.getChannel()`, `.getMentionable()` and `.getAttachment()` methods are not available to autocomplete interactions. Discord does not send the respective full objects for these methods until the slash command is completed. For these, you can get the Snowflake value using `interaction.options.get('option').value`:
+Sin embargo, los métodos `.getUser()`, `.getMember()`, `.getRole()`, `.getChannel()`, `.getMentionable()` y `.getAttachment()` no están disponibles para autocompletar interacciones. Discord no envía los respectivos objetos completos para estos métodos hasta que se completa el comando de barra. Para estos, puedes obtener el valor Snowflake usando `interaction.options.get('option').value`:
 
-### Notes
+### Notas
 
-- As with other application command interactions, autocomplete interactions must receive a response within 3 seconds. 
-- You cannot defer the response to an autocomplete interaction. If you're dealing with asynchronous suggestions, such as from an API, consider keeping a local cache.
-- After the user selects a value and sends the command, it will be received as a regular <DocsLink path="class/ChatInputCommandInteraction"/> with the chosen value.
-- You can only respond with a maximum of 25 choices at a time, though any more than this likely means you should revise your filter to further narrow the selections.
+- Al igual que con otras interacciones de comandos de aplicación, las interacciones de autocompletar deben recibir una respuesta antes de 3 segundos. 
+- No se puede aplazar la respuesta a una interacción de autocompletar. Si se trata de sugerencias asíncronas, como las procedentes de una API, considere la posibilidad de mantener una caché local.
+- Después de que el usuario seleccione un valor y envíe el comando, se recibirá como un <DocsLink path="class/ChatInputCommandInteraction" /> normal con el valor elegido.
+- Sólo se puede responder con un máximo de 25 opciones a la vez, aunque más que esto probablemente significa que usted debe revisar su filtro para reducir aún más las selecciones.
