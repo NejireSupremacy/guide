@@ -1,5 +1,4 @@
 import djsAvatar from './assets/discord-avatar-djs.png';
-import guideLogo from './assets/guide-logo.png';
 import { 
     NejireAvatar,
     FreeAvatar
@@ -7,20 +6,19 @@ import {
 
 export default {
     avatars: {
-        djs: djsAvatar,
-        guide: guideLogo
+        djs: djsAvatar
     },
 	profiles: {
 	    user: {
 			author: 'Usuario',
 			avatar: 'djs',
             roleColor: '#5865F2'
-		}, 
-		bot: {
-			author: 'Bot de pruebas',
-			avatar: 'guide',
-			bot: true
 		},
+        bot: {
+            author: 'Bot de pruebas',
+            avatar: 'green',
+            bot: true,
+        },
         nejire: {
             author: 'ThisIsAName',
             avatar: NejireAvatar,
@@ -32,4 +30,5 @@ export default {
             roleColor: '#ff0b3f'
         }
 	}
+
 }
