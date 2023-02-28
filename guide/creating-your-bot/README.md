@@ -1,8 +1,8 @@
 # Archivos de configuración
 
-Una vez que hayas [añadido tu bot a un servidor](/preparations/adding-your-bot-to-servers.md), ¡el siguiente paso es empezar a escribir su código y ponerlo online! Empecemos creando un archivo de configuración para tu token de cliente y un archivo principal para tu aplicación bot.
+Una vez que hayas [añadido tu bot a un servidor](/preparations/adding-your-bot-to-servers.html#agregando-tu-bot-a-servidores), ¡el siguiente paso es empezar a escribir su código y ponerlo online! Empecemos creando un archivo de configuración para tu token de cliente y un archivo principal para tu aplicación bot.
 
-Como se explica en la sección [&#34;¿Qué es un token?&#34;](/preparations/setting-up-a-bot-application.md#what-is-a-token-anyway), tu token es esencialmente la contraseña de tu bot, y deberías protegerlo lo mejor posible. Esto se puede hacer a través de un archivo config.json o mediante el uso de variables de entorno.
+Como se explica en la sección [&#34;¿Qué es un token?&#34;](/preparations/setting-up-a-bot-application.html#¿que-es-un-token), tu token es esencialmente la contraseña de tu bot, y deberías protegerlo lo mejor posible. Esto se puede hacer a través de un archivo config.json o mediante el uso de variables de entorno.
 
 Abre tu aplicación en el [Portal del Desarrolladores de Discord](https://discord.com/developers/applications) y ve a la página "Bot" para copiar tu token.
 
