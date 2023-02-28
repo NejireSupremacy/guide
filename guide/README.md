@@ -41,6 +41,7 @@ Este proyecto es mantenido por las siguientes personas, que han contribuido con 
 	</DiscordMessage>
 </DiscordMessages>
 
+<a></a>
 <a href="https://www.netlify.com">
 	<img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg" alt="Deploys by Netlify" />
 </a>
