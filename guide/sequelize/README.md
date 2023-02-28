@@ -1,19 +1,19 @@
-# Storing data with Sequelize
+# Almacenando datos con Sequelize
 
-Sequelize is an object-relational-mapper, which means you can write a query using objects and have it run on almost any other database system that Sequelize supports.
+Sequelize es un mapeador de objetos-relacionales, lo que significa que puede escribir una consulta usando objetos y que se ejecute en casi cualquier otro sistema de base de datos que Sequelize admita.
 
-### Why use an ORM?
+### ¿Por qué usar un ORM?
 
-The main benefit of using an ORM like Sequelize is that it allows you to write code that virtually looks like native JavaScript. As a side benefit, an ORM will enable you to write code that can run in almost every database system. Although databases generally adhere very closely to SQL, they each have their slight nuances and differences. You can create a database-agnostic query using an ORM that works on multiple database systems.
+El principal beneficio de usar un ORM como Sequelize es que le permite escribir código que prácticamente se vea como JavaScript nativo. Como beneficio secundario, un ORM le permitirá escribir código que se pueda ejecutar en casi todos los sistemas de bases de datos. Aunque las bases de datos generalmente se adhieren muy de cerca a SQL, cada una tiene sus sutiles diferencias y diferencias. Puede crear una consulta de base de datos agnóstica usando un ORM que funcione en varios sistemas de bases de datos.
 
-## A simple tag system
+## Un sistema de etiquetas simple
 
-For this tutorial, we will create a simple tag system that will allow you to add a tag, output a tag, edit a tag, show tag info, list tags, and delete a tag.   
-To begin, you should install Sequelize into your discord.js project. We will explain SQlite as the first storage engine and show how to use other databases later. Note that you will need Node 7.6 or above to utilize the `async/await` operators.
+Para este tutorial, crearemos un sistema de etiquetas simple que le permitirá agregar una etiqueta, mostrar una etiqueta, editar una etiqueta, mostrar información de la etiqueta, listar etiquetas y eliminar una etiqueta.
+Para comenzar, debe instalar Sequelize en su proyecto de discord.js. Explicaremos SQlite como el primer motor de almacenamiento y mostraremos cómo usar otras bases de datos más tarde. Tenga en cuenta que necesitará Node 7.6 o superior para utilizar los operadores `async/await`.
 
-### Installing and using Sequelize
+### Instalando y usando Sequelize
 
-Create a new project folder and run the following:
+Crea una nueva carpeta de proyecto y ejecuta lo siguiente:
 
 :::: code-group
 ::: code-group-item npm
@@ -34,22 +34,22 @@ pnpm install discord.js sequelize sqlite3
 ::::
 
 ::: danger
-Make sure you use version 5 or later of Sequelize! Version 4, as used in this guide, will pose a security threat. You can read more about this issue on the [Sequelize issue tracker](https://github.com/sequelize/sequelize/issues/7310).
+Asegúrese de usar la versión 5 o posterior de Sequelize! La versión 4, como se usa en esta guía, plantea una amenaza de seguridad. Puede leer más sobre este problema en el [Seguimiento de problemas de Sequelize](https://github.com/sequelize/sequelize/issues/7310).
 :::
 
-After you have installed discord.js and Sequelize, you can start with the following skeleton code. The comment labels will tell you where to insert code later on.
+Después de instalar discord.js y Sequelize, puede comenzar con el siguiente código esqueleto. Las etiquetas de comentarios le indicarán dónde insertar el código más adelante.
 
 <!-- eslint-disable require-await -->
 ```js
-// Require Sequelize
+// Requiere Sequelize
 const Sequelize = require('sequelize');
-// Require the necessary discord.js classes
+// Requiere las clases necesarias de discord.js
 const { Client, Events, GatewayIntentBits } = require('discord.js');
 
-// Create a new client instance
+// Create una nueva instancia de un cliente de Discord
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-// When the client is ready, run this code (only once)
+// Cuando el cliente esté listo, se ejecutará este código (esto solo sucederá una vez)
 client.once(Events.ClientReady, () => {
 	console.log(`Logged in as ${client.user.tag}!`);
 });
@@ -61,13 +61,13 @@ client.on(Events.InteractionCreate, async interaction => {
 	// ...
 });
 
-// Login to Discord with your client's token
+// Inicia sesión con tu token de bot
 client.login('your-token-goes-here');
 ```
 
-### Connection information
+###  Información de conexión
 
-The first step is to define the connection information. It should look something like this:
+El primer paso es definir la información de conexión. Debería verse algo así:
 
 ```js {3-9}
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -76,27 +76,27 @@ const sequelize = new Sequelize('database', 'user', 'password', {
 	host: 'localhost',
 	dialect: 'sqlite',
 	logging: false,
-	// SQLite only
+	// solo SQLite
 	storage: 'database.sqlite',
 });
 ```
 
-`host` tells Sequelize where to look for the database. For most systems, the host will be localhost, as the database usually resides with the application. If you have a remote database, however, then you can set it to that connection address. Otherwise, don't touch this unless you know what you're doing.  
-`dialect` refers to the database engine you are going to use. For this tutorial, it will be sqlite.  
-`logging` enables verbose output from Sequelize–useful for when you are trying to debug. You can disable it by setting it to `false`.
-`storage` is a sqlite-only setting because sqlite is the only database that stores all its data to a single file.  
+`host` le dice a Sequelize dónde buscar la base de datos. Para la mayoría de los sistemas, el host será localhost, ya que la base de datos generalmente reside con la aplicación. Sin embargo, si tiene una base de datos remota, puede configurarla con esa dirección de conexión. De lo contrario, no toque esto a menos que sepa lo que está haciendo.
+`dialect` se refiere al motor de base de datos que va a usar. Para este tutorial, será sqlite.
+`logging` habilita una salida detallada de Sequelize, útil cuando está intentando depurar. Puede deshabilitarlo configurándolo en `false`.
+`storage` es una configuración solo para sqlite porque sqlite es la única base de datos que almacena todos sus datos en un solo archivo.
 
 
-### Creating the model
+### Creando el modelo
 
-In any relational database, you need to create tables to store your data. This simple tag system will use four fields. The table in the database will look something like this:
+En cualquier base de datos relacional, debe crear tablas para almacenar sus datos. Este sistema de etiquetas simple usará cuatro campos. La tabla en la base de datos se verá algo así:
 
 | name | description | username | usage_count |
 | --- | --- | --- | --- |
 | bob | is the best | bob | 0 |
 | tableflip | (╯°□°）╯︵ ┻━┻ | joe | 8 |
 
-To do that in Sequelize, define a model based on this structure below the connection information, as shown below.
+Para hacer eso en Sequelize, defina un modelo basado en esta estructura debajo de la información de conexión, como se muestra a continuación.
 
 ```js
 /*
@@ -122,21 +122,21 @@ const Tags = sequelize.define('tags', {
 });
 ```
 
-The model mirrors very closely what the database defines. There will be a table with four fields called `name`, `description`, `username`, and `usage_count`.  
-`sequelize.define()` takes two parameters. `'tags'` are passed as the name of our table, and an object that represents the table's schema in key-value pairs. Keys in the object become the model's attributes, and the values describe the attributes.
+El modelo se asemeja muy de cerca a lo que la base de datos define. Habrá una tabla con cuatro campos llamados `name`, `description`, `username` y `usage_count`.
+`sequelize.define()` toma dos parámetros. `'tags'` se pasan como el nombre de nuestra tabla, y un objeto que representa el esquema de la tabla en pares clave-valor. Las claves en el objeto se convierten en los atributos del modelo, y los valores describen los atributos.
 
-`type` refers to what kind of data this attribute should hold. The most common types are number, string, and date, but other data types are available depending on the database.  
-`unique: true` will ensure that this field will never have duplicated entries. Duplicate tag names are disallowed in this database.  
-`defaultValue` allows you to set a fallback value if there's no initial value during the insert.  
-`allowNull` is not all that important, but this will guarantee in the database that the attribute is never unset. You could potentially set it to be a blank or empty string, but it has to be _something_.
+`type` se refiere a qué tipo de datos debe contener este atributo. Los tipos de datos más comunes son número, cadena y fecha, pero otros tipos de datos están disponibles según la base de datos.
+`unique: true` garantizará que este campo nunca tenga entradas duplicadas. Los nombres de etiqueta duplicados no están permitidos en esta base de datos.
+`defaultValue` le permite establecer un valor de reserva si no hay un valor inicial durante la inserción.
+`allowNull` no es tan importante, pero esto garantizará en la base de datos que el atributo nunca esté sin configurar. Podría configurarlo para que sea una cadena en blanco o vacía, pero debe ser _algo_.
 
 ::: tip
-`Sequelize.STRING` vs. `Sequelize.TEXT`: In most database systems, the string's length is a fixed length for performance reasons. Sequelize defaults this to 255. Use STRING if your input has a max length, and use TEXT if it does not. For sqlite, there is no unbounded string type, so it will not matter which one you pick.
+`Sequelize.STRING` vs. `Sequelize.TEXT`: En la mayoría de los sistemas de bases de datos, la longitud de la cadena es de longitud fija por razones de rendimiento. Sequelize establece esto predeterminado en 255. Use STRING si su entrada tiene una longitud máxima y use TEXT si no lo hace. Para sqlite, no hay un tipo de cadena sin límite, por lo que no importará cuál elija.
 :::
 
-### Syncing the model
+### Sinchronizando el modelo
 
-Now that your structure is defined, you need to make sure the model exists in the database. To make sure the bot is ready and all the data you might need has arrived, add this line in your code.
+Ahora que su estructura está definida, debe asegurarse de que el modelo exista en la base de datos. Para asegurarse de que el bot esté listo y todos los datos que pueda necesitar hayan llegado, agregue esta línea en su código.
 
 ```js {3}
 client.once(Events.ClientReady, () => {
@@ -145,11 +145,11 @@ client.once(Events.ClientReady, () => {
 });
 ```
 
-The table does not get created until you `sync` it. The schema you defined before was building the model that lets Sequelize know how the data should look. For testing, you can use `Tags.sync({ force: true })` to recreate the table every time on startup. This way, you can get a blank slate each time.
+La tabla no se crea hasta que la sincroniza. El esquema que definió antes estaba construyendo el modelo que le permite a Sequelize saber cómo debe verse los datos. Para probar, puede usar `Tags.sync({ force: true })` para recrear la tabla cada vez que se inicia. De esta manera, puede obtener una tabla en blanco cada vez que lo haga.
 
-### Adding a tag
+### Agregando una etiqueta
 
-After all this preparation, you can now write your first command! Let's start with the ability to add a tag.
+Después de todo este preparativo, ¡ahora puede escribir su primer comando! Empecemos con la capacidad de agregar una etiqueta.
 
 <!-- eslint-skip -->
 
@@ -164,37 +164,38 @@ client.on(Events.InteractionCreate, async interaction => {
 		const tagDescription = interaction.options.getString('description');
 
 		try {
-			// equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
+			// equivalente a: INSERT INTO tags (name, description, username) values (?, ?, ?);
 			const tag = await Tags.create({
 				name: tagName,
 				description: tagDescription,
 				username: interaction.user.username,
 			});
 
-			return interaction.reply(`Tag ${tag.name} added.`);
+			return interaction.reply(`Etiqueta ${tag.name} agregada.`);
 		}
 		catch (error) {
 			if (error.name === 'SequelizeUniqueConstraintError') {
-				return interaction.reply('That tag already exists.');
+				return interaction.reply('Esa etiqueta ya existe.');
 			}
 
-			return interaction.reply('Something went wrong with adding a tag.');
+			return interaction.reply('Algo salió mal al añadir una etiqueta.');
 		}
 	}
 });
 ```
 
-`Tags.create()` uses the models that you created previously. The `.create()` method inserts some data into the model. You are going to insert a tag name, description, and the author name into the database.  
-The `catch (error)` section is necessary for the insert because it will offload checking for duplicates to the database to notify you if an attempt to create a tag that already exists occurs. The alternative is to query the database before adding data and checking if a result returns. If there are no errors or no identical tag is found, only then would you add the data. Of the two methods, it is clear that catching the error is less work for you.  
-Although `if (error.name === 'SequelizeUniqueConstraintError')` was mostly for doing less work, it is always good to handle your errors, especially if you know what types of errors you will receive. This error comes up if your unique constraint is violated, i.e., duplicate values are inserted.
+`Tags.create()` usa los modelos que creó anteriormente. El método `.create()` inserta algunos datos en el modelo. Va a insertar un nombre de etiqueta, descripción y el nombre del autor en la base de datos.
+La sección `catch (error)` es necesaria para la inserción porque desviará la comprobación de duplicados a la base de datos para notificarle si se produce un intento de crear una etiqueta que ya existe. La alternativa es consultar la base de datos antes de agregar datos y verificar si se devuelve un resultado. Si no hay errores o no se encuentra una etiqueta idéntica, solo entonces agregaría los datos. De los dos métodos, es claro que atrapar el error es menos trabajo para usted.
+Aunque `if (error.name === 'SequelizeUniqueConstraintError')` fue principalmente para hacer menos trabajo, siempre es bueno manejar sus errores, especialmente si sabe qué tipos de errores recibirá. Este error aparece si se viola su restricción única, es decir, se insertan valores duplicados.
+
 
 ::: warning
-Do not use catch for inserting new data. Only use it for gracefully handling things that go wrong in your code or logging errors.
+No use el catch para insertar nuevos datos. Úselo solo para manejar con gracia las cosas que salen mal en su código o registrar errores.
 :::
 
 ### Fetching a tag
 
-Next, let's fetch the inserted tag.
+Ahora, obtengamos la etiqueta insertada.
 
 <!-- eslint-skip -->
 
@@ -205,24 +206,24 @@ if (commandName === 'addtag') {
 else if (command === 'tag') {
 	const tagName = interaction.options.getString('name');
 
-	// equivalent to: SELECT * FROM tags WHERE name = 'tagName' LIMIT 1;
+	// equivalente a: SELECT * FROM tags WHERE name = 'tagName' LIMIT 1;
 	const tag = await Tags.findOne({ where: { name: tagName } });
 
 	if (tag) {
-		// equivalent to: UPDATE tags SET usage_count = usage_count + 1 WHERE name = 'tagName';
+		// equivalente a: UPDATE tags SET usage_count = usage_count + 1 WHERE name = 'tagName';
 		tag.increment('usage_count');
 
 		return interaction.reply(tag.get('description'));
 	}
 
-	return interaction.reply(`Could not find tag: ${tagName}`);
+	return interaction.reply(`No se encuentra la etiqueta: ${tagName}`);
 }
 ```
 
-This is your first query. You are finally doing something with your data; yay!  
-`.findOne()` is how you fetch a single row of data. The `where: { name: tagName }` makes sure you only get the row with the desired tag. Since the queries are asynchronous, you will need to use `await` to fetch it. After receiving the data, you can use `.get()` on that object to grab the data. If no data is received, then you can tell the user that the query returned no data.
+Esta es su primera consulta. ¡Finalmente está haciendo algo con sus datos; yay!
+`.findOne()` es cómo obtiene una sola fila de datos. El `where: { name: tagName }` se asegura de que solo obtenga la fila con la etiqueta deseada. Dado que las consultas son asincrónicas, necesitará usar `await` para obtenerla. Después de recibir los datos, puede usar `.get()` en ese objeto para obtener los datos. Si no se reciben datos, puede decirle al usuario que la consulta no devolvió datos.
 
-### Editing a tag
+### Editando una etiqueta
 
 <!-- eslint-skip -->
 
@@ -231,20 +232,20 @@ else if (command === 'edittag') {
 	const tagName = interaction.options.getString('name');
 	const tagDescription = interaction.options.getString('description');
 
-	// equivalent to: UPDATE tags (description) values (?) WHERE name='?';
+	// equivalente a: UPDATE tags (description) values (?) WHERE name='?';
 	const affectedRows = await Tags.update({ description: tagDescription }, { where: { name: tagName } });
 
 	if (affectedRows > 0) {
-		return interaction.reply(`Tag ${tagName} was edited.`);
+		return interaction.reply(`Se ha editado la etqieuta ${tagName}.`);
 	}
 
-	return interaction.reply(`Could not find a tag with name ${tagName}.`);
+	return interaction.reply(`No se encuentra la etiqueta ${tagName}.`);
 }
 ```
 
-It is possible to edit a record by using the `.update()` function. An update returns the number of rows that the `where` condition changed. Since you can only have tags with unique names, you do not have to worry about how many rows may change. Should you get that the query didn't alter any rows, you can conclude that the tag did not exist.
+Es posible editar un registro usando la función `.update()`. Una actualización devuelve el número de filas que el condición `where` cambió. Dado que solo puede tener etiquetas con nombres únicos, no tiene que preocuparse por cuántas filas pueden cambiar. Si obtiene que la consulta no alteró ninguna fila, puede concluir que la etiqueta no existía.
 
-### Display info on a specific tag
+### Muestra la información de una etiqueta en particular
 
 <!-- eslint-skip -->
 
@@ -252,22 +253,22 @@ It is possible to edit a record by using the `.update()` function. An update ret
 else if (commandName == 'taginfo') {
 	const tagName = interaction.options.getString('name');
 
-	// equivalent to: SELECT * FROM tags WHERE name = 'tagName' LIMIT 1;
+	// equivalente a: SELECT * FROM tags WHERE name = 'tagName' LIMIT 1;
 	const tag = await Tags.findOne({ where: { name: tagName } });
 
 	if (tag) {
-		return interaction.reply(`${tagName} was created by ${tag.username} at ${tag.createdAt} and has been used ${tag.usage_count} times.`);
+		return interaction.reply(`${tagName} fue creada por ${tag.username} el ${tag.createdAt} y ha sido usada ${tag.usage_count} veces.`);
 	}
 
-	return interaction.reply(`Could not find tag: ${tagName}`);
+	return interaction.reply(`No se encuentra la etiqueta: ${tagName}`);
 }
 ```
 
-This section is very similar to the previous command, except you will be showing the tag metadata. `tag` contains your tag object. Notice two things: firstly, it is possible to access the object's properties without the `.get()` function. This is because the object is an instance of a Tag, which you can treat as an object and not just a row of data. Second, you can access a property that was not defined explicitly, `createdAt`. This is because Sequelize automatically adds that column to all tables. Passing another object into the model with `{ createdAt: false }` can disable this feature, but in this case, it was useful to have.
+Esta sección es muy similar a la anterior, excepto que mostrará los metadatos de la etiqueta. `tag` contiene el objeto de etiqueta. Observe dos cosas: en primer lugar, es posible acceder a las propiedades del objeto sin la función `.get()`. Esto se debe a que el objeto es una instancia de una etiqueta, que puede tratar como un objeto y no solo como una fila de datos. En segundo lugar, puede acceder a una propiedad que no se definió explícitamente, `createdAt`. Esto se debe a que Sequelize agrega automáticamente esa columna a todas las tablas. Pasar otro objeto al modelo con `{createdAt: false}` puede deshabilitar esta característica, pero en este caso, fue útil tenerla.
 
-### Listing all tags
+### Listar todas las etiquetas
 
-The next command will enable you to fetch a list of all the created tags.
+El siguiente comando le permitirá obtener una lista de todas las etiquetas creadas.
 
 <!-- eslint-skip -->
 
@@ -275,15 +276,15 @@ The next command will enable you to fetch a list of all the created tags.
 else if (command === 'showtags') {
 	// equivalent to: SELECT name FROM tags;
 	const tagList = await Tags.findAll({ attributes: ['name'] });
-	const tagString = tagList.map(t => t.name).join(', ') || 'No tags set.';
+	const tagString = tagList.map(t => t.name).join(', ') || 'Ninguna etiqueta creada.';
 
-	return interaction.reply(`List of tags: ${tagString}`);
+	return interaction.reply(`Lista de etiquetas: ${tagString}`);
 }
 ```
 
-Here, you can use the `.findAll()` method to grab all the tag names. Notice that instead of having `where`, the optional field, `attributes`, is set. Setting attributes to name will let you get *only* the names of tags. If you tried to access other fields, like the tag author, you would get an error. If left blank, it will fetch *all* of the associated column data. It will not affect the results returned, but from a performance perspective, you should only grab the necessary data. If no results return, `tagString` will default to 'No tags set'.
+Aca puedes usar el método `.findAll()` para obtener todos los nombres de etiquetas. Observe que en lugar de tener `where`, el campo opcional, `attributes`, se establece. Establecer atributos en nombre le permitirá obtener *solo* los nombres de las etiquetas. Si intentó acceder a otros campos, como el autor de la etiqueta, obtendría un error. Si se deja en blanco, buscará *todos* los datos de columna asociados. No afectará los resultados devueltos, pero desde el punto de vista del rendimiento, solo debe obtener los datos necesarios. Si no hay resultados, `tagString` se establecerá en 'No se establecen etiquetas'.
 
-### Deleting a tag
+### Eliminar una etiqueta
 
 <!-- eslint-skip -->
 
@@ -293,12 +294,13 @@ else if (command === 'deletetag') {
 	// equivalent to: DELETE from tags WHERE name = ?;
 	const rowCount = await Tags.destroy({ where: { name: tagName } });
 
-	if (!rowCount) return interaction.reply('That tag doesn\'t exist.');
+	if (!rowCount) return interaction.reply('Esa etiqueta no existe.');
 
-	return interaction.reply('Tag deleted.');
+	return interaction.reply('Etiqueta eliminada.');
 }
 ```
-`.destroy()` runs the delete operation. The operation returns a count of the number of affected rows. If it returns with a value of 0, then nothing was deleted, and that tag did not exist in the database in the first place.
+
+`destroy()` ejecuta la operación de eliminación. La operación devuelve un recuento del número de filas afectadas. Si devuelve un valor de 0, entonces no se eliminó nada, y esa etiqueta no existía en la base de datos en primer lugar.
 
 
 ## Resulting code
