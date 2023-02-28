@@ -28,6 +28,19 @@ Si no tienes conocimiento sobre JavaScript pero le gustaría aprenderlo, aquí t
 
 Elige el que prefieras, aprende algo de JavaScript y, cuando te sientas lo suficientemente seguro como para crear un bot, ¡vuelve y empieza!
 
+## Colaboradores principales
+
+Este proyecto es mantenido por las siguientes personas, que han contribuido con su tiempo y esfuerzo para hacer que esta guía sea accesible para todos:
+
+<DiscordMessages>
+	<DiscordMessage profile="nejire">
+		Aprender se trata de fallar, y fallar se trata de aprender.
+	</DiscordMessage>
+	<DiscordMessage profile="free">
+		La cosa importante no es dejar de preguntar. La curiosidad tiene su propia razón de ser.
+	</DiscordMessage>
+</DiscordMessages>
+
 <a href="https://www.netlify.com">
 	<img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg" alt="Deploys by Netlify" />
 </a>
