@@ -2,10 +2,6 @@
 
 Sequelize es un mapeador de objetos-relacionales, lo que significa que puede escribir una consulta usando objetos y que se ejecute en casi cualquier otro sistema de base de datos que Sequelize admita.
 
-### Why use an ORM?
-
-The main benefit of using an ORM like Sequelize is that it allows you to write code that virtually looks like native JavaScript. As a side benefit, an ORM will enable you to write code that can run in almost every database system. Although databases generally adhere very closely to SQL, they each have their slight nuances and differences. You can create a database-agnostic query using an ORM that works on multiple database systems.
-
 ### ¿Por qué usar un ORM?
 
 El principal beneficio de usar un ORM como Sequelize es que le permite escribir código que prácticamente se vea como JavaScript nativo. Como beneficio secundario, un ORM le permitirá escribir código que se pueda ejecutar en casi todos los sistemas de bases de datos. Aunque las bases de datos generalmente se adhieren muy de cerca a SQL, cada una tiene sus sutiles diferencias y diferencias. Puede crear una consulta de base de datos agnóstica usando un ORM que funcione en varios sistemas de bases de datos.
