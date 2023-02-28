@@ -52,7 +52,7 @@ Como mínimo, la definición de un comando de barra debe tener un nombre y una d
 ```js
 new SlashCommandBuilder()
 	.setName('ping')
-	.setDescription('Replies with Pong!');
+	.setDescription('Responde con Pong! 🏓');
 ```
 
 Un comando de barra también requiere una función que se ejecute cuando se utiliza el comando, para responder a la interacción. El uso de un método de respuesta a la interacción confirma a Discord que tu bot ha recibido correctamente la interacción y ha respondido al usuario. Discord impone esto para garantizar que todos los comandos de barra proporcionen una buena experiencia de usuario (UX). Si no respondes, Discord mostrará que el comando ha fallado, aunque tu bot esté realizando otras acciones como resultado.
