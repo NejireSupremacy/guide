@@ -1,12 +1,12 @@
-# Updating from v13 to v14
+# Actualizando de v13 a v14
 
-## Before you start
+## Antes de empezar
 
-v14 requires Node 16.9 or higher to use, so make sure you're up to date. To check your Node version, use `node -v` in your terminal or command prompt, and if it's not high enough, update it! There are many resources online to help you with this step based on your host system.
+Discord.js v14 requiere de Node.js 16.9 o una versión mayor para su uso, entonces asegúrate de que estés actualizado. Para comprobar tu versión de Node, usa `node -v` en tu terminal or símbolo del sistema, y si no cumple con la versión mínima, ¡actualízala! Hay muchos recursos en línea para ayudarte en este paso.
 
-### Builders are now included in v14
+### Ahora los Builders/Constructores se incluyen en v14
 
-If you previously had `@discordjs/builders`, `@discordjs/rest`, or `discord-api-types` manually installed, it's _highly_ recommended that you uninstall the packages to avoid package version conflicts.
+Si previamente tenías instalados manualmente los módulos `@discordjs/builders`, `@discordjs/rest`, o `discord-api-types`, es _muy recomendable_ que desinstales los paquetes para evitar conflictos de versiones.
 
 :::: code-group
 ::: code-group-item npm
@@ -32,37 +32,37 @@ pnpm remove @discordjs/builders @discordjs/rest
 :::
 ::::
 
-## Breaking Changes
+## Cambios importantes
 
-### API version
+### Versión de la API
 
-discord.js v14 makes the switch to Discord API v10!
+¡discord.js v14 hace el cambio a la versión 10 de la API de Discord!
 
-### Common Breakages
+### Cambios de cosas comunes
 
-### Enum Values
+### Valores de Enumeración
 
-Any areas that used to accept a `string` or `number` type for an enum parameter will now only accept exclusively `number`s.
+Todas las áreas que solían aceptar un tipo `string` o `number` para un parámetro de enumeración ahora sólo aceptarán exclusivamente `number`s.
 
-In addition, the old enums exported by discord.js v13 and lower are replaced with new enums from [discord-api-types](https://discord-api-types.dev/api/discord-api-types-v10/enum/ActivityFlags).
+Además, las antiguas enumeraciones exportadas por discord.js v13 e inferiores se sustituyen por las nuevas enumeraciones de la librería [discord-api-types](https://discord-api-types.dev/api/discord-api-types-v10/enum/ActivityFlags).
 
-#### New enum differences
+#### Nuevas diferencias de enumeraciones
 
-Most of the difference between enums from discord.js and discord-api-types can be summarized as so:
+La mayor parte de la diferencia entre las enumeraciones de discord.js y discord-api-types puede resumirse así:
 
-1. Enums are singular, i.e., `ApplicationCommandOptionTypes` -> `ApplicationCommandOptionType`
-2. Enums that are prefixed with `Message` no longer have the `Message` prefix, i.e., `MessageButtonStyles` -> `ButtonStyle`
-3. Enum values are `PascalCase` rather than `SCREAMING_SNAKE_CASE`, i.e., `.CHAT_INPUT` -> `.ChatInput`
+1. Las Enumeraciones son singulares, por ejemplo, `ApplicationCommandOptionTypes` pasa a ser `ApplicationCommandOptionType`.
+2. Las Enumeraciones relacionadas con `Message` ya no tienen el prefijo `Message`, por ejemplo, `MessageButtonStyles` pasa a ser `ButtonStyle`.
+3. Los valores de las Enumeraciones son `PascalCase` en lugar de `SCREAMING_SNAKE_CASE`, por ejemplo, `.CHAT_INPUT` pasa a ser `.ChatInput`.
 
-::: warning ADVERTENCIA
-You might be inclined to use raw `number`s (most commonly referred to as [magic numbers](<https://en.wikipedia.org/wiki/Magic_number_(programming)>)) instead of enum values. This is highly discouraged. Enums provide more readability and are more resistant to changes in the API. Magic numbers can obscure the meaning of your code in many ways, check out this [blog post](https://blog.webdevsimplified.com/2020-02/magic-numbers/) if you want more context on as to why they shouldn't be used.
+::: warning
+Es posible que te acostumbres a usar `number`s (más comúnmente conocidos como [números mágicos/magic numbers](<https://es.wikipedia.org/wiki/N%C3%BAmero_m%C3%A1gico_(inform%C3%A1tica)>)) en lugar de valores de enumeraciones. Esto debería cambiar. Las enumeraciones son más legibles y más resistentes a los cambios en la API. Los números mágicos pueden oscurecer el significado de tu código de muchas maneras, eche un vistazo a este [blog post](https://blog.webdevsimplified.com/2020-02/magic-numbers/) si deseas más información sobre por qué no deben ser utilizados.
 :::
 
-#### Common enum breakages
+#### Cambios comunes de enumeraciones
 
-Areas like `Client` initialization, JSON slash commands and JSON message components will likely need to be modified to accommodate these changes:
+Es probable que áreas como la inicialización del `Client`, los comandos de barra diagonal en JSON y los componentes de mensajes en JSON deban modificarse para adaptarse a estos cambios:
 
-##### Common Client Initialization Changes
+##### Cambios comunes en la inicialización de un cliente (`Client`)
 
 ```diff
 - const { Client, Intents } = require('discord.js');
@@ -72,7 +72,7 @@ Areas like `Client` initialization, JSON slash commands and JSON message compone
 + const client = new Client({ intents: [GatewayIntentBits.Guilds], partials: [Partials.Channel] });
 ```
 
-##### Common Application Command Data changes
+##### Cambios comunes en la información de Comandos de Aplicación
 
 ```diff
 + const { ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
@@ -82,15 +82,15 @@ const command = {
 - type: 'CHAT_INPUT',
 + type: ApplicationCommandType.ChatInput,
   options: [{
-    name: 'option',
-    description: 'A sample option',
+    name: 'opción',
+    description: 'Una opción de ejemplo',
 -   type: 'STRING',
 +   type: ApplicationCommandOptionType.String,
   }],
 };
 ```
 
-##### Common Button Data changes
+##### Cambios comunes en la información de Botones
 
 ```diff
 + const { ButtonStyle } = require('discord.js');
@@ -103,11 +103,11 @@ const button = {
 }
 ```
 
-### Removal of method-based type guards
+### Eliminación de las comprobaciones de tipo basadas en métodos
 
-#### Channels
+#### Canales
 
-Some channel type guard methods that narrowed to one channel type have been removed. Instead compare the `type` property against a [ChannelType](https://discord-api-types.dev/api/discord-api-types-v10/enum/ChannelType) enum member to narrow channels.
+Se han eliminado algunos métodos de comprobación/verificación de tipo de canal que se limitaban a un solo tipo de canal. En su lugar, se debería comparar la propiedad `type` con un miembro de la enumeración [ChannelType](https://discord-api-types.dev/api/discord-api-types-v10/enum/ChannelType) para restringir los canales.
 
 ```diff
 -channel.isText()
@@ -120,51 +120,51 @@ Some channel type guard methods that narrowed to one channel type have been remo
 +channel.type === ChannelType.DM
 ```
 
-### Builders
+### Builders/Constructores
 
-Builders are no longer returned by the API like they were previously. For example you send the API an `EmbedBuilder` but you receive an `Embed` of the same data from the API. This may affect how your code handles received structures such as components. Refer to [message component changes section](#messagecomponent) for more details.
+Los constructores ya no son devueltos por la API como antes. Por ejemplo, si tu envías a la API un `EmbedBuilder`, recibirás de la API un `Embed` con los mismos datos. Esto puede afectar al modo en que tu código gestiona las estructuras recibidas, como los componentes. Consulta la sección de [cambios en los componentes de mensajes](#componentes-de-mensaje) para obtener más detalles.
 
-Added `disableValidators()` and `enableValidators()` as top-level exports which disable or enable validation (enabled by default).
+Se han añadido `disableValidators()` y `enableValidators()` como métodos exportados que desactivan o activan la validación (activada por defecto).
 
-### Consolidation of `create()` & `edit()` parameters
+### Consolidación de los parámetros `create()` y `edit()`.
 
-Various `create()` and `edit()` methods on managers and objects have had their parameters consolidated. The changes are below:
+Se han consolidado los parámetros de varios métodos `create()` y `edit()` de administradores (Managers) y objetos. Los cambios son los siguientes:
 
-- `Guild#edit()` now takes `reason` in the `data` parameter
-- `GuildChannel#edit()` now takes `reason` in the `data` parameter
-- `GuildEmoji#edit()` now takes `reason` in the `data` parameter
-- `Role#edit()` now takes `reason` in the `data` parameter
-- `Sticker#edit()` now takes `reason` in the `data` parameter
-- `ThreadChannel#edit()` now takes `reason` in the `data` parameter
-- `GuildChannelManager#create()` now takes `name` in the `options` parameter
-- `GuildChannelManager#createWebhook()` (and other text-based channels) now takes `channel` and `name` in the `options` parameter
-- `GuildChannelManager#edit()` now takes `reason` as a part of `data`
-- `GuildEmojiManager#edit()` now takes `reason` as a part of `data`
-- `GuildManager#create()` now takes `name` as a part of `options`
-- `GuildMemberManager#edit()` now takes `reason` as a part of `data`
-- `GuildMember#edit()` now takes `reason` as a part of `data`
-- `GuildStickerManager#edit()` now takes `reason` as a part of `data`
-- `RoleManager#edit()` now takes `reason` as a part of `options`
-- `Webhook#edit()` now takes `reason` as a part of `options`
-- `GuildEmojiManager#create()` now takes `attachment` and `name` as a part of `options`
-- `GuildStickerManager#create()` now takes `file`, `name`, and `tags` as a part of `options`
+-   `Guild#edit()` ahora toma `reason` en el parámetro `data`
+-   `GuildChannel#edit()` ahora toma `reason` en el parámetro `data`
+-   `GuildEmoji#edit()` ahora toma `reason` en el parámetro `data`
+-   `Role#edit()` acepta ahora `reason` en el parámetro `data`
+-   `Sticker#edit()` toma ahora `reason` en el parámetro `data`
+-   `ThreadChannel#edit()` ahora toma `reason` en el parámetro `data`
+-   `GuildChannelManager#create()` ahora toma `name` en el parámetro `options`
+-   `GuildChannelManager#createWebhook()` ahora toma `channel` y `name` en el parámetro `options` (junto a otros canales basados en texto)
+-   `GuildChannelManager#edit()` ahora toma `reason` como parte de `data`
+-   `GuildEmojiManager#edit()` ahora toma `reason` como parte de `data`
+-   `GuildManager#create()` ahora toma `name` como parte de `options`
+-   `GuildMemberManager#edit()` ahora toma `reason` como parte de `data`
+-   Ahora `GuildMember#edit()` toma `reason` como parte de `data`
+-   `GuildStickerManager#edit()` ahora toma `reason` como parte de `data`
+-   `RoleManager#edit()` ahora toma `reason` como parte de `options`
+-   `Webhook#edit()` ahora toma `reason` como parte de `options`
+-   `GuildEmojiManager#create()` ahora toma `attachment` y `name` como parte de `options`
+-   `GuildStickerManager#create()`toma ahora `file`, `name` y `tags` como parte de `options`
 
-### Activity
+### Actividad
 
-The following properties have been removed as they are not documented by Discord:
+Las siguientes propiedades han sido eliminadas ya que no están documentadas por Discord:
 
 -   `Activity#id`
 -   `Activity#platform`
 -   `Activity#sessionId`
 -   `Activity#syncId`
 
-### Application
+### Aplicación
 
-`Application#fetchAssets()` has been removed as it is no longer supported by the API.
+Se ha eliminado el método `Application#fetchAssets()` porque ya no es compatible con la API.
 
 ### BitField
 
--   BitField constituents now have a `BitField` suffix to avoid naming conflicts with the enum names:
+-   Los campos de bits (BitField) tienen ahora un sufijo `BitField` para evitar conflictos de nombres con las enumeraciones:
 
 ```diff
 - new Permissions()
@@ -192,19 +192,19 @@ The following properties have been removed as they are not documented by Discord
 + new ActivityFlagsBitField()
 ```
 
--   `#FLAGS` has been renamed to `#Flags`
+-   `#FLAGS` ha sido renombrado a `#Flags`.
 
 ### CDN
 
-Methods that return CDN URLs will now return a dynamic image URL (if available). This behavior can be overridden by setting `forceStatic` to `true` in the `ImageURLOptions` parameters.
+Los métodos que devuelven URLs de la CDN ahora devolverán por defecto una URL de imagen dinámica (que incluye movimiento), si está disponible. Este comportamiento puede modificarse estableciendo la propiedad `forceStatic` en `true` en el parámetro `ImageURLOptions`.
 
 ### CategoryChannel
 
-`CategoryChannel#children` is no longer a `Collection` of channels the category contains. It is now a manager (`CategoryChannelChildManager`). This also means `CategoryChannel#createChannel()` has been moved to the `CategoryChannelChildManager`.
+`CategoryChannel#children` ya no es una `Collection` de canales que contiene la categoría. Ahora es un administrador/manager (`CategoryChannelChildManager`). Esto también significa que `CategoryChannel#createChannel()` ha sido trasladado dentro de `CategoryChannelChildManager`.
 
 ### Channel
 
-The following type guards have been removed:
+Los siguientes métodos de comprobaciones de tipo de canal han sido removidos:
 
 -   `Channel#isText()`
 -   `Channel#isVoice()`
@@ -214,19 +214,19 @@ The following type guards have been removed:
 -   `Channel#isCategory()`
 -   `Channel#isNews()`
 
-Refer to [this section](#channels) for more context.
+Consulta a [esta sección](#channels) para más información.
 
 ### Client
 
-The `restWsBridgeTimeout` client option has been removed.
+Se ha eliminado la opción del cliente `restWsBridgeTimeout`.
 
 ### CommandInteractionOptionResolver
 
-`CommandInteractionOptionResolver#getMember()` no longer has a parameter for `required`. See [this pull request](https://github.com/discordjs/discord.js/pull/7188) for more information.
+`CommandInteractionOptionResolver#getMember()` ya no tiene un parámetro para la opción `required`. Mira [este pull request en GitHub](https://github.com/discordjs/discord.js/pull/7188) para más información.
 
 ### `Constants`
 
--   Many constant objects and key arrays are now top-level exports for example:
+-   Muchos objetos constantes y arrays son ahora exportados, puedes utilizarlos así:
 
 ```diff
 - const { Constants } = require('discord.js');
@@ -234,9 +234,9 @@ The `restWsBridgeTimeout` client option has been removed.
 + const { Colors } = require('discord.js');
 ```
 
--   The refactored constants structures have `PascalCase` member names as opposed to `SCREAMING_SNAKE_CASE` member names.
+-   Las estructuras constantes tienen nombres de tipo `PascalCase` en lugar de `SCREAMING_SNAKE_CASE`.
 
--   Many of the exported constants structures have been replaced and renamed:
+-   Se han sustituido y renombrado muchas de las estructuras constantes exportadas:
 
 ```diff
 - Opcodes
@@ -252,17 +252,17 @@ The `restWsBridgeTimeout` client option has been removed.
 + OAuth2Scopes
 ```
 
-### Events
+### Eventos
 
-The `message` and `interaction` events are now removed. Use `messageCreate` and `interactionCreate` instead.
+Los eventos `message` e `interaction` han sido eliminados. Utiliza `messageCreate` e `interactionCreate` en su lugar.
 
-`applicationCommandCreate`, `applicationCommandDelete` and `applicationCommandUpdate` have all been removed. See [this pull request](https://github.com/discordjs/discord.js/pull/6492) for more information.
+Se han eliminado los comandos `applicationCommandCreate`, `applicationCommandDelete` y `applicationCommandUpdate`. Consulta [este pull request en GitHub](https://github.com/discordjs/discord.js/pull/6492) para obtener más información.
 
-The `threadMembersUpdate` event now emits the users who were added, the users who were removed, and the thread respectively.
+El evento `threadMembersUpdate` ahora emite información acerca de los usuarios que fueron añadidos, los usuarios que fueron eliminados, y del hilo respectivamente.
 
 ### GuildBanManager
 
-Starting from 14.4.0, developers should utilise `deleteMessageSeconds` instead of `days` and `deleteMessageDays`:
+A partir de la versión 14.4.0, los desarrolladores deberán utilizar `deleteMessageSeconds` en lugar de `days` y `deleteMessageDays`:
 
 ```diff
 <GuildBanManager>.create('123456789', {
@@ -272,21 +272,21 @@ Starting from 14.4.0, developers should utilise `deleteMessageSeconds` instead o
 });
 ```
 
-`deleteMessageDays` (introduced with version 14) and `days` are both deprecated and will be removed in the future.
+Tanto `deleteMessageDays` (introducido en la versión 14) como `days` están obsoletos y se eliminarán en el futuro.
 
 ### Guild
 
-`Guild#setRolePositions()` and `Guild#setChannelPositions()` have been removed. Use `RoleManager#setPositions()` and `GuildChannelManager#setPositions()` instead respectively.
+Se han eliminado los métodos `Guild#setRolePositions()` y `Guild#setChannelPositions()`. En su lugar, utiliza `RoleManager#setPositions()` y `GuildChannelManager#setPositions()` respectivamente.
 
-`Guild#maximumPresences` no longer has a default value of 25,000.
+`Guild#maximumPresences` ya no tiene un valor por defecto de 25.000.
 
-`Guild#me` has been moved to `GuildMemberManager#me`. See [this pull request](https://github.com/discordjs/discord.js/pull/7669) for more information.
+`Guild#me` ha sido trasladado a `GuildMemberManager#me`. Consulta [este pull request en GitHub](https://github.com/discordjs/discord.js/pull/7669) para obtener más información.
 
 ### GuildAuditLogs & GuildAuditLogsEntry
 
-`GuildAuditLogs.build()` has been removed as it has been deemed defunct. There is no alternative.
+Se ha eliminado el método `GuildAuditLogs.build()` por considerarse obsoleto. No hay alternativa.
 
-The following properties & methods have been moved to the `GuildAuditLogsEntry` class:
+Las siguientes propiedades y métodos se han trasladado a la clase `GuildAuditLogsEntry`:
 
 -   `GuildAuditLogs.Targets`
 -   `GuildAuditLogs.actionType()`
@@ -294,33 +294,33 @@ The following properties & methods have been moved to the `GuildAuditLogsEntry` 
 
 ### GuildMember
 
-`GuildMember#pending` is now nullable to account for partial guild members. See [this issue](https://github.com/discordjs/discord.js/issues/6546) for more information.
+`GuildMember#pending` es ahora anulable (`null`) para tener en cuenta a los miembros parciales del servidor. Consulta [este issue en GitHub](https://github.com/discordjs/discord.js/issues/6546) para obtener más información.
 
 ### IntegrationApplication
 
-`IntegrationApplication#summary` has been removed as it is no longer supported by the API.
+Se ha eliminado la propiedad `IntegrationApplication#summary` porque ya no es compatible con la API.
 
 ### Interaction
 
-Whenever an interaction is replied to and one fetches the reply, it could possibly give an `APIMessage` if the guild was not cached. However, interaction replies now always return a discord.js `Message` object with `fetchReply` as `true`.
+Cada vez que se responde a una interacción y se obtiene la respuesta, podía devolver un `APIMessage` si el servidor (`Guild`) no estaba en caché. Sin embargo, ahora las respuestas de interacción siempre devuelven un objeto `Message` (de discord.js) con `fetchReply` como `true`.
 
 ### Invite
 
-`Invite#channel` and `Invite#inviter` are now getters and resolve structures from the cache.
+`Invite#channel` e `Invite#inviter` resuelven estructuras de la caché.
 
 ### MessageAttachment
 
--   `MessageAttachment` has now been renamed to `AttachmentBuilder`.
+-   `MessageAttachment` ha sido renombrado a `AttachmentBuilder`.
 
 ```diff
-- new MessageAttachment(buffer, 'image.png');
+- new MessageAttachment(buffer, 'imagen.png');
 
-+ new AttachmentBuilder(buffer, { name: 'image.png' });
++ new AttachmentBuilder(buffer, { name: 'imagen.png' });
 ```
 
-### MessageComponent
+### Componentes de Mensaje
 
--   MessageComponents have been renamed as well. They no longer have the `Message` prefix, and now have a `Builder` suffix:
+-   Los Componentes de Mensaje (MessageComponents) también han cambiado de nombre. Ya no tienen el prefijo `Message`, y ahora tienen un sufijo `Builder`:
 
 ```diff
 - const button = new MessageButton();
@@ -336,20 +336,20 @@ Whenever an interaction is replied to and one fetches the reply, it could possib
 + const textInput = new TextInputBuilder();
 ```
 
--   Components received from the API are no longer directly mutable. If you wish to mutate a component from the API, use `ComponentBuilder#from`. For example, if you want to make a button mutable:
+-   Los componentes recibidos de la API ya no son directamente modificables. Si deseas modificar un componente, utiliza `ComponentBuilder#from`. Por ejemplo, si deseas modificar un botón:
 
 ```diff
-- const editedButton = receivedButton
+- const botónEditado = botónRecibido
 -   .setDisabled(true);
 
 + const { ButtonBuilder } = require('discord.js');
-+ const editedButton = ButtonBuilder.from(receivedButton)
++ const botónEditado = ButtonBuilder.from(botónRecibido)
 +   .setDisabled(true);
 ```
 
 ### MessageManager
 
-`MessageManager#fetch()`'s second parameter has been removed. The `BaseFetchOptions` the second parameter once was is now merged into the first parameter.
+Se ha eliminado el segundo parámetro de `MessageManager#fetch()`. El segundo parámetro, `BaseFetchOptions`, se ha fusionado con el primer parámetro.
 
 ```diff
 - messageManager.fetch('1234567890', { cache: false, force: true });
@@ -358,32 +358,32 @@ Whenever an interaction is replied to and one fetches the reply, it could possib
 
 ### MessageSelectMenu
 
--   `MessageSelectMenu` has been renamed to `StringSelectMenuBuilder`
+-   `MessageSelectMenu` ha sido renombrado a `StringSelectMenuBuilder`
 
--   `StringSelectMenuBuilder#addOption()` has been removed. Use `StringSelectMenuBuilder#addOptions()` instead.
+-   `StringSelectMenuBuilder#addOption()` ha sido removido. Usa `StringSelectMenuBuilder#addOptions()` en su lugar.
 
 ### MessageEmbed
 
--   `MessageEmbed` has now been renamed to `EmbedBuilder`.
+-   `MessageEmbed` ha sido renombrado a `EmbedBuilder`.
 
--   `EmbedBuilder#setAuthor()` now accepts a sole [`EmbedAuthorOptions`](https://discord.js.org/#/docs/builders/main/typedef/EmbedAuthorData) object.
+-   `EmbedBuilder#setAuthor()` acepta ahora un único objeto [`EmbedAuthorOptions`](https://discord.js.org/#/docs/builders/main/typedef/EmbedAuthorData).
 
--   `EmbedBuilder#setFooter()` now accepts a sole [`FooterOptions`](https://discord.js.org/#/docs/builders/main/typedef/EmbedFooterOptions) object.
+-   `EmbedBuilder#setFooter()` acepta ahora un único objeto [`FooterOptions`](https://discord.js.org/#/docs/builders/main/typedef/EmbedFooterOptions) object.
 
--   `EmbedBuilder#addField()` has been removed. Use `EmbedBuilder#addFields()` instead.
+-   El método `EmbedBuilder#addField()` ha sido removido. Usa `EmbedBuilder#addFields()` en su lugar.
 
 ```diff
-- new MessageEmbed().addField('Inline field title', 'Some value here', true);
+- new MessageEmbed().addField('Título del field', 'Algún valor aquí', true);
 
 + new EmbedBuilder().addFields([
-+  { name: 'one', value: 'one' },
-+  { name: 'two', value: 'two' },
++  { name: 'uno', value: 'uno' },
++  { name: 'dos', value: 'dos' },
 +]);
 ```
 
 ### Modal
 
--   `Modal` has been renamed as well and now has a `Builder` suffix:
+-   También se ha cambiado el nombre de `Modal`, que ahora tiene el sufijo `Builder`:
 
 ```diff
 - const modal = new Modal();
@@ -392,44 +392,44 @@ Whenever an interaction is replied to and one fetches the reply, it could possib
 
 ### PartialTypes
 
-The `PartialTypes` string array has been removed. Use the `Partials` enum instead.
+El array de cadenas de texto `PartialTypes` ha sido eliminada. En su lugar, utilice la enumeración `Partials`.
 
-In addition to this, there is now a new partial: `Partials.ThreadMember`.
+Además, ahora hay un nuevo partial: `Partials.ThreadMember`.
 
 ### Permissions
 
-Thread permissions `USE_PUBLIC_THREADS` and `USE_PRIVATE_THREADS` have been removed as they are deprecated in the API. Use `CREATE_PUBLIC_THREADS` and `CREATE_PRIVATE_THREADS` respectively.
+Los permisos `USE_PUBLIC_THREADS` y `USE_PRIVATE_THREADS` han sido eliminados por estar obsoletos en la API. Utiliza `CREATE_PUBLIC_THREADS` y `CREATE_PRIVATE_THREADS` respectivamente.
 
 ### PermissionOverwritesManager
 
-Overwrites are now keyed by the `PascalCase` permission key rather than the `SCREAMING_SNAKE_CASE` permission key.
+Las sobrescrituras de permisos (Overwrites) se realizan ahora con el permiso en una cadena de texto del tipo `PascalCase` en lugar de una de tipo `SCREAMING_SNAKE_CASE`.
 
-### REST Events
+### Eventos REST
 
 #### apiRequest
 
-This REST event has been removed as discord.js now uses [Undici](https://github.com/nodejs/undici) as the underlying request handler. You must now use a [Diagnostics Channel](https://undici.nodejs.org/#/docs/api/DiagnosticsChannel). Here is a simple example:
+Este evento REST se ha eliminado ya que discord.js utiliza ahora [Undici](https://github.com/nodejs/undici) como gestor de peticiones. Ahora debe utilizar un [diagnostics channel](https://undici.nodejs.org/#/docs/api/DiagnosticsChannel). Mira este ejemplo sencillo:
 
 ```js
-import diagnosticsChannel from 'node:diagnostics_channel';
+import diagnosticsChannel from "node:diagnostics_channel";
 
-diagnosticsChannel.channel('undici:request:create').subscribe(data => {
-	// If you use TypeScript, `data` may be casted as
+diagnosticsChannel.channel("undici:request:create").subscribe((data) => {
+	// Si usas TypeScript, `data` puede ser interpretado como
 	// `DiagnosticsChannel.RequestCreateMessage`
-	// from Undici to receive type definitions.
+	// de Undici para recibir definiciones de tipos.
 	const { request } = data;
-	console.log(request.method); // Log the method
-	console.log(request.path); // Log the path
-	console.log(request.headers); // Log the headers
-	console.log(request); // Or just log everything!
+	console.log(request.method); // Registra el método (method)
+	console.log(request.path); // Registra el camino (path)
+	console.log(request.headers); // Registra los headers
+	console.log(request); // ¡O solo registra todo!
 });
 ```
 
-You can find further examples at the [Undici Diagnostics Channel documentation](https://undici.nodejs.org/#/docs/api/DiagnosticsChannel).
+Encontrará más ejemplos en la [Documentación del diagnostics channel de Undici](https://undici.nodejs.org/#/docs/api/DiagnosticsChannel).
 
 #### apiResponse
 
-This REST event has been renamed to `response` and moved to `Client#rest`:
+Este evento REST ha sido renombrado a `response` y trasladado a `Client#rest`:
 
 ```diff
 - client.on('apiResponse', ...);
@@ -438,7 +438,7 @@ This REST event has been renamed to `response` and moved to `Client#rest`:
 
 #### invalidRequestWarning
 
-This REST event has been moved to `Client#rest`:
+Este evento REST se ha trasladado a `Client#rest`:
 
 ```diff
 - client.on('invalidRequestWarning', ...);
@@ -447,7 +447,7 @@ This REST event has been moved to `Client#rest`:
 
 #### rateLimit
 
-This REST event has been renamed to `rateLimited` and moved to `Client#rest`:
+Este evento REST ha sido renombrado a `rateLimited` y trasladado a `Client#rest`:
 
 ```diff
 - client.on('rateLimit', ...);
@@ -456,41 +456,41 @@ This REST event has been renamed to `rateLimited` and moved to `Client#rest`:
 
 ### RoleManager
 
-`Role.comparePositions()` has been removed. Use `RoleManager#comparePositions()` instead.
+Se ha eliminado `Role.comparePositions()`. Utiliza `RoleManager#comparePositions()` en su lugar.
 
 ### Sticker
 
-`Sticker#tags` is now a nullable string (`string | null`). Previously, it was a nullable array of strings (`string[] | null`). See [this pull request](https://github.com/discordjs/discord.js/pull/8010/files) for more information.
+`Sticker#tags` es ahora una cadena anulable (`string | null`). Anteriormente, era un array anulable de cadenas de texto (`string[] | null`). Mira [este pull request en GitHub](https://github.com/discordjs/discord.js/pull/8010/files) para más información.
 
 ### ThreadChannel
 
-The `MAX` helper used in `ThreadAutoArchiveDuration` has been removed. Discord has since allowed any guild to use any auto archive time which makes this helper redundant.
+El ayudante `MAX` utilizado en `ThreadAutoArchiveDuration` ha sido eliminado. Discord ha permitido a cualquier servidor utilizar cualquier tiempo de archivo de hilos automático, lo que hace que este ayudante sea redundante.
 
 ### ThreadMemberManager
 
-`ThreadMemberManager#fetch()`'s second parameter has been removed. The `BaseFetchOptions` the second parameter once was is now merged into the first parameter. In addition, the boolean helper to specify `cache` has been removed.
+Se ha eliminado el segundo parámetro de `ThreadMemberManager#fetch()`. El `BaseFetchOptions` que era el segundo parámetro se ha fusionado con el primer parámetro. Además, se ha eliminado la ayuda tipo `boolean` para especificar la opción de `cache`.
 
-Usage is now as follows:
+El uso es ahora el siguiente:
 
 ```diff
-// The second parameter is merged into the first parameter.
+// El segundo parámetro se fusiona con el primero.
 - threadMemberManager.fetch('1234567890', { cache: false, force: true });
 + threadMemberManager.fetch({ member: '1234567890', cache: false, force: true });
 
-// The lone boolean has been removed. One must be explicit here.
+// Se ha eliminado el único boolean. Aquí hay que ser explícito.
 - threadMemberManager.fetch(false);
 + threadMemberManager.fetch({ cache: false });
 ```
 
 ### Util
 
-`Util.removeMentions()` has been removed. To control mentions, you should use `allowedMentions` on `MessageOptions` instead.
+Se ha eliminado `Util.removeMentions()`. Para controlar las menciones, utiliza `allowedMentions` en `MessageOptions`.
 
-`Util.splitMessage()` has been removed. This utility method is something the developer themselves should do.
+Se ha eliminado `Util.splitMessage()`. Este método de utilidad es algo que debe hacer el propio desarrollador.
 
-`Util.resolveAutoArchiveMaxLimit()` has been removed. Discord has since allowed any guild to use any auto archive time which makes this method redundant.
+Se ha eliminado `Util.resolveAutoArchiveMaxLimit()`. Desde entonces, Discord permite a cualquier servidor utilizar cualquier tiempo de archivado de hilo automático, lo que hace que este método sea redundante.
 
-Other functions in `Util` have been moved to top-level exports so you can directly import them from `discord.js`.
+Otras funciones de `Util` se han exportado para que puedas importarlas directamente desde `discord.js`.
 
 ```diff
 - import { Util } from 'discord.js';
@@ -499,39 +499,39 @@ Other functions in `Util` have been moved to top-level exports so you can direct
 + escapeMarkdown(message);
 ```
 
-### `.deleted` Field(s) have been removed
+### Campos `.deleted` han sido removidos
 
-You can no longer use the `deleted` property to check if a structure was deleted. See [this issue](https://github.com/discordjs/discord.js/issues/7091) for more information.
+Ya no se puede utilizar la propiedad `deleted` para comprobar si se ha borrado una estructura. Consulte [este issue en GitHub](https://github.com/discordjs/discord.js/issues/7091) para obtener más información.
 
 ### VoiceChannel
 
-`VoiceChannel#editable` has been removed. You should use `GuildChannel#manageable` instead.
+Se ha eliminado `VoiceChannel#editable`. En su lugar, utiliza `GuildChannel#manageable`.
 
-Many of the analogous enums can be found in the discord-api-types docs. [discord-api-types](https://discord-api-types.dev/api/discord-api-types-v10/enum/ActivityFlags)
+Muchos de las enumeraciones se pueden encontrar en la documentación de discord-api-types. [discord-api-types](https://discord-api-types.dev/api/discord-api-types-v10/enum/ActivityFlags)
 
 ### VoiceRegion
 
-`VoiceRegion#vip` has been removed as it is no longer part of the API.
+Se ha eliminado `VoiceRegion#vip` porque ya no forma parte de la API.
 
 ### Webhook
 
-`Webhook#fetchMessage()` now only takes one sole object of type `WebhookFetchMessageOptions`.
+`Webhook#fetchMessage()` ahora sólo toma un argumento de tipo `WebhookFetchMessageOptions`.
 
-## Features
+## Características
 
 ### AutocompleteInteraction
 
-`AutocompleteInteraction#commandGuildId` has been added which is the id of the guild the invoked application command is registered to.
+Se ha añadido `AutocompleteInteraction#commandGuildId` que es el id del servidor al que está registrado el comando de aplicación invocado.
 
 ### Channel
 
-`Channel#flags` has been added as of 14.4.0.
+Se ha añadido `Channel#flags` a partir de la versión 14.4.0.
 
-Store channels have been removed as they are no longer part of the API.
+Los canales de tienda (Store) se han eliminado porque ya no forman parte de la API.
 
-`Channel#url` has been added which is a link to a channel, just like in the client.
+Se ha añadido `Channel#url` que es un enlace a un canal, igual que en el cliente.
 
-Additionally, new typeguards have been added:
+Adicionalmente, nuevos métodos de comprobación de tipos de canal han sido añadidos:
 
 -   `Channel#isDMBased()`
 -   `Channel#isTextBased()`
@@ -539,14 +539,14 @@ Additionally, new typeguards have been added:
 
 ### Collection
 
--   Added `Collection#merge()` and `Collection#combineEntries()`.
--   New type: `ReadonlyCollection` which indicates an immutable `Collection`.
+-   Añadidas funciones `Collection#merge()` y `Collection#combineEntries()`.
+-   Nuevo tipo: `ReadonlyCollection` que indica una `Collection` no modificable.
 
 ### Collector
 
-A new `ignore` event has been added which is emitted whenever an element is not collected by the collector.
+Se ha añadido un nuevo evento `ignore` que se emite cada vez que un elemento no es recogido por el `Collector`.
 
-Component collector options now use the `ComponentType` enum values:
+Las opciones del recolector de componentes ahora utilizan los valores de la enumeración `ComponentType`:
 
 ```diff
 + const { ComponentType } = require('discord.js');
@@ -561,53 +561,53 @@ const collector = interaction.channel.createMessageComponentCollector({
 
 ### CommandInteraction
 
-`CommandInteraction#commandGuildId` has been added which is the id of the guild the invoked application command is registered to.
+Se ha añadido `CommandInteraction#commandGuildId` que es el id del servidor al que está registrado el comando de aplicación invocado.
 
 ### ForumChannel
 
-Added support for forum channels as of 14.4.0.
+Se añadió soporte para los canales de foros a partir de la versión 14.4.0.
 
 ### Guild
 
-Added `Guild#setMFALevel()` which sets the guild's MFA level.
+Añadido `Guild#setMFALevel()` que establece el nivel 2FA para la moderación del servidor.
 
-Added `Guild#maxVideoChannelUsers` as of 14.2.0 which indicates the maximum number of video channel users.
+Se ha añadido `Guild#maxVideoChannelUsers` a partir de la versión 14.2.0, que indica el número máximo de usuarios del canal de voz con vídeo.
 
 ### GuildChannelManager
 
-`videoQualityMode` may be used whilst creating a channel to initially set the camera video quality mode.
+Se puede utilizar `videoQualityMode` al crear un canal para establecer inicialmente el modo de calidad de vídeo de la cámara.
 
 ### GuildEmojiManager
 
-Added `GuildEmojiManager#delete()` and `GuildEmojiManager#edit()` for managing existing guild emojis.
+Se añadió `GuildEmojiManager#delete()` y `GuildEmojiManager#edit()` para gestionar los emojis de servidor existentes.
 
-### GuildForumThreadManager 
+### GuildForumThreadManager
 
-Added `GuildForumThreadManager` as manager for threads in forum channels as of 14.4.0.
+Se añadió `GuildForumThreadManager` como administrador (Manager) de hilos en canales de foros a partir de la versión 14.4.0.
 
 ### GuildMemberManager
 
-Added `GuildMemberManager#fetchMe()` to fetch the client user in the guild.
-Added `GuildMemberManager#addRole()` and `GuildMemberManager#removeRole()` as of 14.3.0. These methods allow a single addition or removal of a role respectively to a guild member, even if uncached.
+Se añadió el método `GuildMemberManager#fetchMe()` para buscar el usuario cliente en el servidor.
+se añadieron los métodos `GuildMemberManager#addRole()` y `GuildMemberManager#removeRole()` a partir de la versión 14.3.0. Estos métodos permiten una única adición o eliminación de un rol respectivamente a un miembro del servidor, incluso si no está almacenado en caché.
 
 ### GuildTextThreadManager
 
-Added `GuildTextThreadManager` as manager for threads in text channels and announcement channels as of 14.4.0.
+Se añadió `GuildTextThreadManager` como administrador (Manager) de hilos en canales de texto y canales de anuncios a partir de la versión 14.4.0.
 
 ### Interaction
 
-Added `Interaction#isRepliable()` to check whether a given interaction can be replied to.
+Se añadió el método `Interaction#isRepliable()` para comprobar si se puede responder a una interacción dada.
 
 ### Message
 
-`Message#position` has been added as an approximate position in a thread as of 14.4.0.
+Se ha añadido `Message#position` como una posición aproximada del mensaje en un hilo a partir de la versión 14.4.0.
 
 ### MessageReaction
 
-Added `MessageReaction#react()` to make the client user react with the reaction the class belongs to.
+Se añadió `MessageReaction#react()` para hacer que el usuario cliente reaccione con la reacción a la que pertenece la clase.
 
 ### Webhook
 
-Added `Webhook#applicationId`.
+Se añadió la propiedad `Webhook#applicationId`.
 
-Added property `threadName` in `Webhook#send()` options as of 14.4.0 which allows a webhook to create a post in a forum channel.
+Se añadió la propiedad `threadName` en las opciones de `Webhook#send()` a partir de la versión 14.4.0 que permite a un webhook crear un post en un canal del foro.
