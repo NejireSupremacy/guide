@@ -214,7 +214,7 @@ Los siguientes métodos de comprobaciones de tipo de canal han sido removidos:
 -   `Channel#isCategory()`
 -   `Channel#isNews()`
 
-Consulta a [esta sección](#channels) para más información.
+Consulta a [esta sección](#canales) para más información.
 
 ### Client
 
