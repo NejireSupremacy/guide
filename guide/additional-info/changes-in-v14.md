@@ -256,7 +256,7 @@ Se ha eliminado la opción del cliente `restWsBridgeTimeout`.
 
 Los eventos `message` e `interaction` han sido eliminados. Utiliza `messageCreate` e `interactionCreate` en su lugar.
 
-Se han eliminado los comandos `applicationCommandCreate`, `applicationCommandDelete` y `applicationCommandUpdate`. Consulta [este pull request en GitHub](https://github.com/discordjs/discord.js/pull/6492) para obtener más información.
+Se han eliminado los eventos `applicationCommandCreate`, `applicationCommandDelete` y `applicationCommandUpdate`. Consulta [este pull request en GitHub](https://github.com/discordjs/discord.js/pull/6492) para obtener más información.
 
 El evento `threadMembersUpdate` ahora emite información acerca de los usuarios que fueron añadidos, los usuarios que fueron eliminados, y del hilo respectivamente.
 
