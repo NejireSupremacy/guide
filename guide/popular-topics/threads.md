@@ -4,7 +4,7 @@ Threads can be thought of as temporary sub-channels inside an existing channel, 
 
 ## Thread related gateway events
 
-::: tip
+::: tip CONSEJO
 You can use the <DocsLink path="class/ThreadChannel?scrollTo=isThread" type="method" /> type guard to make sure a channel is a <DocsLink path="class/ThreadChannel" />!
 :::
 
@@ -90,7 +90,7 @@ await thread.setLocked(true); // locked
 await thread.setLocked(false); // unlocked
 ```
 
-::: warning
+::: warning ADVERTENCIA
 Archived threads can't be locked!
 :::
 

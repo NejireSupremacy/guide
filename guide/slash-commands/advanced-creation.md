@@ -6,7 +6,7 @@ Los ejemplos que hemos cubierto hasta ahora han sido comandos bastante simples, 
 
 Los comandos de la aplicación pueden tener `options` adicionales. Piense en estas opciones como argumentos para una función y como una forma para que el usuario proporcione la información adicional que requiere el comando.
 
-::: tip
+::: tip CONSEJO
 Si ya agregó opciones a sus comandos y necesita saber cómo recibirlos y analizarlos, consulte la página [Opciones de análisis](/slash-commands/parsing-options.md) en esta sección de la guía.
 :::
 
@@ -68,7 +68,7 @@ A continuación se incluye una breve descripción de los diferentes tipos de opc
 * Las opciones de `Attachment` solicitan al usuario que adjunte un archivo al comando de barra.
 * Las opciones `Subcommand` y `SubcommandGroup` le permiten tener vías de bifurcación de opciones subsiguientes para sus comandos; más sobre eso más adelante en esta página.
 
-::: tip
+::: tip CONSEJO
 Consulte la documentación de la API de Discord para obtener explicaciones detalladas sobre [los tipos de opción `SUB_COMMAND` y `SUB_COMMAND_GROUP`](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups).
 
 :::
@@ -95,7 +95,7 @@ const data = new SlashCommandBuilder()
 
 Los tipos de opción `String`, `Number` y `Integer` pueden tener `choices`. Si prefiere que los usuarios seleccionen entre valores predeterminados en lugar de una entrada libre, `choices` puede ayudarlo a hacer cumplir esto. Esto es particularmente útil cuando se trata de conjuntos de datos externos, API y similares, donde se requieren formatos de entrada específicos.
 
-::: warning
+::: warning ADVERTENCIA
 Si especifica `choices` para una opción, ¡serán los **únicos** valores válidos que los usuarios pueden elegir!
 :::
 

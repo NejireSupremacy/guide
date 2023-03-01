@@ -1,6 +1,6 @@
 # Borrar comandos
 
-::: tip
+::: tip CONSEJO
 Esta página es una continuación de [subiendo tus comandos](/creating-your-bot/command-deployment.md). Para eliminar comandos, es necesario registrarlos en primer lugar.
 :::
 
@@ -10,7 +10,7 @@ Puede que hayas decidido que ya no necesitas un comando y no quieres que tus usu
 
 Para eliminar un comando específico, necesitarás su id. Ve a **Configuración del servidor -> Integraciones -> Bots y aplicaciones** y elige tu bot. A continuación, haz clic con el botón derecho en un comando y haz clic en **Copiar ID**.
 
-::: tip
+::: tip CONSEJO
 Necesitas tener activado el [Modo Desarrollador](https://support.discord.com/hc/articles/206346498) para que aparezca.
 :::
 

@@ -78,7 +78,7 @@ interaction.reply({ content: item.question, fetchReply: true })
 	});
 ```
 
-::: tip
+::: tip CONSEJO
 If you don't understand how `.some()` works, you can read about it in more detail [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some).
 :::
 

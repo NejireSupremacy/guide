@@ -22,7 +22,7 @@ Haz clic en el botón "Add Bot" de la derecha y confirma la ventana emergente ha
 
 ## El token de tu bot
 
-::: danger
+::: danger CUIDADO
 Esta sección es crítica, así que presta mucha atención. Explica qué es tu token bot, así como sus aspectos de seguridad.
 :::
 
@@ -52,6 +52,6 @@ Todo eso y mucho, mucho más. Suena bastante terrible, ¿verdad? Así que asegú
 
 En la página [archivos iniciales](/creating-your-bot/) de la guía, cubrimos cómo almacenar de forma segura el token de tu bot en un archivo de configuración.
 
-::: danger
+::: danger CUIDADO
 Si el token de tu bot se ha visto comprometido al enviarlo a un repositorio público, publicarlo en el soporte de discord.js, etc., o ves que el token de tu bot está en peligro, vuelve a esta página y pulsa "Reset Token". Esto invalidará todos los tokens antiguos pertenecientes a tu bot. Ten en cuenta que tendrás que actualizar el token de tu bot donde lo usabas antes.
 :::

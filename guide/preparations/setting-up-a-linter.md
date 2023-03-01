@@ -42,7 +42,7 @@ Una de las ventajas de los editores de código es su capacidad para integrar lin
 * [ESLint para Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 * [ESLint para Sublime Text](https://packagecontrol.io/packages/ESLint)
 
-::: tip
+::: tip CONSEJO
 Puedes ver los plugins directamente dentro de tu editor.
 
 - Visual Studio Code: Presiona  `Ctrl + Shift + X`

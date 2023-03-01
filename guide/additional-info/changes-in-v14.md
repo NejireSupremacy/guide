@@ -54,7 +54,7 @@ Most of the difference between enums from discord.js and discord-api-types can b
 2. Enums that are prefixed with `Message` no longer have the `Message` prefix, i.e., `MessageButtonStyles` -> `ButtonStyle`
 3. Enum values are `PascalCase` rather than `SCREAMING_SNAKE_CASE`, i.e., `.CHAT_INPUT` -> `.ChatInput`
 
-::: warning
+::: warning ADVERTENCIA
 You might be inclined to use raw `number`s (most commonly referred to as [magic numbers](<https://en.wikipedia.org/wiki/Magic_number_(programming)>)) instead of enum values. This is highly discouraged. Enums provide more readability and are more resistant to changes in the API. Magic numbers can obscure the meaning of your code in many ways, check out this [blog post](https://blog.webdevsimplified.com/2020-02/magic-numbers/) if you want more context on as to why they shouldn't be used.
 :::
 

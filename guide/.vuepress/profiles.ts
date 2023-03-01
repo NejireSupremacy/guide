@@ -2,7 +2,8 @@ import djsAvatar from './assets/discord-avatar-djs.png';
 import {
     NejireAvatar,
     FreeAvatar,
-	SocramAvatar
+    SocramAvatar,
+    KirzuAvatar
 } from './assets/avatars';
 
 export default {
@@ -34,7 +35,12 @@ export default {
 			author: 'Socram09',
 			avatar: SocramAvatar,
 			roleColor: '#ff96ed',
-		}
+        },
+        kirzu: {
+            author: 'Krz,',
+            avatar: KirzuAvatar,
+            roleColor: '#f70063'
+        }
 	}
 
 }

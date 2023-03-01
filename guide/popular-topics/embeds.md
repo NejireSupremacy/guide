@@ -82,7 +82,7 @@ const exampleEmbed = new EmbedBuilder()
 channel.send({ embeds: [exampleEmbed] });
 ```
 
-::: tip
+::: tip CONSEJO
 You don't need to include all the elements showcased above. If you want a simpler embed, leave some out.
 :::
 
@@ -160,7 +160,7 @@ const exampleEmbed = {
 channel.send({ embeds: [exampleEmbed] });
 ```
 
-::: tip
+::: tip CONSEJO
 You don't need to include all the elements showcased above. If you want a simpler embed, leave some out.
 :::
 
@@ -180,7 +180,7 @@ You can upload images with your embedded message and use them as source for embe
 
 You can then reference and use the images inside the embed itself with `attachment://fileName.extension`.
 
-::: tip
+::: tip CONSEJO
 If you plan to attach the same image repeatedly, consider hosting it online and providing the URL in the respective embed field instead. This also makes your bot respond faster since it doesn't need to upload the image with every response depending on it.
 :::
 
@@ -214,7 +214,7 @@ const exampleEmbed = {
 channel.send({ embeds: [exampleEmbed], files: [file] });
 ```
 
-::: warning
+::: warning ADVERTENCIA
 If the images don't display inside the embed but outside of it, double-check your syntax to make sure it's as shown above.
 :::
 
@@ -226,7 +226,7 @@ We will now explain how to edit embedded message content and resend a received e
 
 To forward a received embed you retrieve it from the messages embed array (`message.embeds`) and pass it to the EmbedBuilder, then it can be edited before sending it again.
 
-::: warning
+::: warning ADVERTENCIA
 We create a new Embed from `EmbedBuilder` here since embeds are immutable and their values cannot be changed directly.
 :::
 

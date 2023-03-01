@@ -113,7 +113,7 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 ```
 
-::: tip
+::: tip CONSEJO
 You can also pass different formats of the emoji to the `.react()` method.
 
 ```js
@@ -148,7 +148,7 @@ Two of the easiest ways you can retrieve an emoji would be:
 * Use `.find()` on a Collection of Emojis.
 * Use `.get()` on the `client.emojis.cache` Collection.
 
-::: tip
+::: tip CONSEJO
 Two or more emojis can have the same name, and using `.find()` will only return the **first** entry it finds. As such, this can cause unexpected results.
 :::
 
@@ -344,7 +344,7 @@ If you try again with either of the code blocks above, you'll get the result you
 	</DiscordMessage>
 </DiscordMessages>
 
-::: tip
+::: tip CONSEJO
 If you aren't familiar with Promises or `async`/`await`, you can read more about them on [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) or [our guide page on async/await](/additional-info/async-await.md)!
 :::
 
@@ -372,7 +372,7 @@ This small optimization allows you to use `.then()` to handle when all of the Pr
 
 Now that you know how to add reactions, you might be asking, how do you remove them? In this section, you will learn how to remove all reactions, remove reactions by user, and remove reactions by emoji.
 
-::: warning
+::: warning ADVERTENCIA
 All of these methods require `ManageMessages` permissions. Ensure your bot has permissions before attempting to utilize any of these methods, as it will error if it doesn't.
 :::
 
@@ -396,7 +396,7 @@ message.reactions.cache.get('123456789012345678').remove()
 
 ### Removing reactions by user
 
-::: tip
+::: tip CONSEJO
 If you are not familiar with <DocsLink section="collection" path="class/Collection?scrollTo=filter" type="method" /> and [`Map.has()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/has) take the time to understand what they do and then come back.
 :::
 
@@ -416,7 +416,7 @@ try {
 }
 ```
 
-::: warning
+::: warning ADVERTENCIA
 Make sure not to remove reactions by emoji or by user too much; if there are many reactions or users, it can be considered API spam.
 :::
 
@@ -453,7 +453,7 @@ Since version 12, you can change this behavior by activating partials. For a ful
 
 Make sure you enable partial structures for `Message`, `Channel`, and `Reaction` when instantiating your client if you want reaction events on uncached messages for both server and direct message channels. If you do not want to support direct message channels, you can exclude `Channel`.
 
-::: tip
+::: tip CONSEJO
 If you use [gateway intents](/popular-topics/intents.md) but can't or don't want to use the privileged `GuildPresences` intent, you additionally need the `User` partial.
 :::
 
@@ -485,7 +485,7 @@ client.on(Events.MessageReactionAdd, async (reaction, user) => {
 });
 ```
 
-::: warning
+::: warning ADVERTENCIA
 Partial structures are enabled globally. You cannot only make them work for a specific event or cache, and you very likely need to adapt other parts of your code that are accessing data from the relevant caches. All caches holding the respective structure type might return partials as well! For more info, check out [this page](/popular-topics/partials.md).
 :::
 

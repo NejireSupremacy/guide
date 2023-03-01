@@ -19,7 +19,7 @@ La estructura del URL es bastante simple:
 * `permissions=...` describe qué permisos tendrá tu bot en el servidor al que lo estás añadiendo.
 * `scope=bot%20applications.commands` especifica que quieres añadir esta aplicación como un bot de Discord, con la capacidad de crear comandos de barra.
 
-::: warning
+::: warning ADVERTENCIA
 Si recibes un mensaje de error que dice "Bot requires a code grant", dirígete a la configuración de tu aplicación y desactiva la opción "Require OAuth2 Code Grant". No deberías activar esta opción a menos que sepas por qué lo necesitas.
 :::
 

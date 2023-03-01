@@ -1,6 +1,6 @@
 # Subiendo tus comandos
 
-::: tip
+::: tip CONSEJO
 Esta página asume que usted usa la misma estructura de archivos que nuestra sección [Comandos de barra](./slash-commands.md), y que lo previsto está hecho para funcionar con esa configuración. Por favor, lea atentamente esa sección primero para que pueda entender los métodos utilizados en esta sección.
 
 Si ya tienes comandos slash configurados y desplegados para tu aplicación y quieres aprender cómo responder a ellos, consulta la siguiente sección sobre [Métodos de respuesta a comandos](/slash-commands/response-methods.md).
@@ -106,7 +106,7 @@ await rest.put(
 
 ### Dónde desplegar
 
-::: tip
+::: tip CONSEJO
 El despliegue de comandos basado en servidores es más adecuado para el desarrollo y las pruebas en propio servidor personal. Una vez que estés satisfecho, despliega el comando globalmente para publicarlo en todos los gremios en los que esté tu bot.
 
 Es posible que desees tener una aplicación y un token separados en el portal de desarrollo de Discord para tu aplicación de desarrollo, para evitar la duplicación entre tus comandos basados en servidores y el despliegue global.

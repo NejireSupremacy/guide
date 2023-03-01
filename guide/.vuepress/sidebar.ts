@@ -93,7 +93,7 @@ export default {
 			],
 		},
 		{
-			text: 'Misc',
+			text: 'Extra',
 			children: [
 				'/miscellaneous/cache-customization.md',
 				'/miscellaneous/useful-packages.md',

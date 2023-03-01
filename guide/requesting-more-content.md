@@ -6,6 +6,6 @@ Las peticiones pueden ser tan simples como "añade un ejemplo a la página [preg
 
 ¡Para hacer una petición, simplemente dirígete al[ issue tracker del repositorio](https://github.com/NejireSupremacy/guide/issues) y [crea un nuevo issue](https://github.com/NejireSupremacy/guide/issues/new)! Ponle un título apropiado y dinos exactamente a qué te refieres en la descripción de la incidencia. Asegúrate de que has echado un vistazo al sitio antes de hacer una solicitud; ¡puede que lo que quieres solicitar ya exista!
 
-::: tip
+::: tip CONSEJO
 Recuerda que siempre puedes [forkear el repo](https://github.com/NejireSupremacy/guide) y [crear un pull request](https://github.com/NejireSupremacy/guide/pulls) si quieres añadir algo a la guía.
 :::

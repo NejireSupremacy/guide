@@ -2,7 +2,7 @@
 
 ## Day.js
 
-::: tip
+::: tip CONSEJO
 Official documentation: [https://day.js.org/](https://day.js.org/en)
 :::
 
@@ -44,7 +44,7 @@ if (date.isValid()) {
 
 ## ms
 
-::: tip
+::: tip CONSEJO
 Official documentation: [https://github.com/vercel/ms](https://github.com/vercel/ms)
 :::
 
@@ -71,7 +71,7 @@ await interaction.followUp(`You sent the two messages ${formatted} apart.`);
 
 ## common-tags
 
-::: tip
+::: tip CONSEJO
 Official documentation: [https://github.com/zspecza/common-tags](https://github.com/zspecza/common-tags)
 :::
 
@@ -116,7 +116,7 @@ Check the the documentation to find more useful functions.
 
 ## chalk
 
-::: tip
+::: tip CONSEJO
 Official documentation: [https://www.npmjs.com/package/chalk](https://www.npmjs.com/package/chalk)
 :::
 
@@ -142,7 +142,7 @@ console.log(chalk.green.bgBrightBlack.underline('This is so pretty.'));
 
 ## pino
 
-::: tip
+::: tip CONSEJO
 Official documentation: [getpino.io](https://getpino.io)
 :::
 
@@ -256,7 +256,7 @@ module.exports = logger;
 
 ## i18next
 
-::: tip
+::: tip CONSEJO
 Official documentation: [https://www.i18next.com](https://www.i18next.com)
 :::
 

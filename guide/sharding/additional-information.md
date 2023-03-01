@@ -1,6 +1,6 @@
 # Additional information
 
-::: tip
+::: tip CONSEJO
 This page is a follow-up and bases its code on [the previous page](/sharding/).
 :::
 
@@ -35,7 +35,7 @@ You can also send messages via `process.send('hello')`, which would not contain 
 
 There might be times where you want to target a specific shard. An example would be to kill a specific shard that isn't working as intended. You can achieve this by taking the following snippet (in a command, preferably):
 
-::: tip
+::: tip CONSEJO
 In discord.js v13, <DocsLink path="class/ShardClientUtil?scrollTo=ids">`Client#shard`</DocsLink> can hold multiple ids. If you use the default sharding manager, the `.ids` array will only have one entry.
 :::
 
@@ -93,7 +93,7 @@ It accepts two properties: `shard` and `context`. The `context` property will be
 In this small snippet, an argument is passed to the `funcName` function through this parameter.
 The function will receive the arguments as an object as the second parameter.
 
-::: warning
+::: warning ADVERTENCIA
 The `context` option only accepts properties which are JSON-serializable. This means you cannot pass complex data types in the context directly.
 For example, if you sent a `User` instance, the function would receive the raw data object.
 :::

@@ -33,11 +33,11 @@
 ## Sitio
 
 - Actualizado a [VuePress v2](https://v2.vuepress.vuejs.org/)
-- Nuevo tema adaptado a [discord.js documentation site](https://discord.js.org/)
+- Nuevo tema adaptado a [la documentación de discord.js](https://discord.js.org/)
 - Componentes de mensajes de Discord actualizados a [@discord-message-components/vue](https://github.com/Danktuary/discord-message-components/blob/main/packages/vue/README.md)
 - Muchas correcciones en bloques de código, gramática, consistencia, etc.
 
-## Paginas
+## Páginas
 
 Todo el contenido se ha actualizado para utilizar la sintaxis de discord.js v14. La versión v13 de la guía se puede encontrar en [este link](https://v13.discordjs.guide). (sin traducir)
 
@@ -52,7 +52,7 @@ Todo el contenido se ha actualizado para utilizar la sintaxis de discord.js v14.
 
 ### Actualizado
 
-- Comando: Sustituido por [Sapphire](https://sapphirejs.dev/docs/Guide/getting-started/getting-started-with-sapphire)
+- Commando: Sustituido por [Sapphire](https://sapphirejs.dev/docs/Guide/getting-started/getting-started-with-sapphire)
 - [Voz](/voz/): Reescrito para usar el paquete [`@discordjs/voice`](https://github.com/discordjs/discord.js/tree/main/packages/voice)
 - [Manejo de comandos](/creating-your-bot/command-handling.md/): Actualizado para usar comandos de barra oblicua
   - Secciones obsoletas eliminadas
@@ -61,10 +61,10 @@ Todo el contenido se ha actualizado para utilizar la sintaxis de discord.js v14.
 
 <DiscordMessages>
 	<DiscordMessage profile="bot">
-		Gracias a todos los que han contribuido al desarrollo de discord.js y traducción de la guía.
+		Gracias a todos los que han contribuido al desarrollo de discord.js y a la traducción de la guía.
 		<span class="emoji-container">
 			<img class="emoji-image" title="heart" alt=":heart:" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@v14.0.2/assets/72x72/2764.png" />
-			<img class="emoji-image" title="pat" alt=":pats:" src="https://cdn.discordapp.com/emojis/929127508933242912.gif?size=96&quality=lossless">
+			<img class="emoji-image" title="pat" alt=":pats:" src="https://cdn.discordapp.com/emojis/929127508933242912.gif?size=48">
 		</span>
 	</DiscordMessage>
 </DiscordMessages>

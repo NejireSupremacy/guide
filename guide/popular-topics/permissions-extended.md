@@ -46,7 +46,7 @@ One possible scenario causing this: the channel has permission overwrites for th
 
 As you only check for `SendMessages`, the bot will try to execute the send, but since `ViewChannel` is missing, the API denies the request.
 
-::: tip
+::: tip CONSEJO
 Causes for "Missing Access":
 - Text Channels require `ViewChannel` as detailed above.
 - Voice Channels require `Connect` in the same way.
@@ -82,6 +82,6 @@ During your development, you will likely run into `DiscordAPIError: Missing Perm
 - It is trying to execute an action on a voice channel without the `ViewChannel` permission.
 - It is trying to create a channel or channel overwrite including the `ManageRoles` flag but does not have the `Administrator` permission or an explicit `ManageRoles` overwrite on this channel (note that the global permission does not count).
 
-::: warning
+::: warning ADVERTENCIA
 Granting the `Administrator` permission does not skip any hierarchical check!
 :::

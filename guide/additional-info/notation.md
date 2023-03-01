@@ -2,7 +2,7 @@
 
 Throughout the discord.js docs and when asking for help on the official server, you will run into many different kinds of notations. To help you understand the texts that you read, we will be going over some standard notations.
 
-::: tip
+::: tip CONSEJO
 Always keep in mind that notation is not always rigorous. There will be typos, misunderstandings, or contexts that will cause notation to differ from the usual meanings.
 :::
 
@@ -18,7 +18,7 @@ The notation `Class#foo` can refer to the `foo` property, method, or event of th
 - `TextChannel#send` means that you should refer to the `send` method on a `TextChannel`.
 - `Client#interactionCreate` means that you should refer to the `interactionCreate` event on a `Client`.
 
-::: tip
+::: tip CONSEJO
 Remember that this notation is not valid JavaScript; it is a shorthand to refer to a specific piece of code.
 :::
 

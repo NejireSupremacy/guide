@@ -130,7 +130,7 @@ This is a prevalent error; it originates from a wrong token being passed into `c
 - Copying the client secret instead of the bot token (the token is alphanumerical and three parts delimited by a period while the client secret is significantly smaller and one part only)
 - Not updating the token after resetting it
 
-::: warning
+::: warning ADVERTENCIA
 Before the release of version 12, there used to be an issue where the token was not prefixed correctly, which resulted in valid tokens being marked as invalid. If you have verified that all of the above is not the case, make sure you have updated discord.js to the current stable version.
 :::
 

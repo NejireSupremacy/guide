@@ -49,7 +49,7 @@ app.listen(port, () => console.log(`App listening at http://localhost:${port}`))
 
 After running `npm i express`, you can start your server with `node index.js`. Once started, connect to `http://localhost:53134`, and you should see "Hoi!".
 
-::: tip
+::: tip CONSEJO
 Although we're using express, there are many other alternatives to handle a web server, such as: [fastify](https://www.fastify.io/), [koa](https://koajs.com/), and the [native Node.js http module](https://nodejs.org/api/http.html).
 :::
 
@@ -167,7 +167,7 @@ if (localStorage.getItem('oauth-state') !== atob(decodeURIComponent(state))) {
 }
 ```
 
-::: tip
+::: tip CONSEJO
 Don't forgo security for a tiny bit of convenience!
 :::
 
@@ -252,7 +252,7 @@ app.get('/', async ({ query }, response) => {
 });
 ```
 
-::: warning
+::: warning ADVERTENCIA
 The content-type for the token URL must be `application/x-www-form-urlencoded`, which is why `URLSearchParams` is used.
 :::
 
@@ -282,7 +282,7 @@ const userResult = await request('https://discord.com/api/users/@me', {
 console.log(await userResult.body.json());
 ```
 
-::: tip
+::: tip CONSEJO
 To maintain security, store the access token server-side but associate it with a session ID that you generate for the user.
 :::
 

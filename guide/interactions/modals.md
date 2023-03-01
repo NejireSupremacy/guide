@@ -2,7 +2,7 @@
 
 With modals you can create pop-up forms that allow users to provide you with formatted inputs through submissions. We'll cover how to create, show, and receive modal forms using discord.js!
 
-::: tip
+::: tip CONSEJO
 This page is a follow-up to the [interactions (slash commands) page](/interactions/slash-commands.md). Please carefully read that section first, so that you can understand the methods used in this section.
 :::
 
@@ -10,7 +10,7 @@ This page is a follow-up to the [interactions (slash commands) page](/interactio
 
 Unlike message components, modals aren't strictly components themselves. They're a callback structure used to respond to interactions.
 
-::: tip
+::: tip CONSEJO
 You can have a maximum of five <DocsLink path="class/ActionRowBuilder" />s per modal builder, and one <DocsLink path="class/TextInputBuilder" /> within an <DocsLink path="class/ActionRowBuilder" />. Currently, you cannot use <DocsLink path="class/StringSelectMenuBuilder" />s or <DocsLink path="class/ButtonBuilder" />s in modal action rows builders.
 :::
 
@@ -31,7 +31,7 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 ```
-::: tip
+::: tip CONSEJO
 The custom id is a developer-defined string of up to 100 characters. Use this field to ensure you can uniquely define all incoming interactions from your modals!
 :::
 
@@ -39,7 +39,7 @@ The next step is to add the input fields in which users responding can enter fre
 
 At the end, we then call <DocsLink path="class/ChatInputCommandInteraction?scrollTo=showModal" /> to display the modal to the user.
 
-::: warning
+::: warning ADVERTENCIA
 If you're using typescript you'll need to specify the type of components your action row holds. This can be done by specifying the generic parameter in <DocsLink path="class/ActionRowBuilder" />
 
 ```diff
@@ -94,7 +94,7 @@ Restart your bot and invoke the `/ping` command again. You should see a popup fo
 
 <img width=450 src="./images/modal-example.png">
 
-::: warning
+::: warning ADVERTENCIA
 Showing a modal must be the first response to an interaction. You cannot `defer()` or `deferUpdate()` then show a modal later.
 :::
 
@@ -164,7 +164,7 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 ```
 
-::: tip
+::: tip CONSEJO
 If you're using typescript, you can use the <DocsLink path="class/ModalSubmitInteraction?scrollTo=isFromMessage"/> typeguard, to make sure the received interaction was from a `MessageComponentInteraction`.
 :::
 

@@ -1,6 +1,6 @@
 # Extended changes
 
-::: tip
+::: tip CONSEJO
 This page is a follow-up and bases its code on [the previous page](/sharding/additional-information.md), which assumes knowledge of arguments and passing functions.
 :::
 
@@ -25,7 +25,7 @@ client.on(Events.InteractionCreate, interaction => {
 
 This will never work for a channel that lies on another shard. So, let's remedy this.
 
-::: tip
+::: tip CONSEJO
 In discord.js v13, <DocsLink path="class/ShardClientUtil?scrollTo=ids">`Client#shard`</DocsLink> can hold multiple ids. If you use the default sharding manager, the `.ids` array will only have one entry.
 :::
 

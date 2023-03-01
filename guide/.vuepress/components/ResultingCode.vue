@@ -1,8 +1,8 @@
 <template>
 	<p>
-		If you want to compare your code to the code we've constructed so far, you can review it over on the GitHub repository
+		Si quieres comparar tu código con el código que hemos construido hasta ahora, puedes revisarlo en el repositorio de GitHub
 		<a :href="githubLink" target="_blank" rel="noopener noreferrer">
-			here <OutboundLink />
+			aquí <OutboundLink />
 		</a>.
 	</p>
 </template>

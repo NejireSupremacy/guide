@@ -31,7 +31,7 @@ console.log(token);
 :::
 ::::
 
-::: danger
+::: danger CUIDADO
 Si estás usando Git, no deberías insertar este archivo y deberías [ignorarlo mediante `.gitignore`](/creating-your-bot/#git-y-gitignore).
 :::
 
@@ -117,7 +117,7 @@ console.log(process.env.DISCORD_TOKEN);
 :::
 ::::
 
-::: danger
+::: danger CUIDADO
 Si estás usando Git, no deberías insertar este archivo y deberías [ignorarlo mediante `.gitignore`](/creating-your-bot/#git-y-gitignore).
 :::
 
@@ -141,7 +141,7 @@ node_modules
 config.json
 ```
 
-::: tip
+::: tip CONSEJO
 Aparte de mantener las credenciales seguras, `node_modules` debería incluirse aquí. Dado que este directorio se puede restaurar basándose en las entradas de los archivos `package.json` y `package-lock.json` ejecutando `npm install`, no es necesario incluirlo en Git.
 
 Puedes especificar patrones bastante emredados en los archivos `.gitignore`, ¡consulta la [en la publicación en freecodecamp sobre `.gitignore`](https://www.freecodecamp.org/espanol/news/gitignore-explicado-que-es-y-como-agregar-a-tu-repositorio) para más información!

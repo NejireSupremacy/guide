@@ -48,7 +48,7 @@ pm2 start your-app-name.js --name "Some cool name"
 pm2 start your-app-name.js --watch
 ```
 
-::: tip
+::: tip CONSEJO
 The `pm2 start` command can take more optional parameters, but only these two are relevant. If you want to see all the parameters available, you can check the documentation of pm2 [here](https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/).
 :::
 
@@ -68,7 +68,7 @@ The initial steps differ per OS. In this guide, we'll cover those for Windows an
 
 ### Initial steps for Windows
 
-::: tip
+::: tip CONSEJO
 Run these from an administrative command prompt to avoid getting hit with a bunch of UAC dialogs.
 :::
 
@@ -97,7 +97,7 @@ pnpm add --global pm2-windows-service
 ```sh:no-line-numbers
 pm2-service-install
 ```
-::: tip
+::: tip CONSEJO
 You can use the `-n` parameter to set the service name: `pm2-service-install -n "the-service-name"`
 :::
 

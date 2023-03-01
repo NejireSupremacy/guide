@@ -2,7 +2,7 @@
 
 Para usar discord.js, necesitarás instalar [Node.js](https://nodejs.org/). discord.js v14 necesita de Node v16.9.0 o superior.
 
-::: tip
+::: tip CONSEJO
 Para comprobar si ya tienes Node instalado en tu máquina (por ejemplo, si estás usando un VPS), ejecuta `node -v` en tu terminal. Si el resultado es `v16.9.0` o superior, ¡entonces está listo! Si no, sigue leyendo.
 :::
 
@@ -67,7 +67,7 @@ Ese es el siguiente comando que ejecutarás. Este comando crea un archivo `packa
 
 Ese comando te hará una secuencia de preguntas que deberás rellenar como mejor te parezca. Si no estás seguro de algo o quieres saltártelo entero, déjalo en blanco y pulsa enter.
 
-::: tip
+::: tip CONSEJO
 Para empezar rápidamente, puedes ejecutar el siguiente comando para que lo rellene todo por ti.
 
 <CodeGroup>

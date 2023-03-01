@@ -129,7 +129,7 @@ La función callback pasada toma parametros devueltos por su respectivo evento, 
 
 Después de esto, escuchar otros eventos es tan fácil como crear un nuevo archivo en la carpeta `events`. El manejador de eventos lo recuperará y registrará automáticamente cada vez que reinicies tu bot.
 
-::: tip
+::: tip CONSEJO
 En la mayoría de los casos, puedes acceder a tu instancia `client` en otros archivos obteniéndola de una de las otras estructuras de discord.js, por ejemplo `interaction.client` en el evento `interactionCreate`.
 :::
 

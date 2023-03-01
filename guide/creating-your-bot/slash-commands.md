@@ -93,7 +93,7 @@ module.exports = {
 :::
 ::::
 
-::: tip
+::: tip CONSEJO
 [`module.exports`](https://nodejs.org/api/modules.html#modules_module_exports) es la forma por defecto de exportar datos en Node.js para que puedas [`require()`](https://nodejs.org/api/modules.html#modules_require_id) en otros archivos.
 
 Si necesitas acceder a tu instancia de cliente desde dentro de un fichero de comandos, puedes hacerlo a través de `interaction.client`. Si necesita acceder a archivos externos, paquetes, etc., debe `require()` en la parte superior del archivo.

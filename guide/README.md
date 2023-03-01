@@ -13,7 +13,7 @@ Esta guía te enseñará cosas como:
 Esta guía también tratará temas como los errores más comunes y cómo resolverlos, cómo mantener limpio el código, cómo crear un entorno de desarrollo adecuado, etc.
 ¿Te parece bien? Muy bien. Pues empecemos.
 
-## Anter de empezar...
+## Antes de empezar...
 
 Muy bien, hacer un bot es genial y todo, pero hay algunos requisitos previos. Para crear un bot con discord.js, debes tener un conocimiento bastante decente de JavaScript.
 Aunque _puedes_ crear un bot con muy pocos conocimientos de JavaScript y programación, intentar hacerlo sin entender primero el lenguaje sólo te supondrá un obstáculo. Es posible que te quedes atascado en muchas cuestiones poco complicadas, que luches con soluciones a problemas increíblemente fáciles y que, en general, acabes frustrado. Suena bastante molesto.
@@ -41,6 +41,9 @@ Este proyecto es mantenido principalmente por las siguientes personas, que han c
 	</DiscordMessage>
 	<DiscordMessage profile="socram">
 		Programar es una travesía, lo divertido es el viaje, lo gratificante la solución.
+	</DiscordMessage>
+	<DiscordMessage profile="kirzu">
+		Programar es como montar en bicicleta. Para mantener el equilibrio, debes seguir en movimiento.
 	</DiscordMessage>
 </DiscordMessages>
 

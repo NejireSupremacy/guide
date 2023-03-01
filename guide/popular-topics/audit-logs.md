@@ -5,7 +5,7 @@ Audit logs are an excellent moderation tool offered by Discord to know what happ
 
 There are quite a few cases where you may use audit logs. This guide will limit itself to the most common use cases. Feel free to consult the [relevant Discord API page](https://discord.com/developers/docs/resources/audit-log) for more information.
 
-::: warning
+::: warning ADVERTENCIA
 It is crucial that you first understand two details about audit logs:
 1) They are not guaranteed to arrive when you expect them (if at all).
 2) There is no event which triggers when an audit log is created.
@@ -18,7 +18,7 @@ The following examples will explore a straightforward case for some auditLog typ
 ## Who deleted a message?
 One of the most common use cases for audit logs would be understanding who deleted any given message in a Discord server.
 
-::: warning
+::: warning ADVERTENCIA
 At the time of writing, Discord does not emit an audit log if the person who deleted the message is a bot deleting a single message or is the author of the message itself.
 :::
 

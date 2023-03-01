@@ -96,7 +96,7 @@ Ahora que los modelos están definidos, debe crearlos en su base de datos para a
 
 Cree un archivo llamado `dbInit.js` en el directorio base (*no* en la carpeta `models`).
 
-::: danger
+::: danger CUIDADO
 Asegúrese de usar la versión 5 o posterior de Sequelize! La versión 4, como se usa en esta guía, representará una amenaza de seguridad. Puede leer más sobre este problema en el [rastreador de problemas de Sequelize](https://github.com/sequelize/sequelize/issues/7310)
 :::
 
@@ -134,7 +134,7 @@ Aca se extraen los dos modelos y la tabla de unión de las respectivas declaraci
 
 Una nueva función aquí es la función `.upsert()`. Es una palabra hibrida para **up**date or in**sert**. `upsert` se usa aquí para evitar crear duplicados si ejecuta este archivo varias veces. Eso no debería suceder porque `name` se define como *unique*, pero no hay daño en ser seguro. Upsert también tiene un bono agradable: si ajusta el costo, el elemento respectivo también debe tener su costo actualizado.
 
-::: tip
+::: tip CONSEJO
 Ejecute `node dbInit.js` para crear las tablas de la base de datos. A menos que haga un cambio en los modelos, nunca necesitará tocar el archivo nuevamente. Si cambia un modelo, puede ejecutar `node dbInit.js --force` o `node dbInit.js -f` para sincronizar forzadamente sus tablas. Es importante tener en cuenta que esto **vaciará** y **recreará** sus tablas de modelos.
 :::
 

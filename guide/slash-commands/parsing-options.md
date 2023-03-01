@@ -44,7 +44,7 @@ Dado que `reason` no es una opción obligatoria, el ejemplo anterior utiliza el 
 
 Si el usuario objetivo todavía está en el gremio donde se ejecuta el comando, también puedes usar `.getMember('target')` para obtener su objeto `GuildMember`.
 
-::: tip
+::: tip CONSEJO
 Si desea el Snowflake de una estructura, tome la opción a través de `get()` y acceda al Snowflake a través de la propiedad `value`. Tenga en cuenta que debe usar `const { value: name } = ...` aquí para [desestructurar y cambiar el nombre](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) el valor obtenido de la estructura <DocsLink path="typedef/CommandInteractionOption" /> para evitar conflictos de nombres de identificadores.
 :::
 

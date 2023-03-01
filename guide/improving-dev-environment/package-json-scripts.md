@@ -25,7 +25,7 @@ pnpm run lint
 
 ## Getting started
 
-::: tip
+::: tip CONSEJO
 Before getting started, you'll need to have a `package.json` file. If you don't have a `package.json` file yet, you can run the following command in the console to generate one.
 
 <CodeGroup>
@@ -74,7 +74,7 @@ Let's zoom in more. Below `main`, you'll see `scripts`. You can specify your scr
 
 ## Adding your first script
 
-::: tip
+::: tip CONSEJO
 We'll assume you have finished the [creating your first bot](/creating-your-bot/) section of the guide. If you haven't, ensure to follow it first!
 :::
 
@@ -84,7 +84,7 @@ Over at your `package.json` file, add the following line to the `scripts`:
 "start": "node ."
 ```
 
-::: tip
+::: tip CONSEJO
 The `node .` script will run the file you have specified at the `main` entry in your `package.json` file. If you don't have it set yet, make sure to select your bot's main file as `main`!
 :::
 
@@ -110,7 +110,7 @@ pnpm run start
 
 Let's create another script to lint your code via the command line.
 
-::: tip
+::: tip CONSEJO
 If you do not have ESLint installed globally, you can use [npx](https://alligator.io/workflow/npx/) to run the ESLint script for your local directory. For more info on how to set it up, you can read the site [here](https://alligator.io/workflow/npx/).
 :::
 
@@ -179,6 +179,6 @@ pnpm run <script-name>
 :::
 ::::
 
-::: tip
+::: tip CONSEJO
 Package scripts allow some more configuration (like pre-, post- and lifecycle scripts) than we can cover in this guide. Check out the official documentation on [docs.npmjs.com](https://docs.npmjs.com/cli/v7/using-npm/scripts) for more information.
 :::

@@ -5,28 +5,28 @@
 			<li>
 				<button
 					class="default-theme"
-					title="Green theme"
+					title="Tema verde"
 					@click.prevent="setTheme({ persist: true })"
 				></button>
 			</li>
 			<li>
 				<button
 					class="blurple-theme"
-					title="Blurple theme"
+					title="Tema blurple"
 					@click.prevent="setTheme({ colorTheme: 'blurple', persist: true })"
 				></button>
 			</li>
 			<li>
 				<button
 					class="orange-theme"
-					title="Orange theme"
+					title="Tema naranja"
 					@click.prevent="setTheme({ colorTheme: 'orange', persist: true })"
 				></button>
 			</li>
 			<li>
 				<button
 					class="purple-theme"
-					title="Purple theme"
+					title="Tema morado"
 					@click.prevent="setTheme({ colorTheme: 'purple', persist: true })"
 				></button>
 			</li>

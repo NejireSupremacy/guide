@@ -6,7 +6,7 @@ Webhooks can send messages to a text channel without having to log in as a bot. 
 
 Webhooks are a utility used to send messages to text channels without needing a Discord application. Webhooks are useful for allowing something to send messages without requiring a Discord application. You can also directly edit or delete messages you sent through the webhook. There are two structures to make use of this functionality: `Webhook` and `WebhookClient`. `WebhookClient` is an extended version of a `Webhook`, which allows you to send messages through it without needing a bot client.
 
-::: tip
+::: tip CONSEJO
 If you would like to read about using webhooks through the API without discord.js, you can read about them [here](https://discord.com/developers/docs/resources/webhook).
 :::
 
@@ -23,7 +23,7 @@ If you would like to get the webhook object that sent the message, you can use <
 
 ## Fetching webhooks
 
-::: tip
+::: tip CONSEJO
 Webhook fetching will always make use of collections and Promises. If you do not understand either concept, revise them, and then come back to this section.  You can read about collections [here](/additional-info/collections.md), and Promises [here](/additional-info/async-await.md) and [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises).
 :::
 

@@ -2,7 +2,7 @@
 
 `Autocomplete` le permite proporcionar dinámicamente una selección de valores al usuario, basándose en su entrada, en lugar de depender de opciones estáticas. En esta sección veremos cómo añadir la función de autocompletar a tus comandos.
 
-::: tip
+::: tip CONSEJO
 Esta página es una continuación de la sección [creación de comandos avanzados](/slash-commands/advanced-creation.md) que trata de las opciones y de la elección de opciones. Por favor, lea atentamente esas páginas primero para que pueda entender los métodos utilizados en esta sección.
 :::
 
@@ -93,7 +93,7 @@ Puede que ya hayas movido este código a `events/interactionCreate.js` si tambi�
 
 La clase <DocsLink path="class/AutocompleteInteraction"/> proporciona el método <DocsLink path="class/AutocompleteInteraction?scrollTo=respond"/> para enviar una respuesta. Usando esto, puede enviar una matriz de objetos <DocsLink path="typedef/ApplicationCommandOptionChoiceData" /> para que el usuario elija. Si se pasa una matriz vacía, se mostrará al usuario el mensaje "No hay opciones que coincidan con su búsqueda".
 
-::: warning
+::: warning ADVERTENCIA
 A diferencia de las opciones estáticas, las sugerencias de autocompletado *no* son obligatorias, y los usuarios pueden introducir texto libre.
 :::
 

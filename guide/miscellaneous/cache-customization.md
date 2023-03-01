@@ -1,22 +1,22 @@
-# Cache customization
+# Personalización del caché
 
-Sometimes, you would like to be able to customize discord.js's caching behavior in order to reduce memory usage.
-To this end, discord.js provides you with two ways to do so:
+A veces es posible que desees personalizar el comportamiento de caché de discord.js para reducir el uso de memoria.
+Para ello, discord.js te proporciona dos formas de hacerlo:
 
-1. Limiting the size of caches.
-2. Periodically removing old items from caches.
+1. Limitando el tamaño de los cachés.
+2. Eliminando periódicamente los elementos antiguos de los cachés.
 
-::: danger
-Customization of caching behavior is an advanced topic.
-It is very easy to introduce errors if your custom cache is not working as expected.
+::: danger CUIDADO
+La personalización del comportamiento de caché es un tema avanzado.
+Es muy fácil introducir errores si su caché personalizado no funciona como se espera.
 :::
 
-## Limiting caches
+## Limitando cachés
 
-When creating a new <DocsLink path="class/Client">`Client`</DocsLink>, you can limit the size of caches, which are specific to certain managers, using the `makeCache` option.
-Generally speaking, almost all your customizations can be done via the helper functions from the <DocsLink path="class/Options">`Options`</DocsLink> module.
+Cuando creas un nuevo <DocsLink path="class/Client">`Client`</DocsLink>, puedes limitar el tamaño de los cachés, los cuales son específicos para ciertos managers, usando la opción `makeCache`.
+Generalmente hablando, casi todas tus personalizaciones pueden ser hechas utilizando las funciones de ayuda del módulo <DocsLink path="class/Options">`Options`</DocsLink>.
 
-Below is the default settings, which will limit message caches.
+Debajo están las configuraciones por defecto, las cuales limitaran el caché de los mensajes.
 
 ```js
 const { Client, Options } = require('discord.js');
@@ -26,7 +26,7 @@ const client = new Client({
 });
 ```
 
-To change the cache behaviors for a type of manager, add it on top of the default settings. For example, you can make caches for reactions limited to 0 items i.e. the client won't cache reactions at all:
+Para cambiar el comportamiento de caché de un tipo de manager, añádelo debajo de las configuraciones por defecto. Por ejemplo, puedes hacer que los cachés de las reacciones sean limitados a 0 elementos, es decir, que el cliente no almacene en caché las reacciones:
 
 ```js
 const client = new Client({
@@ -37,14 +37,14 @@ const client = new Client({
 });
 ```
 
-::: danger
-As noted in the documentation, customizing `GuildManager`, `ChannelManager`, `GuildChannelManager`, `RoleManager`, or `PermissionOverwriteManager` is unsupported! Functionality will break with any kind of customization.
+::: danger CUIDADO
+Como se indica en la documentación, ¡personalizar `GuildManager`, `ChannelManager`, `GuildChannelManager`, `RoleManager` o `PermissionOverwriteManager` no es compatible! La funcionalidad se romperá con cualquier tipo de personalización.
 :::
 
-We can further customize this by passing options to <DocsLink path="class/LimitedCollection">`LimitedCollection`</DocsLink>, a special kind of collection that limits the number of items. In the example below, the client is configured so that:
+Podemos personalizar esto aún más pasando opciones a <DocsLink path="class/LimitedCollection">`LimitedCollection`</DocsLink>, una colección especial que limita el número de elementos. En el ejemplo de abajo, el cliente está configurado de tal manera que:
 
-1. Only 200 guild members maximum may be cached per `GuildMemberManager` (essentially, per guild).
-2. We never remove a member if it is the client. This is especially important, so that the client can function correctly in guilds.
+1. Solo se almacenen 200 miembros del servidor en caché por `GuildMemberManager` (esencialmente, por servidor).
+2. Nunca hay que eliminar un miembro si este es el cliente. Esto es especialmente importante para que el cliente pueda funcionar correctamente en servidores
 
 ```js
 const client = new Client({
@@ -59,11 +59,11 @@ const client = new Client({
 });
 ```
 
-## Sweeping caches
+## Eliminando cachés
 
-In addition to limiting caches, you can also periodically sweep and remove old items from caches. When creating a new <DocsLink path="class/Client">`Client`</DocsLink>, you can customize the `sweepers` option.
+En adición a los cachés limitados, también puedes eliminar periódicamente los elementos antiguos de los cachés. Cuando creas un nuevo <DocsLink path="class/Client">`Client`</DocsLink>, puedes personalizar la opción `sweepers`.
 
-Below is the default settings, which will occasionally sweep threads.
+Debajo están los ajustes por defecto, los cuales eliminarán periódicamente los hilos.
 
 ```js
 const { Client, Options } = require('discord.js');
@@ -73,25 +73,25 @@ const client = new Client({
 });
 ```
 
-To change the sweep behavior, you specify the type of cache to sweep (<DocsLink path="typedef/SweeperKey">`SweeperKey`</DocsLink>) and the options for sweeping (<DocsLink path="typedef/SweepOptions">`SweepOptions`</DocsLink>). If the type of cache has a lifetime associated with it, such as invites, messages, or threads, then you can set the `lifetime` option to sweep items older than specified. Otherwise, you can set the `filter` option for any type of cache, which will select the items to sweep.
+Para cambiar el comportamiento de esta limpieza, puedes especificar el tipo de caché a limpiar (<DocsLink path="typedef/SweeperKey">`SweeperKey`</DocsLink>) y las opciones de limpieza (<DocsLink path="typedef/SweepOptions">`SweepOptions`</DocsLink>). Si el tipo de caché tiene un tiempo de vida asociado, como las invitaciones, mensajes o hilos, puedes establecer la opcion `lifetime` para eliminar elementos antiguos al tiempo especificado. En caso contrario, puedes establecer la opción `filter` para cualquier tipo de caché, la cual seleccionará los elementos a eliminar.
 
 ```js
 const client = new Client({
 	sweepers: {
 		...Options.DefaultSweeperSettings,
 		messages: {
-			interval: 3600, // Every hour...
-			lifetime: 1800,	// Remove messages older than 30 minutes.
+			interval: 3600, // Cada hora...
+			lifetime: 1800,	// Eliminar mensajes antiguos con más de 30 minutos de creación.
 		},
 		users: {
-			interval: 3600, // Every hour...
-			filter: user => user.bot && user.id !== client.user.id, // Remove all bots.
+			interval: 3600, // Cada hora...
+			filter: user => user.bot && user.id !== client.user.id, // Eliminar todos los bots
 		},
 	},
 });
 ```
 
-::: tip
-Take a look at the documentation for which types of cache you can sweep.
-Also look to see exactly what lifetime means for invites, messages, and threads!
+::: tip CONSEJO
+Échale un ojo a la documentación para ver qué tipos de caché puedes limpiar.
+¡También revisa qué significa exactamente "lifetime" para invitaciones, mensajes y hilos!
 :::

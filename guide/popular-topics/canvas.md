@@ -4,11 +4,11 @@
 
 @napi-rs/canvas is an image manipulation tool that allows you to modify images with code. We'll explore how to use this module in a slash command to make a profile command.
 
-::: tip
+::: tip CONSEJO
 This guide is last tested with `@napi-rs/canvas^0.1.25`, so make sure you have this or a similar version after installation.
 :::
 
-::: warning
+::: warning ADVERTENCIA
 Be sure that you're familiar with things like [async/await](/additional-info/async-await.md) and [object destructuring](/additional-info/es6-syntax.md#object-destructuring) before continuing, as we'll be making use of features like these.
 :::
 
@@ -59,7 +59,7 @@ client.on(Events.InteractionCreate, interaction => {
 client.login('your-token-goes-here');
 ```
 
-::: warning
+::: warning ADVERTENCIA
 Remember to register the slash commands before continuing on with this section of the guide. You can view how to do that [here](/interactions/slash-commands.md#registering-slash-commands).
 :::
 
@@ -69,7 +69,7 @@ The end goal will be to display the user's avatar and nickname.
 
 After importing the @napi-rs/canvas module and initializing it, you should load the images. With @napi-rs/canvas, you have to specify where the image comes from first, naturally, and then specify how it gets loaded into the actual Canvas using `context`, which you will use to interact with Canvas.
 
-::: tip
+::: tip CONSEJO
 `@napi-rs/canvas` works almost identical to HTML5 Canvas. You can read the HTML5 Canvas tutorials on [w3Schools](https://www.w3schools.com/html/html5_canvas.asp) and [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) for more information later!
 :::
 
@@ -110,7 +110,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
 ![Basic canvas preview](./images/canvas-preview.png)
 
-::: tip
+::: tip CONSEJO
 If you get an error such as `Error: ENOENT: no such file or directory`, then the file's provided path was incorrect.
 :::
 
@@ -200,7 +200,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
 ![Image](./images/canvas-circle-avatar.png)
 
-::: tip
+::: tip CONSEJO
 You can read more about `context.arc()` on [w3schools](https://www.w3schools.com/tags/canvas_arc.asp) or [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc).
 :::
 
@@ -227,7 +227,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
 ![Image](./images/canvas-add-name.png)
 
-::: tip
+::: tip CONSEJO
 If you get an error like `Fontconfig error: Cannot load default config file`, it means you do not have any fonts installed on your system. On Linux, you can run the following command to fix this: `sudo apt-get install fontconfig`. This might also need to be installed if you see boxes where the text should be. As for Windows, you will need to find a way to install fonts.
 :::
 

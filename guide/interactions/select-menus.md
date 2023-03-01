@@ -2,7 +2,7 @@
 
 With the components API, you can create interactive message components. On this page, we'll cover how to send, receive, and respond to select menus using discord.js!
 
-::: tip
+::: tip CONSEJO
 This page is a follow-up to the [slash commands](/slash-commands/advanced-creation.md) section. Please carefully read those pages first so that you can understand the methods used in this section.
 :::
 
@@ -10,7 +10,7 @@ This page is a follow-up to the [slash commands](/slash-commands/advanced-creati
 
 Select menus are one of the `MessageComponent` classes, which can be sent via messages or interaction responses. A select menu, as any other message component, must be in an `ActionRow`.
 
-::: warning
+::: warning ADVERTENCIA
 You can have a maximum of five `ActionRow`s per message, and one select menu within an `ActionRow`.
 :::
 
@@ -47,7 +47,7 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 ```
 
-::: tip
+::: tip CONSEJO
 The custom id is a developer-defined string of up to 100 characters. Use this field to ensure you can uniquely define all incoming interactions from your select menus!
 :::
 
@@ -117,7 +117,7 @@ Restart your bot and then send the command to a channel your bot has access to. 
 -->
 ![selectephem](./images/selectephem.png)
 
-::: warning
+::: warning ADVERTENCIA
 If you're using TypeScript you'll need to specify the type of components your action row holds. This can be done by specifying the component builder you will add to it using a generic parameter in <DocsLink path="class/ActionRowBuilder"/>.
 
 ```diff
@@ -134,7 +134,7 @@ Now you know all there is to building and sending a `SelectMenu`! Let's move on 
 
 Message component interactions can be collected within the scope of the slash command that sent them by utilising an <DocsLink path="class/InteractionCollector"/>, or their promisified `awaitMessageComponent` variant. These both provide instances of the <DocsLink path="class/MessageComponentInteraction"/> class as collected items.
 
-::: tip
+::: tip CONSEJO
 You can create the collectors on either a `message` or a `channel`.
 :::
 

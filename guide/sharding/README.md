@@ -9,11 +9,11 @@ Before you dive into this section, please note that sharding may not be necessar
 As an application grows large, a developer may find it necessary to split their process to run parallel to maximize efficiency. On a much larger scale of things, the developer might notice their process slow down, amongst other problems.
 [Check out the official Discord documentation on the topic.](https://discord.com/developers/docs/topics/gateway#sharding)
 
-::: warning
+::: warning ADVERTENCIA
 This guide only explains the basics of sharding using the built-in ShardingManager, which can run shards as separate processes or threads on a single machine. If you need to scale beyond that (e.g., running shards on multiple machines/containers), you can still do it with discord.js by passing appropriate options to the Client constructor. Nevertheless, you will be on your own regarding managing shards and sharing information between them.
 :::
 
-::: tip
+::: tip CONSEJO
 Apart from ShardingManager, discord.js also supports a sharding mode known as Internal sharding. Internal sharding creates multiple websocket connections from the same process, and does not require major code changes. To enable it, simply pass `shards: 'auto'` as ClientOptions to the Client constructor. However, internal sharding is not ideal for bigger bots due to high memory usage of the single main process and will not be further discussed in this guide.
 :::
 
@@ -33,7 +33,7 @@ manager.spawn();
 
 The above code utilizes the discord.js sharding manager to spawn the recommended amount of shards for your bot. The recommended amount should be approximately 1,000 guilds per shard. Note that you have to attach the event listener to `shardCreate` before calling `.spawn()` to prevent a race condition possibly preventing shard 0 from logging the successful launch. Even though you provide the token here, you will still need to send it over to the main bot file in `client.login()`, so don't forget to do that.
 
-::: tip
+::: tip CONSEJO
 You can find the methods available for the ShardingManager class <DocsLink path="class/ShardingManager">here</DocsLink>. Though, you may not be making much use of this section, unlike the next feature we will explore, which you may learn about by clicking [this link](/sharding/additional-information.md).
 :::
 
@@ -78,7 +78,7 @@ client.shard.fetchClientValues('guilds.cache.size').then(console.log);
 
 If you run it, you will notice an output like `[898, 901, 900, 901]`. You will be correct in assuming that that's the total number of guilds per shard stored in an array in the Promise. This probably isn't the ideal output for guild count, so let's use [Array.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce) to provide a better output.
 
-::: tip
+::: tip CONSEJO
 It's highly recommended for you to visit [the documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce) to understand how the `reduce()` method works, as you will probably find great use of it in sharding.
 :::
 

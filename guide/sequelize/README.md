@@ -33,7 +33,7 @@ pnpm install discord.js sequelize sqlite3
 :::
 ::::
 
-::: danger
+::: danger CUIDADO
 Asegúrese de usar la versión 5 o posterior de Sequelize! La versión 4, como se usa en esta guía, plantea una amenaza de seguridad. Puede leer más sobre este problema en el [Seguimiento de problemas de Sequelize](https://github.com/sequelize/sequelize/issues/7310).
 :::
 
@@ -130,7 +130,7 @@ El modelo se asemeja muy de cerca a lo que la base de datos define. Habrá una t
 `defaultValue` le permite establecer un valor de reserva si no hay un valor inicial durante la inserción.
 `allowNull` no es tan importante, pero esto garantizará en la base de datos que el atributo nunca esté sin configurar. Podría configurarlo para que sea una cadena en blanco o vacía, pero debe ser _algo_.
 
-::: tip
+::: tip CONSEJO
 `Sequelize.STRING` vs. `Sequelize.TEXT`: En la mayoría de los sistemas de bases de datos, la longitud de la cadena es de longitud fija por razones de rendimiento. Sequelize establece esto predeterminado en 255. Use STRING si su entrada tiene una longitud máxima y use TEXT si no lo hace. Para sqlite, no hay un tipo de cadena sin límite, por lo que no importará cuál elija.
 :::
 
@@ -189,7 +189,7 @@ La sección `catch (error)` es necesaria para la inserción porque desviará la 
 Aunque `if (error.name === 'SequelizeUniqueConstraintError')` fue principalmente para hacer menos trabajo, siempre es bueno manejar sus errores, especialmente si sabe qué tipos de errores recibirá. Este error aparece si se viola su restricción única, es decir, se insertan valores duplicados.
 
 
-::: warning
+::: warning ADVERTENCIA
 No use el catch para insertar nuevos datos. Úselo solo para manejar con gracia las cosas que salen mal en su código o registrar errores.
 :::
 

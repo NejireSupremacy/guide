@@ -47,7 +47,7 @@ connection1.subscribe(player);
 connection2.subscribe(player);
 ```
 
-::: warning
+::: warning ADVERTENCIA
 **Audio players can play one audio resource at most.** If you try to play another audio resource while one is already playing on the same player, the existing one is destroyed and replaced with the new one.
 :::
 

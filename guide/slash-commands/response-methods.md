@@ -26,7 +26,7 @@ module.exports = {
 	</DiscordMessage>
 </DiscordMessages>
 
-::: warning
+::: warning ADVERTENCIA
 Inicialmente, un token de interacción es solo válido por tres segundos, por lo que ese es el periodo de tiempo en el que puede utilizar el método `ChatInputCommandInteraction#reply()`. Las respuestas que requieren más tiempo ("Respuestas diferidas") se explican más adelante en esta página.
 
 :::
@@ -70,7 +70,7 @@ Las respuestas efímeras *solo* están disponibles para la respuesta de la inter
 
 Después de enviar una respuesta inicial, es posible que desee editar esa respuesta por varios motivos. Esto se puede lograr con el método `ChatInputCOmmandInteraction#editReply()`: 
 
-::: warning
+::: warning ADVERTENCIA
 Después de la respuesta iniciar, el token de una interacción es válido por 15 minutos, por lo que este es el periodo de tiempo en el cual puede editar la respuesta y enviar mensajes de seguimiento. Tampoco **puede** editar el estado efímero del mensaje, así que asegúrese de que su primera respuesta establezca esto correctamente.
 
 :::
@@ -128,7 +128,7 @@ await interaction.deferReply({ ephemeral: true });
 
 No es posible editar una respuesta para cambiar su estado efímero una vez enviada.
 
-::: tip
+::: tip CONSEJO
 Si desea efectuar un comando de ping adecuado, hay uno disponible en nuestro [FAQ](/popular-topics/faq.md#how-do-i-check-the-bot-s-ping).
 
 :::
@@ -137,7 +137,7 @@ Si desea efectuar un comando de ping adecuado, hay uno disponible en nuestro [FA
 
 Los métodos `reply()` y `deferReply()` son respuestas *iniciales*, los cuales le dicen a Discord que su bot recibió la interacción correctamente, pero no pueden ser usados para enviar un mensaje adicional. Aquí es donde entran los mensajes `follow-up`. Después de haber respondido inicialmente a una interacción, puede usar `ChatInputCommandInteraction#followUp()` para enviar mensajes adicionales:
 
-::: warning
+::: warning ADVERTENCIA
 Después de la respuesta inicial, un token de interacción es válido durante 15 minutos, por lo que este es el período de tiempo en el que puede editar la respuesta y enviar mensajes de seguimiento.
 
 :::
@@ -199,7 +199,7 @@ Tenga en cuenta que si utiliza `followUp()` después de `deferReply()`, el prime
 
 Eso es todo, ¡ahora sabes todo lo que hay que saber sobre cómo responder a los comandos de barra!
 
-::: tip
+::: tip CONSEJO
 Las respuestas de interacción pueden emplear enlaces enmascarados (por ejemplo, `[texto](http://sitio.com)`) en el contenido del mensaje.
 
 :::

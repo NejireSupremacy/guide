@@ -3,7 +3,7 @@
 discord.js comes with a utility class known as `Collection`.
 It extends JavaScript's native `Map` class, so it has all the `Map` features and more!  
 
-::: warning
+::: warning ADVERTENCIA
 If you're not familiar with `Map`, read [MDN's page on it](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) before continuing. You should be familiar with `Array` [methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) as well. We will also use some ES6 features, so read up [here](/additional-info/es6-syntax.md) if you do not know what they are.
 :::
 
@@ -55,7 +55,7 @@ Array.from(collection);
 [...collection];
 ```
 
-::: warning
+::: warning ADVERTENCIA
 Many people convert Collections to Arrays way too much! This can lead to unnecessary and confusing code. Before you use `Array.from()` or similar, ask yourself if whatever you are trying to do can't be done with the given `Map` or `Collection` methods or with a for-of loop.
 :::
 

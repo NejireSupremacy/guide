@@ -4,7 +4,7 @@ Los comandos de barra tienen su propio sistema de permisos. Este sistema le perm
 
 Los permisos del comando de barra para los servidores son sólo por defecto y pueden ser alterados por los administradores de los servidores, permitiéndoles configurar el acceso de la forma que mejor se adapte a sus roles de moderación y servidor. Tu código no debe tratar de imponer su propia gestión de permisos, ya que esto puede dar lugar a un conflicto entre los permisos configurados por el servidor y el código de tu bot.
 
-::: warning
+::: warning ADVERTENCIA
 No es posible impedir que los usuarios con permisos de administrador utilicen comandos desplegados globalmente o específicamente para su gremio. Piénselo dos veces antes de crear comandos "sólo para desarrolladores" como `eval`.
 :::
 
@@ -30,7 +30,7 @@ const data = new SlashCommandBuilder()
 
 Para un comando kick sin embargo, podemos permitir a los miembros con el permiso `KickMembers` ejecutar el comando, así que listaremos esa bandera aquí.
 
-::: tip
+::: tip CONSEJO
 Puedes requerir que el usuario tenga todos los permisos combinándolos con el operador bitwise OR `|` (por ejemplo `PermissionFlagsBits.BanMembers | PermissionFlagsBits.KickMembers`).
 No puedes requerir ninguno de los múltiples permisos. Discord evalúa el campo de bits de permiso combinado.
 

@@ -58,7 +58,7 @@ client.on(Events.InteractionCreate, async interaction => {
 client.login('your-token-goes-here');
 ```
 
-::: tip
+::: tip CONSEJO
 We're taking advantage of [destructuring](/additional-info/es6-syntax.md#destructuring) in this tutorial to maintain readability.
 :::
 

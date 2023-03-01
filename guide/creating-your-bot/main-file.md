@@ -1,6 +1,6 @@
 # Creando el archivo principal
 
-::: tip
+::: tip CONSEJO
 Esta página asume que ya has preparado los [archivos de configuración](/creating-your-bot/#creating-configuration-files) de la página anterior. Estamos utilizando el método `config.json`, sin embargo, ¡siéntete libre de sustituirlo por el tuyo propio!
 :::
 
@@ -30,7 +30,7 @@ client.login(token);
 
 Así es como creas una instancia del cliente para tu bot de Discord e inicias sesión en Discord. El opcion de `GatewayIntentBits.Guilds` para los intents es necesaria para que el cliente discord.js funcione como esperas, ya que garantiza que las cachés de guilds, canales y roles se rellenen y estén disponibles para uso interno.
 
-::: tip
+::: tip CONSEJO
 El término "guild" es utilizado por la API de Discord y en discord.js para referirse a un servidor de Discord.
 :::
 
@@ -40,7 +40,7 @@ Los intents también definen los eventos que Discord debe enviar a tu bot, y es 
 
 Abre tu terminal y ejecuta `node index.js` para iniciar el proceso. Si ves "¡Listo!" después de unos segundos, ¡estás listo! El siguiente paso es empezar a añadir [comandos de barra](/creating-your-bot/slash-commands.md) para desarrollar la funcionalidad de tu bot.
 
-::: tip
+::: tip CONSEJO
 Puede abrir su archivo `package.json` y editar el campo `"main": "index.js"` para que apunte a tu archivo principal. A continuación, puedes ejecutar `node .` en tu terminal para iniciar el proceso.
 
 Después de cerrar el proceso con `Ctrl + C`, puedes pulsar la flecha hacia arriba de tu teclado para que aparezcan los últimos comandos que has ejecutado. Pulsar arriba y luego enter después de cerrar el proceso es una forma rápida de iniciarlo de nuevo.

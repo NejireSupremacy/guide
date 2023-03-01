@@ -31,7 +31,7 @@ To include permission checks like `Administrator` or `ManageGuild`, keep reading
 * Final Permissions: Permissions for a member or role, after all overwrites are applied
 * Flag: Human readable string in PasalCase (e.g., `KickMembers`) that refers to a position in the permission BitField. You can find a list of all valid flags on the <DocsLink path="class/PermissionsBitField?scrollTo=s-Flags"/> page
 
-::: tip
+::: tip CONSEJO
 You can provide permission decimals wherever we use flag literals in this guide. If you are interested in a handy permission calculator, you can look at the "Bot" section in the [Discord developer portal](https://discord.com/developers/applications).
 :::
 
@@ -49,7 +49,7 @@ guild.roles.everyone.setPermissions([PermissionsBitField.Flags.SendMessages, Per
 
 Any permission not referenced in the flag array or bit field is not granted to the role. 
 
-::: tip
+::: tip CONSEJO
 Note that flag names are literal. Although `ViewChannel` grants access to view multiple channels, the permission flag is still called `ViewChannel` in singular form.
 :::
 
@@ -85,7 +85,7 @@ if (member.permissions.has(PermissionsBitField.Flags.KickMembers, false)) {
 
 If you provide multiple permissions to the method, it will only return `true` if all permissions you specified are granted.
 
-::: tip
+::: tip CONSEJO
 You can learn more about the `.has()` method [here](#checking-for-permissions).
 :::
 
@@ -207,7 +207,7 @@ const botPermissionsIn = guild.members.me.permissionsIn(channel);
 const rolePermissions = channel.permissionsFor(role);
 ```
 
-::: warning
+::: warning ADVERTENCIA
 The `.permissionsFor()` and `.permissionsIn()` methods return a Permissions object with all permissions set if the member or role has the global `Administrator` permission and does not take overwrites into consideration in this case. Using the second parameter of the `.has()` method as described further down in the guide will not allow you to check without taking `Administrator` into account here!
 :::
 
@@ -228,7 +228,7 @@ const rolePermissions = role.permissions.toArray();
 // output: ['SendMessages', 'AddReactions', 'ChangeNickname', ...]
 ```
 
-::: tip 
+::: tip CONSEJO 
 The return value of `toArray()` always represents the permission flags present in the Permissions instance that the method was called on. This means that if you call the method on, for example: `PermissionOverwrites#deny`, you will receive an array of all denied permissions in that overwrite.
 :::
 

@@ -31,10 +31,12 @@ const config = defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
 		docsDir: 'guide',
 		sidebarDepth: 3,
 		editLinks: true,
+		editLinkText: 'Edita esta página',
 		lastUpdated: true,
+		lastUpdatedText: 'Última actualización',
 		navbar: [
 			{
-				text: 'Voice',
+				text: 'Voz',
 				link: '/voice/',
 			},
 			{

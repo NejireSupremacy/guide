@@ -36,7 +36,7 @@ const client = new Client({
 });
 ```
 
-::: warning
+::: warning ADVERTENCIA
 Note that discord.js relies heavily on caching to provide its functionality - this means an internal reliance on certain events to ensure the caches are populated and up to date.
 :::
 

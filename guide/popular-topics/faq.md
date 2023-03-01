@@ -25,7 +25,7 @@ const user = interaction.options.getUser('target');
 guild.members.unban(user);
 ```
 
-::: tip
+::: tip CONSEJO
 Discord validates and resolves user ids for users not on the server in user slash command options. To retrieve and use the full structure from the resulting interaction, you can use the <DocsLink path="class/CommandInteractionOptionResolver?scrollTo=getUser" /> method.
 :::
 
@@ -43,7 +43,7 @@ const member = interaction.options.getMember('target');
 member.timeout(60_000); // Timeout for one minute
 ```
 
-::: tip
+::: tip CONSEJO
 Timeout durations are measured by the millisecond. The maximum timeout duration you can set is 28 days. To remove a timeout set on a member, pass `null` instead of a timeout duration.
 :::
 
@@ -102,7 +102,7 @@ client.user.setActivity('activity', { type: ActivityType.Listening });
 client.user.setActivity('activity', { type: ActivityType.Competing });
 ```
 
-::: tip
+::: tip CONSEJO
 If you would like to set your activity upon startup, you can use the `ClientOptions` object to set the appropriate `Presence` data.
 :::
 
@@ -132,7 +132,7 @@ channel.send('content');
 
 ### How do I create a post in a forum channel?
 
-::: tip
+::: tip CONSEJO
 Currently, the only way to get tag ids is programmatically through <DocsLink path="class/ForumChannel?scrollTo=availableTags" />.
 :::
 
@@ -149,7 +149,7 @@ channel.threads.create({ name: 'Post name', message: { content: 'Message content
 client.users.send('id', 'content');
 ```
 
-::: tip
+::: tip CONSEJO
 If you want to DM the user who sent the interaction, you can use `interaction.user.send()`.
 :::
 
@@ -163,7 +163,7 @@ await interaction.reply(`Hi, ${user}.`);
 await interaction.followUp(`Hi, <@${user.id}>.`);
 ```
 
-::: tip
+::: tip CONSEJO
 Mentions in embeds may resolve correctly in embed titles, descriptions and field values but will never notify the user. Other areas do not support mentions at all.
 :::
 
@@ -200,7 +200,7 @@ interaction.reply('Please enter more input.').then(() => {
 });
 ```
 
-::: tip
+::: tip CONSEJO
 If you want to learn more about this syntax or other types of collectors, check out [this dedicated guide page for collectors](/popular-topics/collectors.md)!
 :::
 
@@ -215,7 +215,7 @@ client.on(Events.InteractionCreate, interaction => {
 });
 ```
 
-::: tip
+::: tip CONSEJO
 You do not need to have a constant local variable like `blockedUsers` above. If you have a database system that you use to store IDs of blocked users, you can query the database instead:
 
 <!-- eslint-disable no-useless-return -->
@@ -246,7 +246,7 @@ interaction.channel.send('My message to react to.').then(sentMessage => {
 });
 ```
 
-::: tip
+::: tip CONSEJO
 If you want to learn more about reactions, check out [this dedicated guide on reactions](/popular-topics/reactions.md)!
 :::
 
@@ -256,7 +256,7 @@ If you want to learn more about reactions, check out [this dedicated guide on re
 process.exit();
 ```
 
-::: danger
+::: danger CUIDADO
 `process.exit()` will only kill your Node process, but when using [PM2](http://pm2.keymetrics.io/), it will restart the process whenever it gets killed. You can read our guide on PM2 [here](/improving-dev-environment/pm2.md).
 :::
 
@@ -275,7 +275,7 @@ guild.members.fetch({ withPresences: true }).then(fetchedMembers => {
 });
 ```
 
-::: warning
+::: warning ADVERTENCIA
 This only works correctly if you have the `GuildPresences` intent enabled for your application and client.
 If you want to learn more about intents, check out [this dedicated guide on intents](/popular-topics/intents.md)!
 :::
@@ -308,7 +308,7 @@ There are two common measurements for bot pings. The first, **websocket heartbea
 interaction.reply(`Websocket heartbeat: ${client.ws.ping}ms.`);
 ```
 
-::: tip
+::: tip CONSEJO
 If you're using [sharding](/sharding/), a specific shard's heartbeat can be found on the WebSocketShard instance, accessible at `client.ws.shards.get(id).ping`.
 :::
 
@@ -349,7 +349,7 @@ console.log(emojiCharacters[10]); // 🔟
 console.log(emojiCharacters['!']); // ❗
 ```
 
-::: tip
+::: tip CONSEJO
 On Windows, you may be able to use the `Win + .` keyboard shortcut to open up an emoji picker that can be used for quick, easy access to all the Unicode emojis available to you. Some of the emojis listed above may not be represented there, though (e.g., the 0-9 emojis).
 
 You can also use the `Control + Command + Space` keyboard shortcut to perform the same behavior on macOS.
