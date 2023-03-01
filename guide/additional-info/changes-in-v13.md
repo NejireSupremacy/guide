@@ -1,7 +1,7 @@
 # Actualizando de v12 a v13
 
 ::: danger
-Discord.js v13 version is considered old and it is not recommended to continue using it in production, consider adapting to v14 using [our v14 changes section](additional-info/changes-in-v14.html) as soon as possible.
+La versión v13 de Discord.js se considera antigua y no se recomienda seguir utilizándola en producción, considera adaptarte a la v14 utilizando [nuestra guía de cambios para la v14](additional-info/changes-in-v14.html) lo antes posible.
 :::
 
 ## Antes de empezar
