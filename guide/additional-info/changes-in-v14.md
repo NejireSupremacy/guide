@@ -55,7 +55,7 @@ La mayor parte de la diferencia entre las enumeraciones de discord.js y discord-
 3. Los valores de las Enumeraciones son `PascalCase` en lugar de `SCREAMING_SNAKE_CASE`, por ejemplo, `.CHAT_INPUT` pasa a ser `.ChatInput`.
 
 ::: warning
-Es posible que te acostumbres a usar `number`s (más comúnmente conocidos como [números mágicos/magic numbers](<https://es.wikipedia.org/wiki/N%C3%BAmero_m%C3%A1gico_(inform%C3%A1tica)>)) en lugar de valores de enumeraciones. Esto debería cambiar. Las enumeraciones son más legibles y más resistentes a los cambios en la API. Los números mágicos pueden oscurecer el significado de tu código de muchas maneras, eche un vistazo a este [blog post](https://blog.webdevsimplified.com/2020-02/magic-numbers/) si deseas más información sobre por qué no deben ser utilizados.
+Es posible que te acostumbres a usar `number`s (más comúnmente conocidos como [números mágicos/magic numbers](<https://es.wikipedia.org/wiki/N%C3%BAmero_m%C3%A1gico_(inform%C3%A1tica)>)) en lugar de valores de enumeraciones. Esto debería cambiar. Las enumeraciones son más legibles y más resistentes a los cambios en la API. Los números mágicos pueden oscurecer el significado de tu código de muchas maneras, echa un vistazo a este [blog post](https://blog.webdevsimplified.com/2020-02/magic-numbers/) si deseas más información sobre por qué no deben ser utilizados.
 :::
 
 #### Cambios comunes de enumeraciones
@@ -96,7 +96,7 @@ const command = {
 + const { ButtonStyle } = require('discord.js');
 
 const button = {
-  label: 'test',
+  label: 'prueba',
 - style: 'PRIMARY',
 + style: ButtonStyle.Primary,
   customId: '1234'
