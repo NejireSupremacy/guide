@@ -65,7 +65,7 @@ pnpm add discord.js
 
 ## Comandos de barra diagonal
 
-¡discord.js ahora tiene soporte para comandos de barra diagonal! Consulta la sección de [comandos de barra diagonals](/interactions/slash-commands.html) en esta guía para comenzar.
+¡discord.js ahora tiene soporte para comandos de barra diagonal! Consulta la sección de [comandos de barra](/slash-commands/response-methods.html) en esta guía para comenzar.
 
 Además del evento `interactionCreate` explicado en la guía anterior, esta versión también incluye los nuevos eventos de Client `applicationCommandCreate`, `applicationCommandDelete`, y `applicationCommandUpdate`.
 
