@@ -19,7 +19,7 @@
 					<span class="notification-icon"><PartyPopperIcon /></span>
 					<span>
 						Estás navegando en la guía de discord.js v14.
-						Revisa <router-link to="/whats-new.html">qué hay de nuevo</router-link>, o revisa la <a href="https://v13.discordjs-guide-es.netlify.app">guía de discord.js v13 (sin traducir)</a>.
+						Revisa <router-link to="/whats-new.html">qué hay de nuevo</router-link>, o revisa la <a href="https://v13.discordjs.guide">guía de discord.js v13 (sin traducir)</a>.
 					</span>
 				</Notification>
 			</Notifications>
