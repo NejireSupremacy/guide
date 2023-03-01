@@ -1,5 +1,9 @@
 # Actualizando de v12 a v13
 
+::: danger
+Discord.js v13 version is considered old and it is not recommended to continue using it in production, consider adapting to v14 using [our v14 changes section](additional-info/changes-in-v14.html) as soon as possible.
+:::
+
 ## Antes de empezar
 
 Discord.js v13 requiere de Node.js 16.6 o una versión mayor para su uso, entonces asegúrate de que estés actualizado. Para comprobar tu versión de Node, usa `node -v` en tu terminal or símbolo del sistema, y si no cumple con la versión mínima, ¡actualízala! Hay muchos recursos en línea para ayudarte en este paso.
@@ -8,22 +12,28 @@ Una vez que ya hayas actualizado Node.js, puedes instalar discord.js versión 13
 
 :::: code-group
 ::: code-group-item npm
+
 ```sh:no-line-numbers
 npm install discord.js # solo texto
 npm install discord.js @discordjs/voice # soporte de voz
 ```
+
 :::
 ::: code-group-item yarn
+
 ```sh:no-line-numbers
 yarn add discord.js # solo texto
 yarn add discord.js @discordjs/voice # soporte de voz
 ```
+
 :::
 ::: code-group-item pnpm
+
 ```sh:no-line-numbers
 pnpm add discord.js # solo texto
 pnpm add discord.js @discordjs/voice # soporte de voz
 ```
+
 :::
 ::::
 
@@ -31,6 +41,7 @@ Puedes comprobar la versión de discord.js con el comando `list`. Este debería 
 
 :::: code-group
 ::: code-group-item npm
+
 ```sh:no-line-numbers
 # verificar versión
 npm list discord.js
@@ -38,8 +49,10 @@ npm list discord.js
 npm uninstall discord.js
 npm install discord.js
 ```
+
 :::
 ::: code-group-item yarn
+
 ```sh:no-line-numbers
 # verificar versión
 yarn list discord.js
@@ -47,8 +60,10 @@ yarn list discord.js
 yarn remove discord.js
 yarn add discord.js
 ```
+
 :::
 ::: code-group-item pnpm
+
 ```sh:no-line-numbers
 # verificar versión
 pnpm list discord.js
@@ -56,6 +71,7 @@ pnpm list discord.js
 pnpm remove discord.js
 pnpm add discord.js
 ```
+
 :::
 ::::
 
@@ -551,9 +567,9 @@ Ambos métodos se han eliminado de `GuildChannel` y se han colocado sólo en las
 
 En estas sub-clases, el método admite ahora opciones adicionales:
 
--   `targetUser` para que la invitación se dirija a un determinado usuario de streaming
--   `targetApplication` para dirigir la invitación a una actividad particular de Discord
--   `targetType` define el tipo de objetivo para esta invitación; usuario o aplicación
+- `targetUser` para que la invitación se dirija a un determinado usuario de streaming
+- `targetApplication` para dirigir la invitación a una actividad particular de Discord
+- `targetType` define el tipo de objetivo para esta invitación; usuario o aplicación
 
 #### GuildChannel#overwritePermissions
 
