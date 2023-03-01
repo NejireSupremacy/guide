@@ -1,178 +1,177 @@
-# Updating from v12 to v13
+# Actualizando de v12 a v13
 
-## Before you start
+## Antes de empezar
 
-v13 requires Node 16.6 or higher to use, so make sure you're up to date. To check your Node version, use `node -v` in your terminal or command prompt, and if it's not high enough, update it! There are many resources online to help you with this step based on your host system.
+Discord.js v13 requiere de Node.js 16.6 o una versión mayor para su uso, entonces asegúrate de que estés actualizado. Para comprobar tu versión de Node, usa `node -v` en tu terminal or símbolo del sistema, y si no cumple con la versión mínima, ¡actualízala! Hay muchos recursos en línea para ayudarte en este paso.
 
-Once you've got Node up-to-date, you can install v13 by running the appropriate command in your terminal or command prompt.
+Una vez que ya hayas actualizado Node.js, puedes instalar discord.js versión 13, ejecutando el comando apropiado en tu terminal o en tu símbolo del sistema.
 
 :::: code-group
 ::: code-group-item npm
 ```sh:no-line-numbers
-npm install discord.js # text-only
-npm install discord.js @discordjs/voice # voice support
+npm install discord.js # solo texto
+npm install discord.js @discordjs/voice # soporte de voz
 ```
 :::
 ::: code-group-item yarn
 ```sh:no-line-numbers
-yarn add discord.js # text-only
-yarn add discord.js @discordjs/voice # voice support
+yarn add discord.js # solo texto
+yarn add discord.js @discordjs/voice # soporte de voz
 ```
 :::
 ::: code-group-item pnpm
 ```sh:no-line-numbers
-pnpm add discord.js # text-only
-pnpm add discord.js @discordjs/voice # voice support
+pnpm add discord.js # solo texto
+pnpm add discord.js @discordjs/voice # soporte de voz
 ```
 :::
 ::::
 
-You can check your discord.js version with the `list` command. Should it still show v12.x, uninstall and re-install discord.js and make sure the entry in your package.json does not prevent a major version update. Please refer to the [npm documentation](https://docs.npmjs.com/files/package.json#dependencies) for this.
+Puedes comprobar la versión de discord.js con el comando `list`. Este debería seguir mostrando v12.x, desinstala y re-instala discord.js y asegúrate de que la entrada en tu archivo package.json no impida una actualización de versión mayor. Consulta la [documentación de npm](https://docs.npmjs.com/files/package.json#dependencies) para esto.
 
 :::: code-group
 ::: code-group-item npm
 ```sh:no-line-numbers
-# check version
+# verificar versión
 npm list discord.js
-# uninstall and re-install
+# desinstalar y re-instalar
 npm uninstall discord.js
 npm install discord.js
 ```
 :::
 ::: code-group-item yarn
 ```sh:no-line-numbers
-# check version
+# verificar versión
 yarn list discord.js
-# uninstall and re-install
+# desinstalar y re-instalar
 yarn remove discord.js
 yarn add discord.js
 ```
 :::
 ::: code-group-item pnpm
 ```sh:no-line-numbers
-# check version
+# verificar versión
 pnpm list discord.js
-# uninstall and re-install
+# desinstalar y re-instalar
 pnpm remove discord.js
 pnpm add discord.js
 ```
 :::
 ::::
 
-## API version
+## Versión de API
 
-discord.js v13 makes the switch to Discord API v9! In addition to this, the new major version also includes a bunch of cool new features.
+¡discord.js v13 hace el cambio a la versión 9 de la API de Discord! Además, la nueva versión principal incluye un montón de novedades interesantes.
 
-## Slash commands
+## Comandos de barra diagonal
 
-discord.js now has support for slash commands!
-Refer to the [slash commands](/interactions/slash-commands.html) section of this guide to get started.
+¡discord.js ahora tiene soporte para comandos de barra diagonal! Consulta la sección de [comandos de barra diagonals](/interactions/slash-commands.html) en esta guía para comenzar.
 
-In addition to the `interactionCreate` event covered in the above guide, this release also includes the new Client events `applicationCommandCreate`, `applicationCommandDelete`, and `applicationCommandUpdate`.
+Además del evento `interactionCreate` explicado en la guía anterior, esta versión también incluye los nuevos eventos de Client `applicationCommandCreate`, `applicationCommandDelete`, y `applicationCommandUpdate`.
 
-## Message components
+## Componentes de mensaje
 
-discord.js now has support for message components!
-This introduces the `MessageActionRow`, `MessageButton`, and `MessageSelectMenu` classes, as well as associated interactions and collectors. 
+¡discord.js ahora tiene soporte para componentes de mensaje!
+Esto introduce las clases `MessageActionRow`, `MessageButton`, y `MessageSelectMenu`, así como las interacciones y colectores asociados.
 
-Refer to the [message components](/interactions/buttons.html) section of this guide to get started.
+Consulta la sección de [componentes de mensaje](/interactions/buttons.html) en esta guía para comenzar.
 
-## Threads
+## Hilos
 
-discord.js now has support for threads! Threads are a new type of sub-channel that can be used to help separate conversations into a more meaningful flow.
+¡discord.js ahora tiene soporte para hilos! Hilos son un nuevo tipo de sub-canal que puede ser usado para ayudar separando conversaciones en un flujo más significativo.
 
-This introduces the `ThreadManager` class, which can be found as `TextChannel#threads`, in addition to `ThreadChannel`, `ThreadMemberManager`, and `ThreadMember`. There are also five new events: `threadCreate`, `threadUpdate`, `threadDelete`, `threadListSync`, `threadMemberUpdate`, and `threadMembersUpdate`.
+Esto introduce la clase `ThreadManager`, que puede ser encontrada como `TextChannel#threads`, además de `ThreadChannel`, `ThreadMemberManager`, y `ThreadMember`. También hay cinco nuevos eventos: `threadCreate`, `threadUpdate`, `threadDelete`, `threadListSync`, `threadMemberUpdate`, y `threadMembersUpdate`.
 
-Refer to the [threads](/popular-topics/threads.html) section of this guide to get started.
+Consulta la sección de [hilos](/popular-topics/threads.html) en esta guía para comenzar.
 
-## Voice
+## Voz
 
-Support for voice has been separated into its own module. You now need to install and use [@discordjs/voice](https://github.com/discordjs/discord.js/tree/main/packages/voice) for interacting with the Discord Voice API.
+El soporte para voz ha sido separado en su propio módulo. Ahora necesitas instalar y usar [@discordjs/voice](https://github.com/discordjs/discord.js/tree/main/packages/voice) para interactuar con la API de Voz de Discord.
 
-Refer to the [voice](/voice/) section of this guide to get started.
+Consulta a la sección de [voz](/voice/) de esta guía para comenzar.
 
-## Customizable Manager caches
+## Administrador de caché personalizado
 
-A popular request that has finally been heard - the `Client` class now has a new option, `makeCache`. It accepts a `CacheFactory`.
+Una solicitud muy popular que ha sido finalmente escuchada: La clase `Client` ahora tiene una nueva opción, `makeCache`. Este acepta como argumento a un `CacheFactory`.
 
-By combining this with the helper function `Options.cacheWithLimits`, users can define limits on each Manager's cache and let discord.js handle the rest.
+Combinandolo con el método `Options.cacheWithLimits`, los usuarios pueden definir límites en cada caché de Manager y permitir que discord.js haga el resto.
 
 ```js
 const client = new Client({
 	makeCache: Options.cacheWithLimits({
-		MessageManager: 200, // This is default
+		MessageManager: 200, // Esto viene por defecto
 		PresenceManager: 0,
-		// Add more class names here
+		// Puedes añadir más nombres de clases aquí
 	}),
 });
 ```
 
-Additional flexibility can be gained by providing a function which returns a custom cache implementation. Keep in mind this should still maintain the `Collection`/`Map`-like interface for internal compatibility.
+Se puede obtener flexibilidad adicional proporcionando una función que devuelva una implementación de caché personalizada. Ten en cuenta que debes mantener la interfaz `Collection`/`Map` por compatibilidad interna.
 
 ```js
 const client = new Client({
-	makeCache: manager => {
-		if (manager.name === 'MessageManager') return new LimitedCollection({ maxSize: 0 });
+	makeCache: (manager) => {
+		if (manager.name === "MessageManager")
+			return new LimitedCollection({ maxSize: 0 });
 		return new Collection();
 	},
 });
 ```
 
-## Commonly used methods that changed
+## Métodos comunes que han cambiado
 
-### Sending messages, embeds, files, etc.
+### Enviar mensajes, embeds, archivos, etc.
 
-With the introduction of Interactions and it becoming far common for users to want to send an embed with MessageOptions, methods that send messages now enforce a single param. 
-This can be either a string, a `MessagePayload`, or that method's variant of `MessageOptions`.
+Con la introducción de las interacciones y el hecho de que es muy común que los usuarios quieran enviar embeds con `MessageOptions`, los métodos que envían mensajes ahora imponen un único parámetro.
 
-Additionally, all messages sent by bots now support up to 10 embeds. As a result, the `embed` option was removed and replaced with an `embeds` array, which must be in the options object.
+Además, todos los mensajes enviados por los bots admiten ahora hasta 10 embeds. Como resultado, se ha eliminado la opción `embed` y se ha sustituido por un Array de `embeds`, que debe estar en el objeto de opciones.
 
 ```diff
 - channel.send(embed);
 + channel.send({ embeds: [embed, embed2] });
 
-- channel.send('Hello!', { embed });
-+ channel.send({ content: 'Hello!', embeds: [embed, embed2] });
+- channel.send('¡Hola!', { embed });
++ channel.send({ content: '¡Hola!', embeds: [embed, embed2] });
 
-- interaction.reply('Hello!', { ephemeral: true });
-+ interaction.reply({ content: 'Hello!', ephemeral: true });
+- interaction.reply('¡Hola!', { ephemeral: true });
++ interaction.reply({ content: '¡Hola!', ephemeral: true });
 ```
 
-`MessageEmbed#attachFiles` has been removed; files should now be attached directly to the message instead of the embed.
+`MessageEmbed#attachFiles` ha sido removido; los archivos ahora deben ser adjuntados directamente en el mensaje en lugar del embed.
 
 ```diff
-- const embed = new Discord.MessageEmbed().setTitle('Attachments').attachFiles(['./image1.png', './image2.jpg']);
+- const embed = new Discord.MessageEmbed().setTitle('Archivos adjuntos').attachFiles(['./image1.png', './image2.jpg']);
 - channel.send(embed);
-+ const embed = new Discord.MessageEmbed().setTitle('Attachments');
++ const embed = new Discord.MessageEmbed().setTitle('Archivos adjuntos');
 + channel.send({ embeds: [embed], files: ['./image1.png', './image2.jpg'] });
 ```
 
-The `code` and `split` options have also been removed. This functionality will now have to be handled manually, such as via the `Formatters.codeBlock` and `Util.splitMessage` helpers.
+También se han eliminado las opciones `code` y `split`. Esta funcionalidad ahora tendrá que ser manejada manualmente, por ejemplo a través de las funciones `Formatters.codeBlock` y `Util.splitMessage`.
 
-### Strings
+### Cadenas de texto
 
-Many methods in discord.js that were documented as accepting strings would also accept other types and resolve this into a string on your behalf. The results of this behavior were often undesirable, producing output such as `[object Object]`.
+Muchos métodos en discord.js que estaban documentados para aceptar cadenas también aceptaban otros tipos y los resolvían en una cadena. Los resultados de este comportamiento eran a menudo indeseables, produciendo salidas como `[object Object]`.
 
-discord.js now enforces and validates string input on all methods that expect it. Users will need to manually call `toString()` or utilize template literals for all string inputs as appropriate.
+discord.js ahora aplica y valida la entrada de cadenas de texto en todos los métodos que la esperan. Los usuarios necesitaran llamar manualmente a `.toString()` o utilizar `template string` para todas las entradas de cadenas de texto según correspondan.
 
-The most common areas you will encounter this change in are: `MessageOptions#content`, the properties of a `MessageEmbed`, and passing objects such as users or roles, expecting them to be stringified.
+Las áreas más comunes en las que encontrarás este cambio son: `MessageOptions#content`, las propiedades de un `MessageEmbed`, y transformar objetos como usuarios o roles, esperando que sean cadenas de texto.
 
 ```diff
 - message.channel.send(user);
 + message.channel.send(user.toString());
 
-let count = 5;
-- embed.addField('Count', count);
-+ embed.addField('Count', count.toString());
+let contador = 5;
+- embed.addField('Contador', contador);
++ embed.addField('Contador', contador.toString());
 ```
 
 ### Intents
 
-As v13 makes the switch to Discord API v9, it is now **required** to specify all intents your bot uses in the Client constructor. The `intents` option has also moved from `ClientOptions#ws#intents` to `ClientOptions#intents`.
+Como discord.js v13 hace el cambio a la API de Discord v9, ahora es **requerido** especificar todos los intents que tu bot usa en el constructor del Client. La opción `intents` también ha pasado de `ClientOptions#ws#intents` a `ClientOptions#intents`.
 
-The shortcuts `Intents.ALL`, `Intents.NON_PRIVILEGED`, and `Intents.PRIVILEGED` have all been removed to discourage bad practices of enabling unused intents.
+Se han eliminado los atajos `Intents.ALL`, `Intents.NON_PRIVILEGED` e `Intents.PRIVILEGED` para no incentivar las malas prácticas de habilitar intents no utilizados.
 
-Refer to our more [detailed article about this topic](/popular-topics/intents.html).
+Consulta a nuestro [artículo más detallado sobre este tema](/popular-topics/intents.html).
 
 ```diff
 - const client = new Client({ ws: { intents: [Intents.FLAGS.GUILDS] } });
@@ -181,57 +180,56 @@ Refer to our more [detailed article about this topic](/popular-topics/intents.ht
 
 ### Structures#extend
 
-The concept of extendable Structures has been completely removed from discord.js.
-For more information on why this decision was made, refer to [this pull request](https://github.com/discordjs/discord.js/pull/6027).
+El concepto de Estructuras extensibles ha sido completamente eliminado de discord.js. Para más información acerca de por qué esta desición fue tomada, consulta a [este pull request](https://github.com/discordjs/discord.js/pull/6027).
 
-There is no swap-in replacement for this, as the intention is to change the code design rather than enable something equally bad.
+No hay un reemplazo para esto, ya que la intención es cambiar el diseño del código en lugar de habilitar algo igual de malo.
 
-For some real-world example of the alternatives provided in the PR, you may have been extending the `Guild` class with guild-specific settings:
+Para algún ejemplo del mundo real de las alternativas proporcionadas en el Pull Request, es posible que hayas estado extendiendo la clase `Guild` con configuraciones específicas del guild:
 
 ```js
-Structures.extend('Guild', Guild => {
+Structures.extend("Guild", (Guild) => {
 	return class MyGuild extends Guild {
 		constructor(client, data) {
 			super(client, data);
 			this.settings = {
-				prefix: '!',
+				prefix: "!",
 			};
 		}
 	};
 });
 ```
 
-This functionality can be replicated using the `WeakMap` or `Collection` example, even attaching it to the Client if necessary:
+Esta función puede ser replicada añadiendo `WeakMap` o `Collection` al client si es necesario:
 
 ```js
 client.guildSettings = new Collection();
-client.guildSettings.set(guildId, { prefix: '!' });
-// In practice, you would populate this Collection with data fetched from a database
+client.guildSettings.set(guildId, { prefix: "!" });
+// En la práctica, esta colección se rellenaría con datos obtenidos de una base de datos
 
 const { prefix } = message.client.guildSettings.get(message.guild.id);
 ```
 
-### Collectors
+### Colectores
 
-All Collector related classes and methods (both `.create*()` and `.await*()`) now take a single object parameter which also includes the filter.
+Todas las clases y métodos relacionados con `Collector` (tanto `.create*()` como `.await*()`) ahora toman un único parámetro de objeto que también incluye el filtro.
 
 ```diff
 - const collector = message.createReactionCollector(filter, { time: 15000 });
 + const collector = message.createReactionCollector({ filter, time: 15000 });
 
-- const reactions = await message.awaitReactions(filter, { time: 15000 });
-+ const reactions = await message.awaitReactions({ filter, time: 15000 });
+- const reacciones = await message.awaitReactions(filter, { time: 15000 });
++ const reacciones = await message.awaitReactions({ filter, time: 15000 });
 ```
 
-### Naming conventions
+### Costumbre con los nombres
 
-Some commonly used naming conventions in discord.js have changed.
+Algunos nombres de uso común en discord.js han cambiado.
 
-#### Thing#thingId
+#### Algo#algoId
 
-The casing of `thingID` properties has changed to `thingId`. This is a more-correct casing for the camelCase used by discord.js as `Id` is an abbreviation of Identifier, not an acronym.
+El nombre de las propiedades `thingID` ha cambiado a `thingId`. Se trata de una forma más correcta que la forma camelCase utilizada por discord.js, ya que `Id` es una abreviatura de Identificador, no un acrónimo.
 
-This includes: `afkChannelId`, `applicationId`, `channelId`, `creatorId`, `guildId`, `lastMessageId`, `ownerId`, `parentId`, `partyId`, `processId`, `publicUpdatesChannelId`, `resolveId`, `rulesChannelId`, `sessionId`, `shardId`, `systemChannelId`, `webhookId`, `widgetChannelId`, and `workerId`.
+Esto incluye: `afkChannelId`, `applicationId`, `channelId`, `creatorId`, `guildId`, `lastMessageId`, `ownerId`, `parentId`, `partyId`, `processId`, `publicUpdatesChannelId`, `resolveId`, `rulesChannelId`, `sessionId`, `shardId`, `systemChannelId`, `webhookId`, `widgetChannelId`, y `workerId`.
 
 ```diff
 - console.log(guild.ownerID);
@@ -243,99 +241,101 @@ This includes: `afkChannelId`, `applicationId`, `channelId`, `creatorId`, `guild
 
 #### Client#message
 
-The `message` event has been renamed to `messageCreate`, to bring the library in line with Discord's naming conventions.
-Using `message` will still work, but you'll receive a deprecation warning until you switch over.
+El evento `message` ha sido renombrado a `messageCreate`, para alinear la librería con las convenciones de nomenclatura de Discord.
+El evento `message` seguirá funcionando, pero recibirás una advertencia de obsoleto hasta que cambies.
 
 ```diff
 - client.on("message", message => { ... });
 + client.on("messageCreate", message => { ... });
 ```
 
-### Allowed Mentions
+### Menciones Permitidas
 
-`clientOptions.disableMentions` has been removed and replaced with `clientOptions.allowedMentions`!
-The Discord API now allows bots much more granular control over mention parsing, down to the specific id.
+Se ha eliminado `clientOptions.disableMentions` y se ha sustituido por `clientOptions.allowedMentions`.
+La API de Discord ahora permite a los bots un control mucho más específico sobre el análisis de menciones, hasta la ID específica.
 
-Refer to the [Discord API documentation](https://discord.com/developers/docs/resources/channel#allowed-mentions-object) for more information.
+Consulta a la [Documentación de la API de Discord](https://discord.com/developers/docs/resources/channel#allowed-mentions-object) para más información.
 
 ```diff
 - const client = new Discord.Client({ disableMentions: 'everyone' });
 + const client = new Discord.Client({ allowedMentions: { parse: ['users', 'roles'], repliedUser: true } });
 ```
 
-### Replies / Message#reply
+### Respuestas / Message#reply
 
-`Message#reply` will no longer result in the bot prepending a user mention to the content, replacing the behavior with Discord's reply feature.
+`Message#reply` ya no hará que el bot añada una mención al usuario, ahora usará la función de respuesta de Discord.
 
-`MessageOptions#reply` no longer takes a user id. It has been replaced with a `ReplyOptions` type, expecting `MessageOptions#reply#messageReference` as a Message id.
-
-```diff
-- channel.send('content', { reply: '123456789012345678' }); // User id
-+ channel.send({ content: 'content', reply: { messageReference: '765432109876543219' }}); // Message id
-```
-
-The new `MessageOptions.allowedMentions.repliedUser` boolean option determines if the reply will notify the author of the original message.
+`MessageOptions#reply` toma ahora un tipo `ReplyOptions`. `MessageOptions#reply#messageReference` será una ID de mensaje.
 
 ```diff
-- message.reply('content')
-+ message.reply({ content: 'content', allowedMentions: { repliedUser: false }})
+- channel.send('content', { reply: '123456789012345678' }); // ID de usuario
++ channel.send({ content: 'content', reply: { messageReference: '765432109876543219' }}); // ID de mensaje
 ```
-Note that this will disable all other mentions in this message. To enable other mentions, you will need to include other `allowedMentions` fields. See the above "Allowed Mentions" section for more.
 
-### Bitfields / Permissions
+La nueva opción `MessageOptions.allowedMentions.repliedUser` (de tipo boolean) determina si la respuesta notificará al autor del mensaje original.
 
-Bitfields are now `BigInt`s instead of `Number`s. This can be handled using the `BigInt()` class, or the n-suffixed [BigInt literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt).
+```diff
+- message.reply('contenido')
++ message.reply({ content: 'contenido', allowedMentions: { repliedUser: false }})
+```
+
+Ten en cuenta que esto desactivará todas las demás menciones en este mensaje. Para habilitar otras menciones, deberá incluir otros campos `allowedMentions`. Consulta la sección anterior "Menciones Permitidas" para obtener más información.
+
+### Campos de bits (Bitfield) / Permisos
+
+Estos campos ahora son `BigInt`s en lugar de `Number`s. Esto puede ser gestionado usando la clase `BigInt()`, o agregando la `n` como sufijo. Para más información sobre BigInts, [revisa la documentación](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt).
 
 ```diff
 - const p = new Permissions(104324673);
 + const p = new Permissions(BigInt(104324673));
 + const p = new Permissions(104324673n);
 ```
-In addition, the usage of string literals for bitfield flags such as `Permissions` and `UserFlags` is discouraged; you should use the flag instead.
+
+Además, no se aconseja el uso de cadenas de texto para campos de bits como `Permissions` y `UserFlags`.
 
 ```diff
 - permissions.has('SEND_MESSAGES')
 + permissions.has(Permissions.FLAGS.SEND_MESSAGES)
 ```
 
-### DM Channels
+### Canales de Mensajes Directos
 
-On Discord API v8 and later, DM Channels do not emit the `CHANNEL_CREATE` event, which means discord.js is unable to cache them automatically. In order for your bot to receive DMs, the `CHANNEL` partial must be enabled.
+En la versión 8 de la API de Discord y posteriores, los canales DM no emiten el evento `CHANNEL_CREATE`, lo que significa que discord.js no puede almacenarlos en caché automáticamente. Para que tu bot reciba DMs, el partial `CHANNEL` debe estar habilitado.
 
-### Webpack
+### Versión para navegadores (Webpack builds)
 
-Webpack builds are no longer supported.
+La versión para navegadores ya no es soportada por discord.js
 
-## Changes and deletions
+## Cambios y eliminaciones
 
 ### ActivityType
 
-The `CUSTOM_STATUS` type has been renamed to `CUSTOM`.
+El tipo `CUSTOM_STATUS` ha sido renombrado a `CUSTOM`.
 
 ### APIMessage
 
-The `APIMessage` class has been renamed to `MessagePayload`, resolving a naming clash with an interface in the `discord-api-types` library which represents raw message data objects.
+La clase `APIMessage` se ha renombrado a `MessagePayload`, resolviendo un conflicto de nombres con una interfaz de la librería `discord-api-types` que representa objetos de datos de mensajes.
 
 ### Channel
 
 #### Channel#type
 
-Channel types are now uppercase and align with Discord's naming conventions.
+Los tipos de canal ahora están en mayúsculas y se alinean con las convenciones de nomenclatura de Discord.
 
 ```diff
-- if(channel.type === 'text') channel.send('Content');
-+ if(channel.type === 'GUILD_TEXT') channel.send('Content');
+- if(channel.type === 'text') channel.send('Contenido');
++ if(channel.type === 'GUILD_TEXT') channel.send('Contenido');
 ```
 
 ### Client
 
 #### Client#emojis
 
-The Client Emoji manager is now a `BaseGuildEmojiManager`, providing cache resolution only and removing methods that would fail to create emojis as there was no Guild context.
+El administrador de emojis del client es ahora un `BaseGuildEmojiManager`, proporcionando únicamente resolución de caché y eliminando métodos que fallaban al crear emojis al no haber contexto de Guild.
 
 #### Client#fetchApplication
 
-The `Client#fetchApplication` method has been removed and replaced with the `Client#application` property.
+Se ha eliminado el método `Client#fetchApplication` y se ha sustituido por la propiedad `Client#application`.
 
 ```diff
 - client.fetchApplication().then(application => console.log(application.name))
@@ -344,20 +344,20 @@ The `Client#fetchApplication` method has been removed and replaced with the `Cli
 
 #### Client#fetchWidget
 
-This method has been renamed to `fetchGuildWidget` to better represent its functionality.
+Este método ha sido renombrado a `fetchGuildWidget` para representar mejor su funcionalidad.
 
 #### Client#generateInvite
 
-`Client#generateInvite` no longer supports `PermissionsResolvable` as its argument, requiring `InviteGenerationOptions` instead.
-This also requires that at least one of either `bot` or `applications.commands` is provided in `scopes` to generate a valid invite URL.
+`Client#generateInvite` ya no admite `PermissionsResolvable` como argumento, sino `InviteGenerationOptions`.
+Esto también requiere que al menos uno de los dos scopes `bot` o `applications.commands` se proporcione para generar una URL de invitación válida.
 
-To generate an invite link with slash commands permissions:
+Para generar un enlace de invitación con permisos de comandos de barra diagonal:
 
 ```js
-client.generateInvite({ scopes: ['applications.commands'] });
+client.generateInvite({ scopes: ["applications.commands"] });
 ```
 
-To generate an invite link for a bot and define required permissions:
+Para generar un enlace de invitación para un bot y definir los permisos necesarios:
 
 ```diff
 - client.generateInvite([Permissions.FLAGS.SEND_MESSAGES]);
@@ -366,62 +366,62 @@ To generate an invite link for a bot and define required permissions:
 
 #### Client#login
 
-Previously when a token had reached its 1000 login limit for the day, discord.js would treat this as a rate limit and silently wait to login again, but this was not communicated to the user.
-This will now instead cause an error to be thrown.
+Anteriormente, cuando un token había alcanzado su límite de 1000 inicios de sesión por día, discord.js trataría esto como un rate limit y esperaría para iniciar sesión de nuevo, pero esto no se comunicaba al usuario. Esto ahora causará un error.
 
 #### Client#typingStart
 
-The `Client#typingStart` event now only emits a `Typing` structure. Previously, `Channel` and `User` were emitted.
+El evento `Client#typingStart` ahora sólo emite una estructura `Typing`. Anteriormente, se emitían `Channel` y `User`.
 
 #### Client#setInterval
+
 #### Client#setTimeout
 
-The Client timeout methods have all been removed. These methods existed for the purpose of caching timeouts internally so they could be cleared when the Client is destroyed.
-Since timers now have an `unref` method in Node, this is no longer required.
+Se han eliminado todos los métodos de tiempo de espera del Client. Estos métodos existían con el propósito de almacenar en caché los tiempos de espera internamente para poder borrarlos cuando se destruyera el Client.
+Dado que los temporizadores ahora tienen un método `unref` en Node.js, esto ya no es necesario.
 
 ### ClientOptions
 
 #### ClientOptions#fetchAllMembers
 
-The `ClientOptions#fetchAllMembers` option has been removed.
+La opción `ClientOptions#fetchAllMembers` ha sido removida.
 
-With the introduction of gateway intents, the `fetchAllMembers` Client option would often fail and causes significant delays in ready states or even cause timeout errors.
-As its purpose is contradictory to Discord's intentions to reduce scraping of user and presence data, it has been removed.
+Con la introducción de gateway intents, la opción de client `fetchAllMembers` fallaba a menudo y causaba retrasos significativos en estados listos o incluso provocaba errores de tiempo de espera agotado.
+Como su propósito es contradictorio con las intenciones de Discord de reducir el scraping de datos de usuarios y presencias, se ha eliminado.
 
 #### ClientOptions#messageCacheMaxSize
 
-The `ClientOptions#messageCacheMaxSize` option has been removed. Instead, use [`ClientOptions#makeCache`](#customizable-manager-caches) to customize the `MessageManager` cache.
+Se ha eliminado la opción `ClientOptions#messageCacheMaxSize`. En su lugar, utiliza [`ClientOptions#makeCache`](#customizable-manager-caches) para personalizar la caché del `MessageManager`.
 
 #### ClientOptions#messageEditHistoryMaxSize
 
-The `ClientOptions#messageEditHistoryMaxSize` option has been removed.
+Se ha eliminado la opción `ClientOptions#messageEditHistoryMaxSize`.
 
-To reduce caching, discord.js will no longer store an edit history. You will need to implement this yourself if required.
+Para reducir el almacenamiento en caché, discord.js ya no almacenará un historial de edición. Tendrás que implementar esto tú mismo si es necesario.
 
 ### ClientUser
 
 #### ClientUser#setActivity
 
-The `ClientUser#setActivity` method no longer returns a Promise.
+El método `ClientUser#setActivity` ya no devuelve una Promesa.
 
 #### ClientUser#setAFK
 
-The `ClientUser#setAFK` method no longer returns a Promise.
+El método `ClientUser#setAFK` ya no devuelve una Promesa.
 
 #### ClientUser#setPresence
 
-The `ClientUser#setPresence` method no longer returns a Promise.
+El método `ClientUser#setPresence` ya no devuelve una Promesa.
 
-`PresenceData#activity` was replaced with `PresenceData#activities`, which now requires an `Array<ActivitiesOptions>`.
+Se ha sustituido `PresenceData#activity` por `PresenceData#activities`, que ahora requiere un `Array<ActivitiesOptions>`.
 
 ```diff
-- client.user.setPresence({ activity: { name: 'with discord.js' } });
-+ client.user.setPresence({ activities: [{ name: 'with discord.js' }] });
+- client.user.setPresence({ activity: { name: 'con discord.js' } });
++ client.user.setPresence({ activities: [{ name: 'con discord.js' }] });
 ```
 
 #### ClientUser#setStatus
 
-The `ClientUser#setStatus` method no longer returns a Promise.
+El método `ClientUser#setStatus` ya no devuelve una Promesa.
 
 ### Collection
 
@@ -429,10 +429,9 @@ The `ClientUser#setStatus` method no longer returns a Promise.
 
 #### Collection#keyArray()
 
-These methods existed to provide access to a cached array of Collection values and keys respectively, which other Collection methods relied on internally.
-Those other methods have been refactored to no longer rely on cache, so those arrays and these methods have been removed.
+Estos métodos existían para proporcionar acceso a una array en caché de valores y keys de Collection respectivamente, en la que se basaban internamente otros métodos de Collection. Esos otros métodos se han refactorizado para que ya no dependan de la caché, por lo que se han eliminado estos arrays y esos métodos.
 
-You should instead construct an array by spreading the iterators returned by the base Map class methods:
+En su lugar podrías hacer un array esparciendo los iteradores retornados por los métodos de la clase base `Map`:
 
 ```diff
 - collection.array();
@@ -444,13 +443,13 @@ You should instead construct an array by spreading the iterators returned by the
 
 ### ColorResolvable
 
-Colors have been updated to align with the new Discord branding.
+Los colores fueron actualizados para igualarlo con los nuevos colores de la marca de Discord.
 
 ### Guild
 
 #### Guild#addMember
 
-This method has been removed, with functionality replaced by the new `GuildMemberManager#add`.
+Este método ha sido eliminado, con la funcionalidad reemplazada por el nuevo `GuildMemberManager#add`.
 
 ```diff
 - guild.addMember(user, { accessToken: token });
@@ -461,7 +460,7 @@ This method has been removed, with functionality replaced by the new `GuildMembe
 
 #### Guild#fetchBans
 
-These methods have been removed, with functionality replaced by the new `GuildBanManager`.
+Estos métodos se han eliminado y su funcionalidad ha sido sustituida por el nuevo `GuildBanManager`.
 
 ```diff
 - guild.fetchBan(user);
@@ -473,7 +472,7 @@ These methods have been removed, with functionality replaced by the new `GuildBa
 
 #### Guild#fetchInvites
 
-This method has been removed, with functionality replaced by the new `GuildInviteManager`.
+Este método ha sido eliminado, y su funcionalidad ha sido reemplazada por el nuevo `GuildInviteManager`.
 
 ```diff
 - guild.fetchInvites();
@@ -482,21 +481,21 @@ This method has been removed, with functionality replaced by the new `GuildInvit
 
 #### Guild#fetchVanityCode
 
-The `Guild#fetchVanityCode` method has been removed.
+Se ha eliminado el método `Guild#fetchVanityCode`.
 
 ```diff
-- Guild.fetchVanityCode().then(code => console.log(`Vanity URL: https://discord.gg/${code}`));
-+ Guild.fetchVanityData().then(res => console.log(`Vanity URL: https://discord.gg/${res.code} with ${res.uses} uses`));
+- Guild.fetchVanityCode().then(code => console.log(`URL de invitación personalizada: https://discord.gg/${code}`));
++ Guild.fetchVanityData().then(res => console.log(`URL de invitación personalizada: https://discord.gg/${res.code} con ${res.uses} usos`));
 ```
 
 #### Guild#fetchWidget
 
-The `Guild#fetchWidget()` method now retrieves the widget data for the guild instead of the widget settings. See `Client#fetchGuildWidget()`.
-The original functionality has moved to the new method `Guild#fetchWidgetSettings()`.
+El método `Guild#fetchWidget()` ahora recupera los datos del widget para el servidor en lugar de la configuración del widget. Ver `Client#fetchGuildWidget()`.
+La funcionalidad original se ha trasladado al nuevo método `Guild#fetchWidgetSettings()`.
 
 #### Guild#member
 
-The `Guild#member()` helper/shortcut method has been removed.
+Se ha eliminado el método de ayuda/acceso directo `Guild#member()`.
 
 ```diff
 - guild.member(user);
@@ -505,15 +504,15 @@ The `Guild#member()` helper/shortcut method has been removed.
 
 ### Guild#mfaLevel
 
-The `Guild#mfaLevel` property is now an enum.
+La propiedad `Guild#mfaLevel` es ahora una enumeración.
 
 ### Guild#nsfw
 
-The `Guild#nsfw` property has been removed, replaced by `Guild#nsfwLevel`.
+La propiedad `Guild#nsfw` ha sido reemplazada por `Guild#nsfwLevel`.
 
 #### Guild#owner
 
-The `Guild#owner` property has been removed as it was unreliable due to caching, replaced with `Guild#fetchOwner`.
+Se ha eliminado la propiedad `Guild#owner`, ya que no era fiable debido al almacenamiento en caché, y se ha reemplazado por `Guild#fetchOwner`.
 
 ```diff
 - console.log(guild.owner);
@@ -522,11 +521,11 @@ The `Guild#owner` property has been removed as it was unreliable due to caching,
 
 #### Guild#setWidget
 
-The `Guild#setWidget()` method has been renamed to `Guild#setWidgetSettings()`.
+El método `Guild#setWidget()` ha sido renombrado a `Guild#setWidgetSettings()`.
 
 #### Guild#voice
 
-The `Guild#voice` getter has been removed.
+Se ha eliminado la propiedad `Guild#voice`. Sin embargo, ahora puedes usar `Guild#me#voice`.
 
 ```diff
 - guild.voice
@@ -537,7 +536,7 @@ The `Guild#voice` getter has been removed.
 
 #### GuildChannel#createOverwrite
 
-This method has been removed, with functionality replaced by the new `PermissionOverwriteManager`.
+Este método ha sido eliminado, y su funcionalidad ha sido reemplazada por el nuevo `PermissionOverwriteManager`.
 
 ```diff
 - channel.createOverwrite(user, { VIEW_CHANNEL: false });
@@ -548,17 +547,17 @@ This method has been removed, with functionality replaced by the new `Permission
 
 #### GuildChannel#fetchInvites
 
-These methods have been removed from `GuildChannel` and placed only on subclasses for which invites can be created. These are `TextChannel`, `NewsChannel`, `VoiceChannel`, `StageChannel`, and `StoreChannel`.
+Ambos métodos se han eliminado de `GuildChannel` y se han colocado sólo en las sub-clases en las que se pueden crear invitaciones. Se trata de `TextChannel`, `NewsChannel`, `VoiceChannel`, `StageChannel` y `StoreChannel`.
 
-On these subclasses, the method now supports additional options:
+En estas sub-clases, el método admite ahora opciones adicionales:
 
-- `targetUser` to target the invite to join a particular streaming user
-- `targetApplication` to target the invite to a particular Discord activity
-- `targetType` defines the type of the target for this invite; user or application
+-   `targetUser` para que la invitación se dirija a un determinado usuario de streaming
+-   `targetApplication` para dirigir la invitación a una actividad particular de Discord
+-   `targetType` define el tipo de objetivo para esta invitación; usuario o aplicación
 
 #### GuildChannel#overwritePermissions
 
-This method has been removed, with functionality replaced by the new `PermissionOverwriteManager`.
+Este método ha sido eliminado, y su funcionalidad ha sido reemplazada por el nuevo `PermissionOverwriteManager`.
 
 ```diff
 - channel.overwritePermissions([{ id: user.id , allow: ['VIEW_CHANNEL'], deny: ['SEND_MESSAGES'] }]);
@@ -567,26 +566,26 @@ This method has been removed, with functionality replaced by the new `Permission
 
 #### GuildChannel#permissionOverwrites
 
-This method no longer returns a Collection of PermissionOverwrites, instead providing access to the `PermissionOverwriteManager`.
+Este método ya no devuelve un `Colection` de PermissionOverwrites, sino que proporciona acceso al `PermissionOverwriteManager`.
 
 #### GuildChannel#setTopic
 
-The `GuildChannel#setTopic` method has been removed and placed only on subclasses for which topics can be set. These are `TextChannel`, `NewsChannel`, and `StageChannel`.
+El método `GuildChannel#setTopic` ha sido eliminado y colocado sólo en las sub-clases en las que se pueden establecer temas. Se trata de `TextChannel`, `NewsChannel` y `StageChannel`.
 
 #### GuildChannel#updateOverwrite
 
-This method has been removed, with functionality replaced by the new `PermissionOverwriteManager`.
+Este método ha sido eliminado, y su funcionalidad ha sido reemplazada por el nuevo `PermissionOverwriteManager`.
 
 ```diff
 - channel.updateOverwrite(user, { VIEW_CHANNEL: false });
 + channel.permissionOverwrites.edit(user, { VIEW_CHANNEL: false });
 ```
 
-### GuildMember 
+### GuildMember
 
 #### GuildMember#ban
 
-`GuildMember#ban()` will throw a TypeError when a string is provided instead of an options object.
+`GuildMember#ban()` lanzará un TypeError cuando se proporcione una cadena de texto en lugar de un objeto de opciones.
 
 ```diff
 - member.ban('reason')
@@ -595,7 +594,7 @@ This method has been removed, with functionality replaced by the new `Permission
 
 #### GuildMember#hasPermission
 
-The `GuildMember#hasPermission` shortcut/helper method has been removed.
+Se ha eliminado el método abreviado/ayudante `GuildMember#hasPermission`.
 
 ```diff
 - member.hasPermission(Permissions.FLAGS.SEND_MESSAGES);
@@ -608,17 +607,17 @@ The `GuildMember#hasPermission` shortcut/helper method has been removed.
 
 #### GuildMember#lastMessageChannelId
 
-None of these properties were actually provided by Discord, instead relying on potentially inaccurate client cache, and have been removed.
+Discord no proporcionaba ninguna de estas propiedades, sino que se basaba en una caché de cliente potencialmente imprecisa, por lo que se han eliminado.
 
 #### GuildMember#presence
 
-The `GuildMember#presence` property can now be null, rather than a generic offline presence, such as when the `GUILD_PRESENCES` intent is not enabled.
+La propiedad `GuildMember#presence` ahora puede ser `null`, en lugar de una presencia genérica sin conexión, como cuando el intent `GUILD_PRESENCES` no está activado.
 
 ### GuildMemberManager
 
 #### GuildMemberManager#ban
 
-The `GuildMemberManager#ban` method will throw a TypeError when a string is provided instead of an options object.
+El método `GuildMemberManager#ban` lanzará un TypeError cuando se proporcione una cadena de texto en lugar de un objeto de opciones.
 
 ```diff
 - guild.members.ban('123456789012345678', 'reason')
@@ -629,59 +628,59 @@ The `GuildMemberManager#ban` method will throw a TypeError when a string is prov
 
 #### Message#delete
 
-The `Message.delete()` method no longer accepts any options, requiring a timed-delete to be performed manually.
+El método `Message.delete()` ya no acepta ninguna opción, por lo que es necesario realizar un borrado temporizado manualmente.
 
 ```diff
 - message.delete({ timeout: 10000 });
 + setTimeout(() => message.delete(), 10000);
 ```
 
-`reason` is no longer a parameter as it is not used by the API.
+`reason` ya no es un parámetro, ya que no es utilizado por la API.
 
 #### MessageManager#delete
 
-The `MessageManager.delete()` method no longer accepts any additional options, requiring a timed-delete to be performed manually.
+El método `MessageManager.delete()` ya no acepta opciones adicionales, por lo que es necesario realizar manualmente un borrado temporizado.
 
 ```diff
 - channel.messages.delete('123456789012345678', { timeout: 10000 });
 + setTimeout(() => channel.messages.delete('123456789012345678'), 10000);
 ```
 
-`reason` is no longer a parameter as it is not used by the API.
+`reason` ya no es un parámetro, ya que no es utilizado por la API.
 
 #### Message#edits
 
-The `Message#edits` property has been removed.
+Se ha eliminado la propiedad `Message#edits`.
 
 ### MessageEmbed
 
 #### MessageEmbed#attachFiles
 
-The `MessageEmbed#attachFiles` method has been removed. Instead, files should be attached to the Message directly via `MessageOptions`.
+Se ha eliminado el método `MessageEmbed#attachFiles`. En su lugar, los archivos deben adjuntarse al mensaje directamente a través de `MessageOptions`.
 
 ```diff
-- channel.send({ embeds: [new MessageEmbed().setTitle("Files").attachFiles(file)] })
-+ channel.send({ embeds: [new MessageEmbed().setTitle("Files")], files: [file] })
+- channel.send({ embeds: [new MessageEmbed().setTitle("Archivos").attachFiles(file)] })
++ channel.send({ embeds: [new MessageEmbed().setTitle("Archivos")], files: [file] })
 ```
 
 ### Permissions
 
 #### Permissions#FLAGS.MANAGE_EMOJIS
 
-`Permissions.FLAGS.MANAGE_EMOJIS` is now `Permissions.FLAGS.MANAGE_EMOJIS_AND_STICKERS`.
+`Permissions.FLAGS.MANAGE_EMOJIS` es ahora `Permissions.FLAGS.MANAGE_EMOJIS_AND_STICKERS`.
 
 ### ReactionUserManager
 
 #### ReactionUserManager#fetch
 
-The `before` option has been removed as it was not supported by the API.
+Se ha eliminado la opción `before`, ya que no era compatible con la API.
 
 ### RoleManager
 
 #### RoleManager#create
 
-The options passed to `RoleManager#create` no longer need to be nested in a `data` object.
-Additionally, `reason` is now part of the options, not a second parameter.
+Las opciones pasadas a `RoleManager#create` ya no necesitan estar en un objeto `data`.
+Además, `reason` es ahora parte de las opciones del objeto, no un segundo parámetro.
 
 ```diff
 - guild.roles.create({ data: { name: "New role" } }, "Creating new role");
@@ -690,15 +689,15 @@ Additionally, `reason` is now part of the options, not a second parameter.
 
 #### RoleManager#fetch
 
-The `RoleManager#fetch()` method will now return a Collection instead of a RoleManager when called without params.
+El método `RoleManager#fetch()` devolverá ahora una `Collection` en lugar de un RoleManager cuando se llame sin parámetros.
 
 ### Shard
 
 #### Shard#respawn
 
-The options for the `Shard#respawn` method are now an object instead of separate params.
-In addition, the `spawnTimeout` param has been renamed to `timeout`.
-This means the user no longer needs to pass defaults to fill each positional param.
+Las opciones del método `Shard#respawn` son ahora un objeto en lugar de parámetros separados.
+Además, el parámetro `spawnTimeout` ha sido renombrado a `timeout`.
+Esto significa que el usuario ya no necesita pasar valores por defecto para rellenar cada parámetro posicional.
 
 ```diff
 - shard.respawn(500, 30000);
@@ -707,26 +706,26 @@ This means the user no longer needs to pass defaults to fill each positional par
 
 #### Shard#spawn
 
-The `spawnTimeout` param has been renamed to `timeout`.
+El parámetro `spawnTimeout` ha sido renombrado a `timeout`.
 
 ### ShardClientUtil
 
 #### ShardClientUtil#broadcastEval
 
-The `ShardClientUtil#broadcastEval` method no longer accepts a string, instead expecting a function.
+El método `ShardClientUtil#broadcastEval` ya no acepta una cadena de texto, en su lugar espera una función.
 
 ```diff
 - client.shard.broadcastEval('this.guilds.cache.size')
 + client.shard.broadcastEval(client => client.guilds.cache.size)
-		.then(results => console.log(`${results.reduce((prev, val) => prev + val, 0)} total guilds`))
+		.then(results => console.log(`${results.reduce((prev, val) => prev + val, 0)} servidores en total`))
 		.catch(console.error);
 ```
 
 #### ShardClientUtil#respawnAll
 
-The options for the `ShardClientUtil#respawnAll` method are now an object instead of separate params.
-In addition, the `spawnTimeout` param has been renamed to `timeout`.
-This means the user no longer needs to pass defaults to fill each positional param.
+Las opciones del método `ShardClientUtil#respawnAll` son ahora un objeto en lugar de parámetros separados.
+Además, el parámetro `spawnTimeout` ha sido renombrado a `timeout`.
+Esto significa que el usuario ya no necesita pasar valores por defecto para rellenar cada parámetro posicional.
 
 ```diff
 - client.shard.respawnAll(5000, 500, 30000);
@@ -737,13 +736,13 @@ This means the user no longer needs to pass defaults to fill each positional par
 
 #### ShardingManager#broadcastEval
 
-The `ShardingManager#broadcastEval` method no longer accepts a string, instead expecting a function. See `ShardClientUtil#broadcastEval`.
+El método `ShardingManager#broadcastEval` ya no acepta una cadena de texto, en su lugar espera una función. Ver `ShardClientUtil#broadcastEval`.
 
 #### ShardingManager#spawn
 
-The options for the `ShardingManager#spawn` method are now an object instead of separate params.
-In addition, the `spawnTimeout` param has been renamed to `timeout`.
-This means the user no longer needs to pass defaults to fill each positional param.
+Las opciones del método `ShardingManager#spawn` son ahora un objeto en lugar de parámetros separados.
+Además, el parámetro `spawnTimeout` ha sido renombrado a `timeout`.
+Esto significa que el usuario ya no necesita pasar valores por defecto para rellenar cada parámetro posicional.
 
 ```diff
 - manager.spawn('auto', 5500, 30000);
@@ -752,9 +751,9 @@ This means the user no longer needs to pass defaults to fill each positional par
 
 #### ShardingManager#respawnAll
 
-The options for the `ShardingManager#respawnAll` method are now an object instead of separate params.
-In addition, the `spawnTimeout` param has been renamed to `timeout`.
-This means the user no longer needs to pass defaults to fill each positional param.
+Las opciones del método `ShardingManager#respawnAll` son ahora un objeto en lugar de parámetros separados.
+Además, el parámetro `spawnTimeout` ha sido renombrado a `timeout`.
+Esto significa que el usuario ya no necesita pasar valores por defecto para rellenar cada parámetro posicional.
 
 ```diff
 - manager.respawnAll(5000, 500, 30000);
@@ -767,7 +766,7 @@ This means the user no longer needs to pass defaults to fill each positional par
 
 #### TextChannel#stopTyping
 
-These methods have both been replaced by a singular `TextChannel.sendTyping()`. This method automatically stops typing after 10 seconds, or when a message is sent.
+Ambos métodos han sido sustituidos por el singular `TextChannel.sendTyping()`. Este método deja de escribir automáticamente después de 10 segundos, o cuando se envía un mensaje.
 
 ### User
 
@@ -775,31 +774,31 @@ These methods have both been replaced by a singular `TextChannel.sendTyping()`. 
 
 #### User#lastMessageId
 
-Neither of these properties were actually provided by Discord, instead relying on potentially inaccurate client cache, and have been removed.
+Discord no proporcionaba ninguna de estas propiedades, sino que se basaba en una caché de cliente potencialmente imprecisa, por lo que se han eliminado.
 
 #### User#locale
 
-The `User.locale` property has been removed, as this property is not exposed to bots.
+La propiedad `User.locale` ha sido eliminada, ya que esta propiedad no está expuesta a los bots.
 
 #### User#presence
 
-The `User.presence` property has been removed. Presences are now only found on `GuildMember`.
+La propiedad `User.presence` ha sido eliminada. Ahora las presencias sólo se encuentran en `GuildMember`.
 
 #### User#typingIn
 
-As discord.js no longer caches typing event data, the `User.typingIn()` method has been removed.
+Como discord.js ya no almacena en caché los datos de eventos de escritura, se ha eliminado el método `User.typingIn()`.
 
 #### User#typingSinceIn
 
-As discord.js no longer caches typing event data, the `User.typingSinceIn()` method has been removed.
+Como discord.js ya no almacena en caché los datos de eventos de escritura, se ha eliminado el método `User.typingSinceIn()`.
 
 #### User#typingDurationIn
 
-As discord.js no longer caches typing event data, the `User.typingDurationIn()` method has been removed.
+Como discord.js ya no almacena en caché los datos de eventos de escritura, se ha eliminado el método `User.typingDurationIn()`.
 
 ### UserFlags
 
-The deprecated UserFlags `DISCORD_PARTNER` and `VERIFIED_DEVELOPER` / `EARLY_VERIFIED_DEVELOPER` have been removed in favor of their renamed versions.
+Los UserFlags obsoletos `DISCORD_PARTNER` y `VERIFIED_DEVELOPER` / `EARLY_VERIFIED_DEVELOPER` han sido reemplazados por sus versiones renombradas.
 
 ```diff
 - user.flags.has(UserFlags.FLAGS.DISCORD_PARTNER)
@@ -809,35 +808,35 @@ The deprecated UserFlags `DISCORD_PARTNER` and `VERIFIED_DEVELOPER` / `EARLY_VER
 + user.flags.has(UserFlags.FLAGS.EARLY_VERIFIED_BOT_DEVELOPER)
 ```
 
-The new flag `DISCORD_CERTIFIED_MODERATOR` has been added.
+Se ha añadido el nuevo indicador `DISCORD_CERTIFIED_MODERATOR`.
 
 ### Util
 
-Shortcuts to Util methods which were previously exported at the top level have been removed.
+Los accesos directos del nivel superior, que redirigian a los métodos de esta clase, fueron eliminados.
 
 #### Util#convertToBuffer
 
 #### Util#str2ab
 
-Both were removed in favor of Node's built-in Buffer methods.
+Ambos fueron eliminados a favor de los métodos de búfer integrados de Node.js.
 
 #### Util#fetchRecommendedShards
 
-The `Util#fetchRecommendedShards()` method now supports an additional option `multipleOf` to calculate the number to round up to, e.g. a multiple of 16 for large bot sharding.
+El método `Util#fetchRecommendedShards()` ahora admite una opción adicional `multipleOf` para calcular el número al que redondear, por ejemplo, un múltiplo de 16 para el `sharding` de bots grandes.
 
 #### Util#resolveString
 
-The `Util#resolveString` method has been removed. discord.js now enforces that users provide strings where expected rather than resolving one on their behalf.
+Se ha eliminado el método `Util#resolveString` Discord.js obliga a los usuarios a colocar o definir cadenas donde sea pedido, en vez de intentar resolver la cadena de un objeto diferente.
 
 ### VoiceState
 
 #### VoiceState#kick
 
-The `VoiceState#kick` method has been renamed to `VoiceState#disconnect`.
+El método `VoiceState#kick` ha pasado a llamarse `VoiceState#disconnect`.
 
 ### WebhookClient
 
-The `WebhookClient` constructor no longer accepts `id, token` as the first two parameters, instead taking a `data` object. This object supports an additional option `url`, allowing creation of a `WebhookClient` from a webhook URL.
+El constructor `WebhookClient` ya no acepta `id, token` como los dos primeros parámetros, en su lugar toma un objeto `data`. Este objeto admite una opción adicional `url`, permitiendo la creación de un `WebhookClient` desde una URL de webhook.
 
 ```diff
 - new WebhookClient(id, token, options);
@@ -850,125 +849,125 @@ The `WebhookClient` constructor no longer accepts `id, token` as the first two p
 
 ### ActivityTypes
 
-A new activity type `COMPETING` has been added.
+Se ha añadido un nuevo tipo de actividad `COMPETING`.
 
 ### ApplicationCommand
 
-Provides API support for slash commands.
+Proporciona soporte API para comandos de barra diagonal.
 
 ### ApplicationCommandManager
 
-Provides API support for creating, editing and deleting slash commands.
+Proporciona soporte API para crear, editar y eliminar comandos de barra diagonal.
 
 ### ApplicationCommandPermissionsManager
 
-Provides API support for creating, editing, and deleting permission overwrites on slash commands.
+Proporciona soporte de API para crear, editar y eliminar sobrescrituras de permisos en comandos de barra diagonal.
 
 ### ApplicationFlags
 
-Provides an enumerated bitfield for `ClientApplication` flags.
+Proporciona un campo de bits enumerado para flags de `ClientApplication`.
 
 ### BaseGuild
 
-The new `BaseGuild` class is extended by both `Guild` and `OAuth2Guild`.
+La nueva clase `BaseGuild` es extendida tanto por `Guild` como por `OAuth2Guild`.
 
 ### BaseGuildTextChannel
 
-The new `BaseGuildTextChannel` class is extended by both `TextChannel` and `NewsChannel`.
+La nueva clase `BaseGuildTextChannel` es extendida tanto por `TextChannel` como por `NewsChannel`.
 
 ### BaseGuildVoiceChannel
 
-The new `BaseGuildVoiceChannel` class is extended by both `VoiceChannel` and `StageChannel`.
+La nueva clase `BaseGuildVoiceChannel` es extendida tanto por `VoiceChannel` como por `StageChannel`.
 
 ### ButtonInteraction
 
-Provides gateway support for a `MessageComponentInteraction` coming from a button component.
+Proporciona soporte de `gateway` para un `MessageComponentInteraction` procedente de un componente de botón.
 
 ### Channel
 
 #### Channel#isText()
 
-Checks and typeguards if a channel is Text-Based; one of `TextChannel`, `DMChannel`, `NewsChannel` or `ThreadChannel`.
+Revisa y comprueba si un canal está basado en texto (que implementa `TextBasedChannel`); uno de `TextChannel`, `DMChannel`, `NewsChannel` o `ThreadChannel`.
 
 #### Channel#isThread()
 
-Checks and typeguards if a channel is a `ThreadChannel`.
+Verifica/comprueba si un canal es un `ThreadChannel`.
 
 #### Channel#isVoice()
 
-Checks and typeguards if a channel is Voice-Based; `VoiceChannel` or `StageChannel`.
+Verifica/comprueba si un canal es basado en voz; `VoiceChannel` o `StageChannel`.
 
 ### Client
 
 #### Client#applicationCommandCreate
 
-Emitted when a guild application command is created.
+Se emite cuando se crea un comando de aplicación de servidor.
 
 #### Client#applicationCommandDelete
 
-Emitted when a guild application command is deleted.
+Se emite cuando se elimina un comando de aplicación de servidor.
 
 #### Client#applicationCommandUpdate
 
-Emitted when a guild application command is updated.
+Se emite cuando se actualiza un comando de aplicación de servidor.
 
 #### Client#interactionCreate
 
-Emitted when an interaction is created.
+Se emite cuando se crea una interacción.
 
 #### Client#stageInstanceCreate
 
-Emitted when a stage instance is created.
+Se emite cuando se crea una instancia de escenario.
 
 #### Client#stageInstanceDelete
 
-Emitted when a stage instance is deleted.
+Se emite cuando se elimina una instancia de escenario.
 
 #### Client#stageInstanceUpdate
 
-Emitted when a stage instance gets updated, e.g. change in topic or privacy level.
+Se emite cuando se actualiza una instancia del escenario, por ejemplo, cuando cambia el tema o el nivel de privacidad.
 
 #### Client#stickerCreate
 
-Emitted when a custom sticker is created in a guild.
+Se emite cuando se crea un sticker personalizado en un servidor.
 
 #### Client#stickerDelete
 
-Emitted when a custom sticker is deleted in a guild.
+Se emite cuando se elimina un sticker personalizado en un servidor.
 
 #### Client#stickerUpdate
 
-Emitted when a custom sticker is updated in a guild.
+Se emite cuando se actualiza un sticker personalizado en un servidor.
 
 #### Client#threadCreate
 
-Emitted when a thread is created or when the client user is added to a thread.
+Se emite cuando se crea un hilo o cuando el bot se añade a un hilo.
 
 #### Client#threadDelete
 
-Emitted when a thread is deleted.
+Se emite cuando se borra un hilo.
 
 #### Client#threadListSync
 
-Emitted when the client user gains access to a text or news channel that contains threads.
+Se emite cuando el bot accede a un canal de texto o noticias que contiene hilos.
 
 #### Client#threadMembersUpdate
 
-Emitted when members are added or removed from a thread. Requires the `GUILD_MEMBERS` privileged intent.
+Se emite cuando se añaden o eliminan miembros de un hilo. Requiere el intent privilegiado `GUILD_MEMBERS`.
 
 #### Client#threadMemberUpdate
 
-Emitted when the client user's thread member is updated.
+Se emite cuando se actualiza un miembro del hilo del bot.
 
 #### Client#threadUpdate
 
-Emitted when a thread is updated, e.g. name change, archive state change, locked state change.
+Se emite cuando se actualiza un hilo, por ejemplo, cambio de nombre, cambio de estado de archivo, cambio de estado bloqueado.
 
 ### ClientOptions
 
 #### ClientOptions#failIfNotExists
 
-This parameter sets the default behavior for `ReplyMessageOptions#failIfNotExists`, allowing or preventing an error when replying to an unknown Message.
+Este parámetro establece el comportamiento por defecto para `ReplyMessageOptions#failIfNotExists`, permitiendo o impidiendo un error al responder a un Mensaje desconocido.
 
 ### CollectorOptions
 
@@ -978,31 +977,31 @@ This parameter is now optional and will fall back to a function that always retu
 
 ### CommandInteraction
 
-Provides gateway support for slash command interactions.
-For more information refer to the [slash commands](/interactions/registering-slash-commands.html) section of the guide.
+Proporciona soporte de `gateway` para interacciones de comandos de barra diagonal.
+Para más información consulta a la sección de [comandos de barra diagonal](/interactions/registering-slash-commands.html) en esta guía.
 
 ### Guild
 
 #### Guild#bans
 
-Provides access to the Guild's `GuildBanManager`.
+Proporciona acceso al `GuildBanManager` del servidor.
 
 #### Guild#create
 
-`Guild#systemChannelFlags` can now be set in the `Guild#create` method.
+Ahora es posible establecer `Guild#systemChannelFlags` en el método `Guild#create`.
 
 #### Guild#edit
 
-The `Guild#description` and `Guild#features` properties can now be edited.
+Ahora se pueden editar las propiedades `Guild#description` y `Guild#features`.
 
 #### Guild#editWelcomeScreen
 
-Provides API support for bots to edit the Guild's `WelcomeScreen`.
+Proporciona soporte API para que los bots editen la `WelcomeScreen` del servidor.
 
 #### Guild#emojis
 
-The `GuildEmojiManager` class now extends `BaseGuildEmojiManager`.
-In addition to the existing methods, it now supports `GuildEmojiManager#fetch`.
+La clase `GuildEmojiManager` ahora extiende `BaseGuildEmojiManager`.
+Además de los métodos existentes, ahora soporta `GuildEmojiManager#fetch`.
 
 #### Guild#fetchWelcomeScreen
 
@@ -1010,29 +1009,29 @@ Provides API support for fetching the Guild's `WelcomeScreen`.
 
 #### Guild#fetchWidget
 
-Provides API support for the Guild's Widget, containing information about the guild and its members.
+Proporciona soporte de la API para que los bots obtengan la `WelcomeScreen` del servidor.
 
 #### Guild#invites
 
-Provides access to the new `GuildInviteManager`.
+Proporciona acceso al nuevo `GuildInviteManager`.
 
 #### Guild#nsfwLevel
 
-The `Guild#nsfwLevel` property is now represented by the `NSFWLevel` enum.
+La propiedad `Guild#nsfwLevel` está ahora representada por la enumeración `NSFWLevel`.
 
 #### Guild#premiumTier
 
-The `Guild#premiumTier` property is now represented by the `PremiumTier` enum.
+La propiedad `Guild#premiumTier` está ahora representada por la enumeración `PremiumTier`.
 
 #### Guild#setChannelPositions
 
-Now supports setting the parent of multiple channels, and locking their permissions via the `ChannelPosition#parent` and `ChannelPosition#lockPermissions` options.
+Ahora es posible establecer la categoría de varios canales y bloquear sus permisos mediante las opciones `ChannelPosition#parent` y `ChannelPosition#lockPermissions`.
 
 ### GuildBanManager
 
-Provides improved API support for handling and caching bans.
+Proporciona soporte mejorado de la API para el manejo y almacenamiento en caché de los baneos.
 
-Starting from 13.11, developers should utilise `deleteMessageSeconds` instead of `days`:
+A partir de la versión 13.11, los desarrolladores deberán utilizar `deleteMessageSeconds` en lugar de `days`:
 
 ```diff
 <GuildBanManager>.create('123456789', {
@@ -1041,78 +1040,78 @@ Starting from 13.11, developers should utilise `deleteMessageSeconds` instead of
 });
 ```
 
-`days` is deprecated and will be removed in the future.
+`days` está obsoleto y se eliminará en el futuro.
 
 ### GuildChannel
 
 #### GuildChannel#clone
 
-Now supports setting the `position` property.
+Ahora permite establecer la propiedad `position`.
 
 ### GuildChannelManager
 
 #### GuildChannelManager#fetch
 
-Now supports fetching the channels of a Guild.
+Ahora es posible obtener los canales de un servidor.
 
 #### GuildChannelManager#fetchActiveThreads
 
-Retrieves a list of the active threads in a Guild.
+Obtiene una lista de los hilos activos en un servidor.
 
 ### GuildInviteManager
 
-Aligns support for creating and fetching invites with the managers design.
-This replaces `Guild#fetchInvites`.
+Alinea el soporte para la creación y obtención de invitaciones con el diseño de los administradores (managers).
+Reemplaza a `Guild#fetchInvites`.
 
 ### GuildManager
 
 #### GuildManager#create
 
-Now supports specifying the AFK and system channels when creating a new guild.
+Ahora es posible especificar los canales AFK y de sistema al crear un nuevo servidor.
 
 #### GuildManager#fetch
 
-Now supports fetching multiple guilds, returning a `Promise<Collection<Snowflake, OAuth2Guild>>` if used in this way.
+Ahora soporta la obtención de múltiples servidores, devolviendo una `Promise<Collection<Snowflake, OAuth2Guild>>` si se utiliza de esta manera.
 
 ### GuildEmojiManager
 
 #### GuildEmojiManager#fetch
 
-Provides API support for the `GET /guilds/{guild.id}/emojis` endpoint.
+Proporciona soporte de API para la ruta/endpoint `GET /guilds/{guild.id}/emojis`.
 
 ### GuildMember
 
 #### GuildMember#pending
 
-Flags whether a member has passed the guild's membership gate.
-The flag is `true` before accepting and fires `guildMemberUpdate` when the member accepts.
+Marca si un miembro ha pasado la pantalla de bienvenida del servidor.
+El valor es `true` antes de aceptar y emite el evento `guildMemberUpdate` cuando el miembro acepta.
 
 ### GuildMemberManager
 
-Several methods were added to `GuildMemberManager` to provide API support for uncached members.
+Se han añadido varios métodos a `GuildMemberManager` para proporcionar soporte de la API para miembros no almacenados en caché.
 
 #### GuildMemberManager#edit
 
-`guild.members.edit('123456789012345678', data, reason)` is equivalent to `GuildMember#edit(data, reason)`.
+`guild.members.edit('123456789012345678', data, reason)` es equivalente a `GuildMember#edit(data, reason)`.
 
 #### GuildMemberManager#kick
 
-`guild.members.kick('123456789012345678', reason)` is equivalent to `GuildMember#kick(reason)`.
+`guild.members.kick('123456789012345678', reason)` es equivalente a `GuildMember#kick(reason)`.
 
 #### GuildMemberManager#search
 
-Provides API support for querying GuildMembers via the REST API endpoint.
-`GuildMemberManager#fetch` uses the websocket gateway to receive data.
+Proporciona soporte de la API para consultar `GuildMember`s a través de su respectiva ruta/endpoint.
+`GuildMemberManager#fetch` utiliza el `gateway` para recibir datos.
 
 ### GuildMemberRoleManager
 
 #### GuildMemberRoleManager#botRole
 
-Gets the managed role this member created when joining the guild if any.
+Obtiene el rol de bot gestionado que este miembro creó cuando se unió al servidor, si existe.
 
 #### GuildMemberRoleManager#premiumSubscriberRole
 
-Gets the premium subscriber (booster) role if present on the member.
+Obtiene el rol de suscriptor premium (booster) si está presente en el miembro.
 
 ### GuildPreview
 
@@ -1120,293 +1119,293 @@ Gets the premium subscriber (booster) role if present on the member.
 
 #### GuildPreview#createdTimestamp
 
-The datetime at which the GuildPreview was created.
+Fecha de creación de la GuildPreview.
 
 ### GuildTemplate
 
-Provides API support for [server templates](https://discord.com/developers/docs/resources/guild-template).
+Proporciona soporte de la API para [plantillas de servidor](https://discord.com/developers/docs/resources/guild-template).
 
 ### Integration
 
 #### Integration#roles
 
-A Collection of Roles which are managed by the integration.
+Una `Collection` de roles gestionados por la integración.
 
 ### Interaction
 
-Provides gateway support for slash command and message component interactions. 
+Proporciona soporte de `gateway` para interacciones de comandos de barra diagonal y componentes de mensajes.
 
-For more information refer to the [slash commands](/interactions/slash-commands.md#replying-to-slash-commands) and [message components](/interactions/buttons.html#responding-to-buttons.html) sections of the guide.
+Para más información, consulta las secciones de [comandos de barra](/interactions/slash-commands.md#replying-to-slash-commands) y [componentes de mensaje](/interactions/buttons.html#responding-to-buttons.html) en esta guía.
 
 ### InteractionCollector
 
-Provides a way for users to collect any type of Interaction.
-This class has a more flexible design than other Collectors, able to be bound to any Guild, Channel, or Message as appropriate.
-TypeScript developers can also leverage generics to define the subclass of Interaction that will be returned.
+Proporciona a los usuarios una forma de recopilar cualquier tipo de Interacción.
+Esta clase tiene un diseño más flexible que otros recopiladores, ya que puede vincularse a cualquier servidor, canal o mensaje, según corresponda.
+Los desarrolladores de TypeScript también pueden aprovechar los genéricos para definir la sub-clase de Interaction que se devolverá.
 
 ### InteractionWebhook
 
-Provides webhook support specifically for interactions, due to their unique qualities.
+Proporciona soporte webhook específicamente para interacciones, debido a sus cualidades únicas.
 
 ### InviteGuild
 
-Provides API support for the partial Guild data available from an `Invite`.
+Proporciona soporte de la API para los datos parciales del servidor disponibles en una `Invite` (invitación).
 
 ### InviteStageInstance
 
-Provides API support for bots to inviting users to stage instances.
+Proporciona soporte de la API para que los bots inviten a los usuarios a las instancias del escenario.
 
 ### Message
 
 #### Message#awaitMessageComponent
 
-A shortcut method to create a promisified `InteractionCollector` which resolves to a single `MessageComponentInteraction`.
+Un método abreviado para crear un `InteractionCollector` prometido que resuelva a un único `MessageComponentInteraction`.
 
 #### Message#createMessageComponentCollector
 
-A shortcut method to create an `InteractionCollector` for components on a specific message.
+Un método abreviado para crear un `InteractionCollector` para componentes en un mensaje específico.
 
 #### Message#crosspostable
 
-Checks permissions to see if a Message can be crossposted.
+Comprueba los permisos para ver si un mensaje se puede publicar (crosspost).
 
 #### Message#edit
 
-Editing and/or removing attachments when editing a Message is now supported.
+Ahora es posible editar y/o eliminar archivos adjuntos al editar un mensaje.
 
 #### Message#fetchReference
 
-Provides support for fetching the Message referenced by `Message#reference`, if the client has access to do so.
+Proporciona soporte para obtener el Mensaje referenciado por `Message#reference`, si el cliente tiene acceso para hacerlo.
 
 #### Message#react
 
-Now supports both `<:name:id>` and `<a:name:id>` as valid inputs.
+Ahora admite tanto `<:name:id>` como `<a:name:id>` como argumentos válidos.
 
 #### Message#removeAttachments
 
-Removes the attachments from a message. Requires `MANAGE_MESSAGES` to remove attachments from messages authored by other users.
+Elimina los archivos adjuntos de un mensaje. Requiere del permiso `MANAGE_MESSAGES` para eliminar los archivos adjuntos de los mensajes creados por otros usuarios.
 
 #### Message#startThread
 
-Starts a `ThreadChannel` using this message as the starter message.
+Inicia un `ThreadChannel` utilizando este mensaje como mensaje de inicio.
 
 #### Message#stickers
 
-A Collection of Stickers in the message.
+Una `Collection` de Stickers en el mensaje.
 
 ### MessageActionRow
 
-A builder class which makes constructing action row type message components easier.
+Una clase constructora que facilita la construcción de componentes de mensajes de tipo `MessageActionRow`.
 
 ### MessageAttachment
 
 #### MessageAttachment#contentType
 
-The media type of a MessageAttachment.
+El tipo de contenido de un MessageAttachment.
 
 ### MessageButton
 
-A builder class which makes constructing button type message components easier.
+Una clase constructora que facilita la construcción de componentes de mensajes de tipo botón.
 
 ### MessageComponentInteraction
 
-Provides gateway support for receiving interactions from message components. Subclass of `Interaction`.
+Proporciona soporte de `gateway` para recibir interacciones de componentes de mensajes. Sub-clase de `Interaction`.
 
 ### MessageEmbed
 
 #### MessageEmbed#setFields
 
-Replaces all fields in the embed with the new array of fields provided.
+Sustituye todos los campos del embed por el nuevo array de fields proporcionada.
 
-`embed.setFields(newFields)` is equivalent to `embed.spliceFields(0, embed.fields.length, newFields)`.
+`embed.setFields(newFields)` es equivalente a `embed.spliceFields(0, embed.fields.length, newFields)`.
 
 ### MessageManager
 
-Methods were added to `MessageManager` to provide API support for uncached messages.
+Se han añadido métodos a `MessageManager` para que la API admita mensajes no almacenados en caché.
 
 #### MessageManager#crosspost
 
-`channel.messages.crosspost('876543210987654321')` is equivalent to `message.crosspost()`.
+`channel.messages.crosspost('876543210987654321')` es equivalente a `message.crosspost()`.
 
 #### MessageManager#edit
 
-`channel.messages.edit('876543210987654321', content, options)` is equivalent to `message.edit(content, options)`.
+`channel.messages.edit('876543210987654321', content, options)` es equivalente a `message.edit(content, options)`.
 
 #### MessageManager#pin
 
-`channel.messages.pin('876543210987654321', options)` is approximately equivalent to `message.pin(options)` but does not resolve to a Message.
+`channel.messages.pin('876543210987654321', options)` es aproximadamente equivalente a `message.pin(options)`, solo que el primero no resuelve un `Message`.
 
 #### MessageManager#react
 
-`channel.messages.react('876543210987654321', emoji)` is approximately equivalent to `message.react(emoji)` but does not resolve to a MessageReaction.
+`channel.messages.react('876543210987654321', emoji)` es aproximadamente equivalente a `message.react(emoji)`, solo que el primero no resuelve un `MessageReaction`.
 
 #### MessageManager#unpin
 
-`channel.messages.unpin('876543210987654321', options)` is approximately equivalent to `message.unpin(options)` but does not resolve to a Message.
+`channel.messages.unpin('876543210987654321', options)` es aproximadamente equivalente a `message.unpin(options)`, solo que el primero no resuelve un `Message`.
 
 ### MessageMentions
 
 #### MessageMentions#repliedUser
 
-Checks if the author of a message being replied to has been mentioned.
+Comprueba si el autor del mensaje respondido fue mencionado.
 
 ### MessagePayload
 
-This class has been renamed from APIMessage.
-Global headers can now be set in the HTTP options.
+Esta clase ha sido renombrada de APIMessage.
+Headers globales ahora se pueden establecer en las opciones HTTP.
 
 ### MessageSelectMenu
 
-A builder class which makes constructing select menu type message components easier.
+Una clase constructora que facilita la construcción de componentes de mensajes de tipo de menús de selección.
 
 ### NewsChannel
 
 #### NewsChannel#addFollower
 
-Provides API support for bots to follow announcements in other channels.
+Proporciona soporte de la API para que los bots sigan anuncios en otros canales.
 
 #### NewsChannel#setType
 
-Allows conversion between NewsChannel and TextChannel.
+Permite la conversión entre `NewsChannel` y `TextChannel`.
 
 ### Permissions
 
 #### Permissions#STAGE_MODERATOR
 
-Static bitfield representing the permissions required to moderate a stage channel.
+Campo de bits estático que representa los permisos necesarios para moderar un canal de escenario.
 
 ### PermissionOverwriteManager
 
-Replaces the `createOverwrite`, `updateOverwrite`, and `overwritePermissions` methods of `GuildChannel`, aligning the design with other Managers.
+Reemplaza los métodos `createOverwrite`, `updateOverwrite`, y `overwritePermissions` de `GuildChannel`, alineando el diseño con otros Managers.
 
 ### Role
 
 #### Role#tags
 
-Tags for roles belonging to bots, integrations, or premium subscribers.
+Etiquetas para roles pertenecientes a bots, integraciones o suscriptores premium.
 
 ### RoleManager
 
 #### RoleManager#botRoleFor
 
-Gets the managed role a bot created when joining the guild, if any.
+Obtiene el rol gestionado que un bot creó al unirse al servidor, si existe.
 
 #### RoleManager#edit
 
-`guild.roles.edit('123456789098765432', options)` is equivalent to `role.edit(options)`.
+`guild.roles.edit('123456789098765432', options)` es equivalente a `role.edit(options)`.
 
 #### RoleManager#premiumSubscriberRole
 
-Gets the premium subscriber (booster) role for the Guild, if any.
+Obtiene el rol de suscriptor premium (booster) para el servidor, si existe.
 
 ### SelectMenuInteraction
 
-Provides gateway support for a `MessageComponentInteraction` coming from a select menu component.
+Proporciona soporte de `gateway` para un `MessageComponentInteraction` procedente de un componente de menú de selección (`MessageSelectMenu`).
 
 ### StageChannel
 
-Provides API support for stage channels.
+Proporciona soporte de la API para canales de escenario.
 
 ### StageInstance
 
-Provides API support for stage instances. Stage instances contain information about live stages.
+Proporciona soporte de la API para instancias de escenario. Las instancias de escenario contienen información sobre escenarios en directo.
 
 ### StageInstanceManager
 
-Provides API support for the bot to create, edit, and delete live stage instances, and stores a cache of stage instances.
+Proporciona soporte de la API para que el bot cree, edite y elimine instancias de escenario en vivo, y almacena una caché de instancias de escenario.
 
 ### Sticker
 
-Provides API support for Discord Stickers.
+Proporciona soporte de la API para Stickers/Pegatinas de Discord.
 
 ### StickerPack
 
-Provides API support for Discord Sticker packs.
+Proporciona soporte de la API para Packs de Stickers/Pegatinas de Discord.
 
 ### TextChannel
 
 #### TextChannel#awaitMessageComponent
 
-A shortcut method to create a promisified `InteractionCollector` which resolves to a single `MessageComponentInteraction`.
+Un acceso directo para crear un `InteractionCollector` en forma de promesa que se resuelve en un solo `MessageComponentInteraction`.
 
 #### TextChannel#createMessageComponentCollector
 
-A shortcut method to create an `InteractionCollector` for components on a specific channel.
+Un método abreviado para crear un `InteractionCollector` para componentes en un canal específico.
 
 #### TextChannel#setType
 
-Allows conversion between `TextChannel` and `NewsChannel`.
+Permite la conversión entre `TextChannel` y `NewsChannel`.
 
 #### TextChannel#threads
 
-Provides access to the `ThreadManager` for this channel.
+Proporciona acceso al `ThreadManager` de este canal.
 
 ### ThreadChannel
 
-Provides API support for thread channels.
+Proporciona soporte de la API para canales de hilos.
 
 ### ThreadChannelManager
 
-Provides API support for the bot to create, edit, and delete threads, and stores a cache of `ThreadChannels`.
+Proporciona soporte de la API para que el bot cree, edite y elimine hilos, y almacena una caché de `ThreadChannel`s.
 
 ### ThreadMember
 
-Represent a member of a thread and their thread-specific metadata.
+Representa a un miembro de un hilo y sus metadatos específicos.
 
 ### ThreadMemberManager
 
-Provides API support for the bot to add and remove members from threads, and stores a cache of `ThreadMembers`.
+Proporciona soporte de la API para que el bot añada y elimine miembros de los hilos, y almacene una caché de `ThreadMember`s.
 
 ### Typing
 
-Represents a typing state for a user in a channel.
+Representa el estado de escritura de un usuario (si está escribiendo o no) en un canal.
 
 ### Webhook
 
 #### Webhook#deleteMessage
 
-Webhooks can now delete messages that were sent by the Webhook.
+Los Webhooks ahora pueden borrar los mensajes que fueron enviados por el mismo Webhook.
 
 #### Webhook#editMessage
 
-Webhooks can now edit messages that were sent by the Webhook.
+Los Webhooks ahora pueden editar los mensajes que fueron enviados por el mismo Webhook.
 
 #### Webhook#fetchMessage
 
-Webhooks can now fetch messages that were sent by the Webhook.
+Los Webhooks ahora pueden obtener mensajes que fueron enviados por el mismo Webhook.
 
 #### Webhook#sourceChannel
 
 #### Webhook#sourceGuild
 
-Webhooks can now have a `sourceGuild` and `sourceChannel` if the message is being crossposted.
+Los Webhooks ahora pueden tener un `sourceGuild` y un `sourceChannel` si el mensaje se está publicando (crossposted).
 
 ### WelcomeChannel
 
-Represents the channels that can be seen in a Guild's `WelcomeScreen`.
+Representa los canales que pueden verse en la pantalla de bienvenida (`WelcomeScreen`) de un servidor.
 
 ### WelcomeScreen
 
-Provides API support for a Guild's welcome screen.
+Proporciona soporte de la API para la pantalla de bienvenida de un servidor.
 
 ### Widget
 
-Represents a Guild's widget.
+Representa un `Widget` de un servidor (`Guild`).
 
 ### WidgetMember
 
-Partial information about a guild's members stored in a widget.
+Información parcial sobre los miembros de un servidor (`Guild`) almacenada en un Widget.
 
 ### Util
 
 #### Formatters
 
-A number of new formatter functions are provided in the Util class, to easily handle adding markdown to strings.
+La clase `Util` incluye ahora una serie de nuevas funciones de formato que permiten añadir fácilmente Markdown a las cadenas de texto.
 
 #### Util#resolvePartialEmoji
 
-A helper method that attempts to resolve properties for a raw emoji object from input data, without the use of the discord.js Client class or its EmojiManager.
+Un método de ayuda que intenta resolver las propiedades de un objeto emoji, sin utilizar la clase `Client` de discord.js o su `EmojiManager`.
 
 #### Util#verifyString
 
-A helper method which is used to internally validate string arguments provided to methods in discord.js.
+Un método de ayuda que se utiliza para validar internamente los argumentos de cadena de texto proporcionados en los métodos de discord.js.
