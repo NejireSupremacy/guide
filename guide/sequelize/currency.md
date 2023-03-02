@@ -391,6 +391,6 @@ else if (commandName === 'leaderboard') {
 
 Nada extraordinario aquí. Podría consultar la base de datos para obtener los diez principales usuarios con mas monedas, pero como ya tiene acceso a ellos localmente dentro de la variable `currency`, puede ordenar la colección y usar `.map()` para mostrarlo en un formato amigable. El filtro está en caso de que los usuarios ya no existan en la caché del bot.
 
-## Resulting code
+## Codigo resultante
 
 <ResultingCode />
