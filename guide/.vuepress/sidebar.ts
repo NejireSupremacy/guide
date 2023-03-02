@@ -105,6 +105,7 @@ export default {
 				'/sequelize/',
 				'/sequelize/currency.md',
 				'/keyv/',
+				'/prisma/',
 			],
 		},
 		{
