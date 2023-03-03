@@ -2,7 +2,7 @@
 
 ## Antes de empezar
 
-Discord.js v14 requiere de Node.js 16.9 o una versión mayor para su uso, entonces asegúrate de que estés actualizado. Para comprobar tu versión de Node, usa `node -v` en tu terminal or símbolo del sistema, y si no cumple con la versión mínima, ¡actualízala! Hay muchos recursos en línea para ayudarte en este paso.
+Discord.js v14 requiere de Node.js 16.9 o una versión mayor para su uso, entonces asegúrate de que estés actualizado. Para comprobar tu versión de Node, usa `node -v` en tu terminal o símbolo del sistema, y si no cumple con la versión mínima, ¡actualízala! Hay muchos recursos en línea para ayudarte en este paso.
 
 ### Ahora los Builders/Constructores se incluyen en v14
 
@@ -38,7 +38,7 @@ pnpm remove @discordjs/builders @discordjs/rest
 
 ¡discord.js v14 hace el cambio a la versión 10 de la API de Discord!
 
-### Cambios de cosas comunes
+### Errores comunes
 
 ### Valores de Enumeración
 
@@ -58,7 +58,7 @@ La mayor parte de la diferencia entre las enumeraciones de discord.js y discord-
 Es posible que te acostumbres a usar `number`s (más comúnmente conocidos como [números mágicos/magic numbers](<https://es.wikipedia.org/wiki/N%C3%BAmero_m%C3%A1gico_(inform%C3%A1tica)>)) en lugar de valores de enumeraciones. Esto debería cambiar. Las enumeraciones son más legibles y más resistentes a los cambios en la API. Los números mágicos pueden oscurecer el significado de tu código de muchas maneras, echa un vistazo a este [blog post](https://blog.webdevsimplified.com/2020-02/magic-numbers/) si deseas más información sobre por qué no deben ser utilizados.
 :::
 
-#### Cambios comunes de enumeraciones
+#### Errores comunes con los enums
 
 Es probable que áreas como la inicialización del `Client`, los comandos de barra diagonal en JSON y los componentes de mensajes en JSON deban modificarse para adaptarse a estos cambios:
 
