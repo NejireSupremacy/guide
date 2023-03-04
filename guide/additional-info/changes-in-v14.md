@@ -507,7 +507,7 @@ Ya no se puede utilizar la propiedad `deleted` para comprobar si se ha borrado u
 
 Se ha eliminado `VoiceChannel#editable`. En su lugar, utiliza `GuildChannel#manageable`.
 
-Muchos de las enums se pueden encontrar en la documentación de discord-api-types. [discord-api-types](https://discord-api-types.dev/api/discord-api-types-v10/enum/ActivityFlags)
+Muchas de las enums se pueden encontrar en la documentación de discord-api-types. [discord-api-types](https://discord-api-types.dev/api/discord-api-types-v10/enum/ActivityFlags)
 
 ### VoiceRegion
 
