@@ -1,58 +1,55 @@
-# Understanding notation
+# Entendiendo la notación
 
-Throughout the discord.js docs and when asking for help on the official server, you will run into many different kinds of notations. To help you understand the texts that you read, we will be going over some standard notations.
+En toda la documentación de discord.js y al solicitar ayuda en el servidor oficial, te encontrarás con diferentes tipos de notaciones. Para ayudarte a entender los textos que lees, vamos a ayudarte a entender algunas notaciones estándar.
 
-::: tip CONSEJO
-Always keep in mind that notation is not always rigorous. There will be typos, misunderstandings, or contexts that will cause notation to differ from the usual meanings.
+
+::: tip
+Ten siempre presente que la notación no siempre es rigurosa. Habrán erratas, malentendidos, o contextos que harán que la notación difiera de los significados habituales.
 :::
 
-## Classes
+## Clases
 
-Some common notations refer to a class or the properties, methods, or events of a class. There are many variations on these notations, and they are very flexible depending on the person, so use your best judgment when reading them.
+Algunas notaciones comunes se refieren a una clase o a las propiedades, métodos o eventos de una clase. Existen muchas variaciones de estas notaciones, y son muy flexibles dependiendo de la persona, así que usa tu mejor juicio al leerlas.
 
-The notation `<Class>` means an instance of the `Class` class. For example, a snippet like `<BaseInteraction>.reply('Hello')` is asking you to replace `<BaseInteraction>` with some value that is an instance of `BaseInteraction`, e.g. `interaction.reply('Hello')`. It could also just be a placeholder, e.g., `<id>` would mean a placeholder for some ID.
+La notación `<Class>` hace referencia a la instancia de la clase `Class`. Por ejemplo, un snippet como `<BaseInteraction>.reply('Hola')` pide que sustituya `<BaseInteraction>` por algún valor que sea una instancia de `BaseInteraction`, p. ej. `interaction.reply('Hola')`. También podría ser sólo un placeholder, p. ej. `<id>` supondría un placeholder para alguna ID.
 
-The notation `Class#foo` can refer to the `foo` property, method, or event of the `Class` class. Which one the writer meant needs to be determined from context. For example:
+La notación `Class#foo` puede hacer referencia a la propiedad `foo`, método o evento de la clase `Class`. Hay que determinar por el contexto a qué se refiera el autor. Por ejemplo:
 
-- `BaseInteraction#user` means that you should refer to the `user` property on a `BaseInteraction`.
-- `TextChannel#send` means that you should refer to the `send` method on a `TextChannel`.
-- `Client#interactionCreate` means that you should refer to the `interactionCreate` event on a `Client`.
+- `BaseInteraction#user` significa que debe referirse a la propiedad `user` en la clase `BaseInteraction`.
+- `TextChannel#send` significa que debe referirse al método `send` en la clase `TextChannel`.
+- `Client#interactionCreate` significa que debe referirse al evento `interactionCreate` en la clase `Client`.
 
-::: tip CONSEJO
-Remember that this notation is not valid JavaScript; it is a shorthand to refer to a specific piece of code.
+::: tip
+Recuerda que esta notación no es válida en JavaScript; es una forma abreviada de referirse a un fragmento específico de código.
 :::
 
-Sometimes, the notation is extended, which can help you determine which one the writer meant. For example, `TextChannel#send(options)` is definitely a method of `TextChannel`, since it uses function notation. `Client#event:messageCreate` is an event since it says it is an event.
+A veces, la notación se amplía, lo que puede ayudar a determinar a cuál se refería el escritor. Por ejemplo, `TextChannel#send(options)` es definitivamente un método de `TextChannel`, ya que utiliza la notación de una función. `Client#event:messageCreate` es un evento, ya que dice que es un evento.
 
-The vital thing to take away from this notation is that the `#` symbol signifies that the property, method, or event can only be accessed through an instance of the class. Unfortunately, many abuse this notation, e.g., `<Message>#send`  or `Util#resolveColor`. `<Message>` is already an instance, so this makes no sense, and `resolveColor` is a static method–you should write it as `Util.resolveColor`. Always refer back to the docs if you are confused.
+Lo más importante de esta notación es que el símbolo `#` hace referencia a que sólo se puede acceder a la propiedad, método o evento a través de una instancia de la clase. Desafortunadamente, muchos abusan de esta notación, p. ej., `<Message>#send` o `Util#resolveColor`. `<Message>` ya es una instnacia, así que puede no tener sentido, y `resolveColor` es un método estático que deberás escribirlo como `Util.resolveColor`. Si tienes dudas, consulta siempre la documentación.
 
-As an example, the documentation's search feature uses this notation.
+## Tipos
 
-![Docs search](./images/search.png)
+En la documentación de discord.js, hay firmas de tipo donde sea, como propiedades, parámetros o valores de retorno. Si no vienes de un lenguaje tipado estáticamente, es posible que no sepas qué significan determinadas notaciones.
 
-Notice the use of the `.` operator for the static method, `Role.comparePositions` and the `#` notation for the method, `Role#comparePositionsTo`.
+El símbolo `*` significa cualquier tipo. Por ejemplo, los métodos que devuelven `*` significan que pueden devolver cualquier cosa, y el parámetro de tipo `*` puede ser cualquier cosa.
 
-## Types
+El símbolo `?` significa que el tipo es anulable. Puede aparecer antes o después del tipo (p. ej. `?T` o `T?`). Este símbolo significa que el valor puede ser del tipo `T` o `null`. Un ejemplo de esto es `GuildMember#nickname`; su tipo es `?string` ya que un miembro puede tener o no un apodo.
 
-In the discord.js docs, there are type signatures everywhere, such as in properties, parameters, or return values. If you do not come from a statically typed language, you may not know what specific notations mean.
+La expresión `T[]` significa un array de `T`. A veces pueden verse varios corchetes `[]`, indicando que el array es multidimensional, p. ej., `string[][]`
 
-The symbol `*` means any type. For example, methods that return `*` mean that they can return anything, and a parameter of type `*` can be anything.
+La expresión `...T` significa un parámetro rest de tipo `T`. Esto significa que la función puede tomar cualquier cantidad de argumentos, y todos esos argumentos deben ser del tipo `T`.
 
-The symbol `?` means that the type is nullable. You can see it before or after the type (e.g. `?T` or `T?`). This symbol means that the value can be of the type `T` or `null`. An example is `GuildMember#nickname`; its type is `?string` since a member may or may not have a nickname.
-
-The expression `T[]` means an array of `T`. You can sometimes see multiple brackets `[]`, indicating that the array is multi-dimensional, e.g., `string[][]`.
-
-The expression `...T` signifies a rest parameter of type `T`. This means that the function can take any amount of arguments, and all those arguments must be of the type `T`.
-
-The operator `|`, which can read as "or", creates a union type, e.g. `A|B|C`. Simply, it means the value can be of any one of the types given.
+El operador `|`, que puede leerse como "o", crea un tipo de unión, p. ej. `A|B|C`. Simplemente significa que el valor puede ser de cualquiera de los tipos indicados.
 
 The angle brackets `<>` are used for generic types or parameterized types, signifying a type that uses another type(s). The notation looks like `A<B>` where `A` is the type and `B` is a type parameter. If this is hard to follow, it is enough to keep in mind that whenever you see `A<B>`, you can think of an `A` containing `B`. Examples:
+Los paréntesis angulares `<>` son usados para tipos genéricos o tipos parametrizados, significa que un tipo utiliza otro(s) tipo(s). La notación es `A<B>` donde `A` es el tipo y `B` es un parámetro de tipo.
 
-- `Array<String>` means an array of strings.
-- `Promise<User>` means a `Promise` that contains a `User`.
-- `Array<Promise<User|GuildMember>>` would be an array of `Promise`s, each containing a `User` or a `GuildMember`.
-- `Collection<Snowflake, User>` would be a `Collection`, containing key-value pairs where the keys are `Snowflake`s, and the values are `User`s.
+- `Array<String>` significa un array de strings.
+- `Promise<User>` significa una `Promise` que contiene `User`.
+- `Array<Promise<User|GuildMember>>` significa un array de `Promise`, que cada uno contiene `User` o `GuildMember`.
+- `Collection<Snowflake, User>` sería una `Collection`, que contiene pares clave-valor donde las claves son `Snowflake` y los valores son `User`.
 
 ![TextChannel#send on the docs](./images/send.png)
 
-In this piece of the docs, you can see two type signatures, `string`, `MessagePayload`, or `MessageOptions`, and `Promise<(Message|Array<Message>)>`. The meaning of the word "or" here is the same as `|`.
+En esta parte de la documentación, puedes ver dos firmas de tipo, `string`, `MessagePayload`, o `MessageOptions` y `Promise<(Message|Array<Message>)>`.
+El significado de la palabra "or" aquí es el mismo que `|`
