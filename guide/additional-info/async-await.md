@@ -20,8 +20,8 @@ El estado **rechazada** (rejected) significa que la promesa encontró un error y
 
 Una cosa importante que hay que saber es que una promesa sólo puede tener un estado simultáneamente; nunca puede estar pendiente y resuelta, rechazada y resuelta o pendiente y rechazada. Te preguntarás, "¿Cómo se vería eso en código?". Aquí hay un pequeño ejemplo
 
-::: tip CONSEJO
-Este ejemplo usa código ES6. Si quieres saber qué es eso, deberías leer sobr ello [aquí](/guide/additional-info/es6-syntax.md)
+::: tip
+Este ejemplo usa código ES6. Si quieres saber qué es eso, deberías leer sobre ello [aquí](/guide/additional-info/es6-syntax.md)
 :::
 
 ```js
