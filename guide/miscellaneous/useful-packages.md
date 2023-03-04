@@ -1,17 +1,17 @@
-# Useful packages
+# Paquetes útiles
 
 ## Day.js
 
 ::: tip CONSEJO
-Official documentation: [https://day.js.org/](https://day.js.org/en)
+Documentaciín oficial: [https://day.js.org/](https://day.js.org/en)
 :::
 
-Day.js is a powerful package that parses, validates, manipulates, and displays dates and times in JavaScript.
-It allows you to quickly and easily format dates in any way you want or parse strings back into JavaScript Date objects.
-There are many plugins for it that allow you to work with durations and more.
+Day.js es un poderoso paquete que analiza, valida, manipula y muestra fechas y horas en JavaScript.
+Te permite dar formato a las fechas de la forma que se desee o convertir string en objetos Date de JavaScript de forma rápida y sencilla.
+Hay muchos plugins para él que le permiten trabajar con duraciones y más.
 
-For example if you wanted to ask your users to give you a date,  
-you can use Day.js to turn it into a Date object you can use in your code:
+Por ejemplo, si quieres pedir a tus usarios que te den una fecha,
+puedes utilizar Day.js para convertirlo en un objeto Date que puedas utilizar en tu código:
 
 <!-- eslint-skip -->
 ```js
@@ -24,7 +24,7 @@ const input = await interaction.channel.awaitMessages({
 const date = dayjs(input.first().content).toDate();
 ```
 
-Using the [duration plugin](https://day.js.org/docs/en/durations/durations), you could tell the user if the date is in the future or the past:
+Uso del plugin [duration](https://day.js.org/docs/en/durations/durations), podría indicar al usuario si la fecha es del pasado o del futuro:
 
 ```js
 if (date.isValid()) {
@@ -33,29 +33,29 @@ if (date.isValid()) {
 	const formatted = dayjs.duration(duration, 'ms').format();
 
 	if (duration > 0) {
-		interaction.reply(`The date you gave me is ${formatted} into the future.`);
+		interaction.reply(`La fecha que me diste es ${formatted} en el futuro.`);
 	} else {
-		interaction.reply(`The date you gave me is ${formatted} into the past.`);
+		interaction.reply(`La fecha que me dist ees ${formatted} en el pasado.`);
 	}
 } else {
-	interaction.reply('You didn\'t give me a valid date.');
+	interaction.reply('No me diste una fecha válida.');
 }
 ```
 
 ## ms
 
 ::: tip CONSEJO
-Official documentation: [https://github.com/vercel/ms](https://github.com/vercel/ms)
+Documentación oficial: [https://github.com/vercel/ms](https://github.com/vercel/ms)
 :::
 
-Ms is another tool for working with times in JavaScript. However, ms specializes on durations.
-It allows you to convert times in milliseconds into human-readable formats and vice versa.
+Ms es otra herramienta para trabajar con tiempos en JavaScript. Sin embargo, ms se especializa en duraciones.
+Permite convertir tiempos en milisegundos en formatos legibles por humanos y viceversa.
 
-Example:
+Ejemplo:
 
 <!-- eslint-skip -->
 ```js
-await interaction.reply('Send two messages and I\'ll tell you how far apart you sent them.');
+await interaction.reply('Envía dos mensajes y te diré con qué diferencia de tiempo los has enviado.');
 const messages = await interaction.channel.awaitMessages({
 	filter: m => m.author.id === interaction.user.id,
 	max: 2,
@@ -66,89 +66,89 @@ const messages = await interaction.channel.awaitMessages({
 const difference = messages.last().createdTimestamp - messages.first().createdTimestamp;
 const formatted = ms(difference);
 
-await interaction.followUp(`You sent the two messages ${formatted} apart.`);
+await interaction.followUp(`Enviaste los dos mensajes con una diferencia de ${formatted}.`);
 ```
 
-## common-tags
+## Etiquetas comunes
 
 ::: tip CONSEJO
-Official documentation: [https://github.com/zspecza/common-tags](https://github.com/zspecza/common-tags)
+Documentación oficial: [https://github.com/zspecza/common-tags](https://github.com/zspecza/common-tags)
 :::
 
-Common-tags is a library all about working with template literals.  
-So far, you have probably only used them for interpolating variables into your strings, but they can do a whole lot more.
-If you got time, you should check out [the MDN's documentation about *tagged literals*.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates).
+Common-tags es una biblioteca que trabaja con literales de plantilla.  
+Hasta ahora, probablemente sólo los has usado para interpolar variables en tus strings, pero pueden hacer mucho más.
+Si tienes tiempo, deberías echar un vistazo a [la documentación de MDN sobre *literales etiquetados*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates).
 
-Ever got annoyed your multi-line strings had nasty bits of indentation in them,
-but you did not want to remove the indentation in your source code?  
-common-tags got you covered:
+¿Alguna vez te ha molestado que tus strings multi-línea tuvieran desagradables trozos de sangría en ellas,
+pero no quería eliminar la sangría en su código fuente?  
+common-tags es la solución:
 
 ```js
 const packageName = 'common-tags';
 
 if (someCondition) {
 	const poem = stripIndents`
-		I like ${packageName}.
-		It makes my strings so pretty,
-		you should use it too.
+		Me gusta ${packageName}.
+		Hace que mis strings sean tan bonitas,
+		tú también deberías usarlo.
 	`;
 
 	console.log(poem);
 }
 ```
 
-This will print your little poem like expected, but it will not have any tabs or other whitespace on the left.
+Esto imprimirá tu pequeño poema como se espera, pero no tendrá ningún tabulador u otro espacio en blanco a la izquierda.
 
-But this is just the start! Another set of useful functions are the list-related functions:
+Pero esto es sólo el principio. Otro conjunto de funciones útiles son las relacionadas con las listas:
 `inlineLists`, `commaLists`, etc.  
-With those, you can easily interpolate arrays into your strings without them looking ugly:
+Con ellos, puedes interpolar fácilmente arrats en tus strings sin que se vean feos:
 
 ```js
-const options = ['add', 'delete', 'edit'];
+const options = ['añada', 'elimine', 'edite'];
 
-// -> Do you want me to add, delete or edit the channel?
+// -> ¿Quieres que añada, elimine o edite el canal?
 interaction.reply(oneLineCommaListsOr`
-	Do you want me to ${options} the channel?
+	¿Quieres que ${options} el canal?
 `);
 ```
 
-Check the the documentation to find more useful functions.
+Consulte la documentación para encontrar más funciones útiles.
 
 ## chalk
 
-::: tip CONSEJO
-Official documentation: [https://www.npmjs.com/package/chalk](https://www.npmjs.com/package/chalk)
+::: tip
+Documentación oficial: [https://www.npmjs.com/package/chalk](https://www.npmjs.com/package/chalk)
 :::
 
-Chalk is not exactly useful for Discord bots themselves, but it will make your terminal output a lot prettier and organized.
-This package lets you color and style your `console.log`s in many different ways; No more simple white on black.
+Chalk no es exactamente útil para los bots de Discord, pero hará que la salida de tu terminal sea mucho más bonita y organizada.
+Este paquete le permite colorear y dar estilo a su `console.log` de muchas maneras diferentes; No más simple blanco sobre negro.
 
-Let's say you want your error messages to be easily visible; Let us give them a nice red color:
+Digamos que quieres que tus mensajes de error sean fácilmente visibles; démosles un bonito color rojo:
 
 ```js
-console.error(chalk.redBright('FATAL ERROR'), 'Something really bad happened!');
+console.error(chalk.redBright('FATAL ERROR'), '¡Algo muy malo sucedió!');
 ```
 
 ![image of code above](./images/chalk-red.png)
 
-You can also chain multiple different multipliers.  
-If you wanted to have green text, a grey background, and have it all underlined, that is possible:
+También puedes encadenar varios multiplicadores diferentes.
+Si quiere que el texto sea verde, el fondo gris y todo subrayado, es posible:
 
 ```js
-console.log(chalk.green.bgBrightBlack.underline('This is so pretty.'));
+console.log(chalk.green.bgBrightBlack.underline('Esto es muy hermoso.'));
 ```
 
 ![image of code above](./images/chalk-ugly.png)
 
 ## pino
 
-::: tip CONSEJO
-Official documentation: [getpino.io](https://getpino.io)
+::: tip
+Documentación oficial: [getpino.io](https://getpino.io)
 :::
 
-Pino is a Node.js logger with a very low overhead. But why does that even matter, if `console.log()` exists? Well, `console.log()` is quite slow and not very versatile. Whenever you make a call to `console.log()` your program halts and cannot do anything until the logging is finished.
+Pino es un "logger" de Node.js con una sobrecarga muy baja. ¿Pero por qué importa eso, si `console.log()` existe? Bueno, `console.log()` es bastante lento y poco versátil. Cada vez que haces una llamada a `console.log()` tu programa se detiene y no puede hacer nada hasta que el registro haya terminado.
 
-To get started, install the package:
+Para empezar, instala el paquete:
 
 :::: code-group
 ::: code-group-item npm
@@ -171,9 +171,9 @@ pnpm add --global pino-pretty
 :::
 ::::
 
-Pino is highly configurable, so we heavily recommend you take a look at their documentation yourself.
+Pino es altamente configurable, por lo que te recomendamos encarecidamente que eches un vistazo a su documentación por ti mismo.
 
-To use the same logger across the project you can put the following code into it's own file, for example `logger.js` and import it when needed:
+Para usar el mismo "logger" en todo el proyecto puedes poner el siguiente código en tu propio archivo, por ejemplo `logger.js` e importarlo cuando sea necesario:
 
 ```js
 const pino = require('pino');
@@ -186,23 +186,23 @@ const { Client, Events, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const logger = require('./logger');
 
-client.on(Events.ClientReady, () => logger.info('The bot is online'));
+client.on(Events.ClientReady, () => logger.info('El bot está en línea.'));
 client.on(Events.Debug, m => logger.debug(m));
 client.on(Events.Warn, m => logger.warn(m));
 client.on(Events.Error, m => logger.error(m));
 
-client.login('your-token-goes-here');
+client.login('tu-token-va-aquí');
 ```
 
-Pino logs in a json format, so other programs and services like log aggregators can easily parse and work with the output. This is very useful for production systems, but quite tedious to read during development. This is why you installed `pino-pretty` earlier. Instead of formatting the log output itself the developers recommended that you [pipe](https://en.wikipedia.org/wiki/Pipeline_(Unix)) the log output to other services instead. `pino-pretty` is a formatter you can use for easy-to-read logs during development.
+Pino registra en un formato json, por lo que otros programas y servicios como agregadores de registro pueden fácilmente analizar y trabajar con la salida. Esto es muy útil para los sistemas en producción, pero bastante tedioso de leer durante el desarrollo. Esta es la razón por la que instalaste `pino-pretty` antes. En lugar de formatear la salida del registro por sí mismo, los desarrolladores recomiendan [pipe](https://en.wikipedia.org/wiki/Pipeline_(Unix)). `pino-pretty` es un formateador que puedes usar para facilitar la lectura de los "logs" durante el desarrollo.
 
-We recommend you set `pino-pretty` up in a package script in your `package.json` file, rather than typing the pipeline out every time. Please read our [guide section on package scripts](/improving-dev-environment/package-json-scripts), if you are not sure what we're talking about here.
+Te recomendamos que configures `pino-pretty` en un script de paquete en tu archivo `package.json`, en lugar de escribir el pipeline cada vez. Por favor, lee nuestra [sección de la guía sobre mejorar el entorno de desarrollo](/improving-dev-environment/package-json-scripts) si no estás seguro de lo que estamos hablando aquí.
 
 ```json {10}
 {
 	"name": "my-bot",
 	"version": "1.0.0",
-	"description": "A Discord bot!",
+	"description": "¡Un bot de Discord!",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
@@ -217,12 +217,12 @@ We recommend you set `pino-pretty` up in a package script in your `package.json`
 ```
 
 :::warning
-If you are using powershell, you have to use a package script for `pino-pretty`. Powershell handles pipelines in a way that prevents logging. The cmd commandline interface is not affected.
+Si está utilizando powershell, tendrás que utilizar un script de paquete para `pino-pretty`. Powershell maneja las canalizaciones de una manera que impide el registro. La interfaz de línea de comandos cmd no se ve afectada.
 :::
 
-In the example above, further arguments are passed to `pino-pretty` to modify the generated output. `-i pid,hostname` hides these two elements from logged lines and `-t yyyy-mm-dd HH:MM:ss` formats the timestamp into an easy to use format. Try out what works for you! The official [pino-pretty documentation](https://github.com/pinojs/pino-pretty) explains all possible arguments.
+En el ejemplo anterior, se pasan más argumentos a `pino-pretty` para modificar la salida generada. `-i pid,hostname` oculta estos dos elementos de las líneas registradas y `-t yyyy-mm-dd HH:MM:ss` formatea la marca de tiempo en un formato fácil de usar. Pruebe lo que más le convenga. La documentación oficial [pino-pretty documentation](https://github.com/pinojs/pino-pretty) explica todos los argumentos posibles.
 
-To start your bot with prettified input you run the `dev` script via your package manager of choice:
+Para iniciar tu bot con la entrada preconfigurada, ejecuta el script `dev` a través del gestor de paquetes que prefieras:
 
 :::: code-group
 ::: code-group-item npm
@@ -242,7 +242,7 @@ pnpm run dev
 :::
 ::::
 
-Pino is very flexible, supports custom log levels, worker threads and many more features. Please check out the [official documentation](https://getpino.io) if you want to up your pino game! Below we show an alternative for a production setup. Using this code, you will be logging the raw json objects into a file, instead of printing to your console: 
+Pino es muy flexible, soporta niveles de registro personalizados, hilos de trabajo y muchas más características. Por favor, echa un vistazo a la [documentación oficial](https://getpino.io) si quieres mejorar Pino. A continuación mostramos una alternativa para una configuración de producción. Usando este código, estarás registrando los objetos json sin procesar en un archivo, en lugar de imprimirlos en tu consola:
 
 ```js {2-6}
 const pino = require('pino');
@@ -257,9 +257,9 @@ module.exports = logger;
 ## i18next
 
 ::: tip CONSEJO
-Official documentation: [https://www.i18next.com](https://www.i18next.com)
+Documentación oficial: [https://www.i18next.com](https://www.i18next.com)
 :::
 
-i18next is an internationalization-framework for JavaScript. It is beneficial to translate your bot's user-facing messages into various languages based on the server it is used in.
+i18next es un marco de internacionalización para JavaScript. Es ideal para traducir los mensajes de tu bot a varios idiomas en base al servidor en el que se utiliza.
 
-Covering an entire use case example for internationalization would be out of this guide's scope and requires some more explanation as to how the system operates. Please refer to the official documentation linked above for an in-depth usage guide.
+Explicar en detalle un caso práctico de internacionalización quedaría fuera del alcance de esta guía y requeriría más explicaciones sobre el funcionamiento del sistema. Consulte la documentación oficial enlazada más arriba para obtener una guía de uso más detallada.
