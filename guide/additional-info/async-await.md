@@ -15,10 +15,11 @@ Las promesas son una manera de manejar tareas asíncronas en JavaScript; son una
 Una promesa puede tener tres estados; pendiente, resuelta y rechazada.
 
 El estado **pendiente** (pending) significa que la promesa sigue en curso y ni se resuelve ni se rechaza.
-El estado **resuelta** (resolved) significa que la promesa se realiza y se ejecuta sin errores.
-El estado **rechazada** (rejected) significa que la promesa encontró un error y no se puede ejecutar correctamente.
+El estado **resuelto** (resolved) significa que la promesa se realiza y se ejecuta sin errores.
+El estado **rechazado** (rejected) significa que la promesa encontró un error y no se puede ejecutar correctamente.
 
-Una cosa importante que hay que saber es que una promesa sólo puede tener un estado simultáneamente; nunca puede estar pendiente y resuelta, rechazada y resuelta o pendiente y rechazada. Te preguntarás, "¿Cómo se vería eso en código?". Aquí hay un pequeño ejemplo
+Una cosa importante que hay que saber es que una promesa solo puede tener un estado simultáneamente; nunca puede estar pendiente y resuelta, rechazada y resuelta o pendiente y rechazada. Te preguntarás, "¿Cómo se vería eso en código?". Aquí hay un pequeño ejemplo
+
 
 ::: tip
 Este ejemplo usa código ES6. Si quieres saber qué es eso, deberías leer sobre ello [aquí](/guide/additional-info/es6-syntax.md)
@@ -34,19 +35,19 @@ function deleteMessages(amount) {
 
 deleteMessages(5).then(value => {
 	// `deleteMessages` está completa y no ha encontrado ningún error.
-	// el valor resuelto será la string "10 mensajes eliminados".
+	// El valor resuelto será la string "10 mensajes eliminados".
 }).catch(error => {
 	// `deleteMessages` encontró un error.
-	// el error será un Error Object.
+	// El error será un Error Object.
 });
 ```
 
-En este escenario, la función `deleteMessages` devuelve una promesa. El métofo `.then()` se activará si la promesa se resyelve, y el método `.catch()` si la promesa es rechazada. En la función `deleteMessages`, la promesa es resuelta después de 2 segundos con la string "10 mensajes eliminados.", así que el método `.catch()` nunca será ejecutado. También puedes pasar la función `.catch()` como segundo parámetro de `.then()`.
+En este escenario, la función `deleteMessages` devuelve una promesa. El método `.then()` se activará si la promesa se resuelve, y el método `.catch()` si la promesa es rechazada. En la función `deleteMessages`, la promesa es resuelta después de 2 segundos con la string "10 mensajes eliminados.", así que el método `.catch()` nunca será ejecutado. También puedes pasar la función `.catch()` como segundo parámetro de `.then()`.
 ## Cómo implementar async/await
 
 ### Teoría
 
-Es escencial conocer la siguiente información antes de trabajar con async/await. Sólo puedes usar la palabra clave `await` dentro de una función declarada como `async` (ponga la palabra clave `async` antes de la palabra clave `function` o antes de los parámetros cuando utilice una función callback).
+Es esencial conocer la siguiente información antes de trabajar con async/await. Solo puedes usar la palabra clave `await` dentro de una función declarada como `async` (ponga la palabra clave `async` antes de la palabra clave `function` o antes de los parámetros cuando utilice una función callback).
 
 Un ejemplo simple podría ser:
 
@@ -73,7 +74,7 @@ client.on('event', async (primero, último) => {
 });
 ```
 
-Una cosa importante a conocer es que una función declarada como `async` siempre devolvera una promesa. En adición a esto, si devuelves algo, la promesa se resolverá con ese valor, y si produce un error, rechazará la promesa con ese error.
+Una cosa importante a conocer es que una función declarada como `async` siempre devolverá una promesa. En adición a esto, si devuelves algo, la promesa se resolverá con ese valor, y si produce un error, rechazará la promesa con ese error.
 
 ### Ejecución con código de discord.js
 
@@ -99,7 +100,7 @@ client.on(Events.InteractionCreate, interaction => {
 client.login('tu-token-va-aquí');
 ```
 
-Si no sabes cómo funciona la ejecución asíncrona de Node.JS, probablemente inentarías algo como esto:
+Si no sabes cómo funciona la ejecución asíncrona de Node.JS, probablemente deberías intentar algo como esto:
 
 ```js {4-7}
 client.on(Events.InteractionCreate, interaction => {
@@ -113,7 +114,7 @@ client.on(Events.InteractionCreate, interaction => {
 });
 ```
 
-Pero como todos estos métodos se ejecutan a la vez, sólo sería una carrera para ver cuál solicitud del servidor temrina primero, por lo que no habría ninguna garantía de que reaccionara (si el mensaje no se obtiene) o en el orden que usted quería que lo hiciera. Para asegurarte de que reacciona después de enviar el mensaje y según el orden, tendrías que usar el callback `.then()` de las promesas que devuelven éstos métodos. El código se vería algo así:
+Pero como todos estos métodos se ejecutan a la vez, solo sería una carrera para ver cuál solicitud del servidor termina primero, por lo que no habría ninguna garantía de que reaccionara (si el mensaje no se obtiene) o en el orden que usted quería que lo hiciera. Para asegurarte de que reacciona después de enviar el mensaje y según el orden, tendrías que usar el callback `.then()` de las promesas que devuelven estos métodos. El código se vería algo así:
 
 ```js {4-12}
 client.on(Events.InteractionCreate, interaction => {
@@ -125,7 +126,7 @@ client.on(Events.InteractionCreate, interaction => {
 					.then(() => message.react('🇧'))
 					.then(() => message.react('🇨'))
 					.catch(error => {
-						// manejar el fallo de cualquier rechazo de Promise aquí dentro
+						// Controlar cualquier excepción que pueda generar la promesa
 					});
 			});
 	}
@@ -157,16 +158,14 @@ client.on(Events.InteractionCreate, async interaction => {
 			await message.react('🇧');
 			await message.react('🇨');
 		} catch (error) {
-			// manejar el fallo de cualquier rechazo de Promise aquí dentro
+			// Controlar cualquier excepción que pueda generar las promesas
 		}
 	}
 });
 ```
 
 Este código se ve limpio y muy fácil de leer.
-
-Te estarás preguntnado "¿Cómo obtendría el valor con el que se resolvió la promesa?"
-
+Te estarás preguntando "¿Cómo obtendría el valor con el que se resolvió la promesa?"
 Veamos un ejemplo en el que desea eliminar una respuesta enviada.
 
 ```js {3-9}
@@ -176,7 +175,7 @@ client.on(Events.InteractionCreate, interaction => {
 		interaction.reply({ content: 'Este mensaje se eliminará.', fetchReply: true })
 			.then(replyMessage => setTimeout(() => replyMessage.delete(), 10000))
 			.catch(error => {
-				// manejar el error
+				// Controlar cualquier excepción que pueda generar la promesa
 			});
 	}
 });
@@ -191,7 +190,7 @@ client.on(Events.InteractionCreate, async interaction => {
 			const replyMessage = await interaction.reply({ content: 'Este mensaje será eliminado.', fetchReply: true });
 			setTimeout(() => replyMessage.delete(), 10000);
 		} catch (error) {
-			// manejar el error
+			// Controlar cualquier excepción que pueda generar la promesa
 		}
 	}
 });
