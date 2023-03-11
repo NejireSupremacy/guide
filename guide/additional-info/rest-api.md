@@ -87,7 +87,7 @@ const catResult = await request('https://aws.random.cat/meow');
 const { file } = await catResult.body.json();
 ```
 
-Si sólo añades este código, parecerá que no pasa nada. Lo que no ves, es que estás lanzando una petición al servidor random.cat, que te devuelve unos datos JSON. La función helper parsea los datos de respuesta a un objeto JavaScript con el que se puede trabajar. El objeto tendrá una propiedad `file` con el valor de un enlace a una imagen de random.cat.
+Si solo añades este código, parecerá que no pasa nada. Lo que no ves, es que estás lanzando una petición al servidor random.cat, que te devuelve unos datos JSON. La función helper parsea los datos de respuesta a un objeto JavaScript con el que se puede trabajar. El objeto tendrá una propiedad `file` con el valor de un enlace a una imagen de random.cat.
 
 A continuación, implementarás este enfoque en un comando de barra:
 
@@ -151,7 +151,7 @@ if (commandName === 'urban') {
 }
 ```
 
-Aquí sólo se obtiene el primer objeto del array de objetos llamado `list` y se toma la propiedad `definition`.
+Aquí solo se obtiene el primer objeto del array de objetos llamado `list` y se toma la propiedad `definition`.
 
 Si has seguido el tutorial, deberías tener algo así:
 
