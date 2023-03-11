@@ -1,12 +1,12 @@
-# Using a REST API
+# Usando una REST API
 
-REST APIs are extremely popular on the web and allow you to freely grab a site's data if it has an available API over an HTTP connection.
+Las API REST son extremadamente populares en la web pues permiten obtener libremente los datos de un sitio si éste dispone de una API a través de una conexión HTTP.
 
-## Making HTTP requests with Node
+## Haciendo peticiones HTTP con Node
 
-In these examples, we will be using [undici](https://www.npmjs.com/package/undici), an excellent library for making HTTP requests.
+En estos ejemplos, estaremos usando [undici](https://www.npmjs.com/package/undici), una librería excelente para hacer peticiones HTTP.
 
-To install undici, run the following command:
+Para instalar undici, ejecuta el siguiente comando:
 
 :::: code-group
 ::: code-group-item npm
@@ -32,9 +32,9 @@ pnpm add undici
 :::
 ::::
 
-## Skeleton code
+## Código base
 
-To start off, you will be using the following skeleton code. Since both the commands you will be adding in this section require an interaction with external APIs, you will defer the reply, so your application responds with a "thinking..." state. You can then edit the reply once you got the data you need:
+Para empezar, utilizarás la siguiente estructura de código. Para empezar, utilizarás el siguiente esqueleto de código. Dado que los dos comandos que añadirás en esta sección requieren una interacción con APIs externas, diferirás la respuesta, por lo que tu aplicación responderá con un estado "pensando...". Luego podrás editar la respuesta una vez que tengas los datos que necesitas:
 
 <!-- eslint-disable require-await -->
 
@@ -44,7 +44,7 @@ const { Client, EmbedBuilder, Events, GatewayIntentBits } = require('discord.js'
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.once(Events.ClientReady, () => {
-	console.log('Ready!');
+	console.log('¡Encendido!');
 });
 
 client.on(Events.InteractionCreate, async interaction => {
@@ -55,46 +55,46 @@ client.on(Events.InteractionCreate, async interaction => {
 	// ...
 });
 
-client.login('your-token-goes-here');
+client.login('tu-token-va-aquí');
 ```
 
 ::: tip CONSEJO
-We're taking advantage of [destructuring](/additional-info/es6-syntax.md#destructuring) in this tutorial to maintain readability.
+En este tutorial aprovechamos la [desestructuración](/guide/additional-info/es6-syntax.md#destructuring) para mantener la legibilidad.
 :::
 
-## Using undici
+## Usando undici
 
-Undici is a Promise-based HTTP/1.1 client, written from scratch for Node.js. If you aren't already familiar with Promises, you should read up on them [here](/additional-info/async-await.md).
+Undici es un cliente HTTP/1.1 basado en promesas, escrito desde cero para Node.JS. Si no estás muy familiarizado con las promesas, deberías leer sobre ellas [aquí](/guide/additional-info/async-await.md)
 
-In this tutorial, you will be making a bot with two API-based commands using the [random.cat](https://aws.random.cat) and [Urban Dictionary](https://www.urbandictionary.com) APIs.
+En este tutorial, estarás haciendo un bot con dos comandos basados en APIs, usando [random.cat](https://aws.random.cat) y [Urban Dictionary](https://www.urbandictionary.com).
 
-On top of your file, import the library function you will be using:
+En la parte superior de tu archivo, importa la función de la librería que vas a utilizar:
 
 ```js
 const { request } = require('undici');
 ```
 
-### Retrieving the JSON response from a request
+### Recuperar la respuesta JSON procedente de una petición
 
-To get the data from within the response object, you can define the following helper function (it concatenates all the body chunks and parses it as an object) above your client events. Note that the function returns a Promise you need to handle.
+Para obtener los datos desde dentro del "response object", puedes definir la siguiente función de ayuda (concatena todos los pedazos del código y los analiza como un objeto) sobre los eventos de tu cliente. Ten en cuenta que la función devuelve una Promise que debes manejar.
 
 ### Random Cat
 
-Random cat's API is available at [https://aws.random.cat/meow](https://aws.random.cat/meow) and returns a [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON) response. To actually fetch data from the API, you're going to do the following:
+La API de random.cat está disponible en [https://aws.random.cat/meow](https://aws.random.cat/meow) y devuelve una respuesta [JSON](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/JSON). Para obtener datos de la API, debes hacer lo siguiente:
 
 ```js
 const catResult = await request('https://aws.random.cat/meow');
 const { file } = await catResult.body.json();
 ```
 
-If you just add this code, it will seem like nothing happens. What you do not see, is that you are launching a request to the random.cat server, which responds some JSON data. The helper function parses the response data to a JavaScript object you can work with. The object will have a `file` property with the value of a link to a random cat image.
+Si sólo añades este código, parecerá que no pasa nada. Lo que no ves, es que estás lanzando una petición al servidor random.cat, que te devuelve unos datos JSON. La función helper parsea los datos de respuesta a un objeto JavaScript con el que se puede trabajar. El objeto tendrá una propiedad `file` con el valor de un enlace a una imagen de random.cat.
 
-Next, you will implement this approach into an application command:
+A continuación, implementarás este enfoque en un comando de barra:
 
 ```js {3-7}
 client.on(Events.InteractionCreate, async interaction => {
 	// ...
-	if (commandName === 'cat') {
+	if (commandName === 'gato') {
 		const catResult = await request('https://aws.random.cat/meow');
 		const { file } = await catResult.body.json();
 		interaction.editReply({ files: [file] });
@@ -102,19 +102,19 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 ```
 
-So, here's what's happening in this code:
+Esto es lo que ocurre en este código:
 
-1. Your application sends a `GET` request to random.cat.
-2. random.cat sees the request and gets a random file url from their database.
-3. random.cat then sends that file's URL as a JSON object in a stringified form that contains a link to the image.
-4. undici receives the response and you parse the body to a JSON object.
-5. Your application then attaches the image and sends it in Discord.
+1. Tu aplicación envía una peticion `GET` a random.cat
+2. random.cat recibe la solicitud y obtiene una url de archivo cualquiera de su base de datos.
+3. random.cat envía entonces la URL de ese archivo como un objeto JSON en forma de string que contiene un enlace a la imagen.
+4. undici recibe la respuesta y parsea el contenido a un objeto JSON.
+5. A continuación, tu aplicación adjunta la imagen y la envía en Discord.
 
 ### Urban Dictionary
 
-Urban Dictionary's API is available at [https://api.urbandictionary.com/v0/define](https://api.urbandictionary.com/v0/define), accepts a `term` parameter, and returns a JSON response.
+La API de Urban Dictionary está disponible en [https://api.urbandictionary.com/v0/define](https://api.urbandictionary.com/v0/define). Acepta un parámetro `term` y devuelve una respuesta JSON.
 
-The following code will fetch data from this api:
+El siguiente código obtendrá datos de esta api: 
 
 ```js {1,5-11}
 // ...
@@ -130,30 +130,30 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 ```
 
-Here, you are using JavaScript's native [URLSearchParams class](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) to create a [query string](https://en.wikipedia.org/wiki/Query_string) for the URL so that the Urban Dictionary server can parse it and know what you want to look up.
+En este caso, se está utilizando la clase nativa [URLSearchParams](https://developer.mozilla.org/es/docs/Web/API/URLSearchParams) de JavaScript para crear una string de consulta (o [query string](https://es.wikipedia.org/wiki/Query_string)) para la URL, de modo que el servidor de Urban Dictionary pueda analizarla y saber lo que se desea buscar.
 
-If you were to do `/urban hello world`, then the URL would become https://api.urbandictionary.com/v0/define?term=hello%20world since the string `"hello world"` is encoded.
+Si hiciera `/urban hello world`, la URL pasaría a ser https://api.urbandictionary.com/v0/define?term=hello%20world, ya que la string `"hello world"` está codificada.
 
-You can get the respective properties from the returned JSON. If you were to view it in your browser, it usually looks like a bunch of mumbo jumbo. If it doesn't, great! If it does, then you should get a JSON formatter/viewer. If you're using Chrome, [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa) is one of the more popular extensions. If you're not using Chrome, search for "JSON formatter/viewer &lt;your browser&gt;" and get one.
+Puede obtener las propiedades respectivas del JSON devuelto. Si lo vieras en tu navegador, normalmente parecería un montón de tonterías. Si no es así, ¡genial! Si lo hace, entonces deberías conseguir un formateador/visualizador JSON. Si usas Chrome, [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa) es una de las extensiones más populares. Si no usas Chrome, busca "JSON formatter/viewer &lt;tu navegador&gt;" y consigue uno.
 
-Now, if you look at the JSON, you can see that it has a `list` property, which is an array of objects containing various definitions for the term (maximum 10). Something you always want to do when making API-based commands is to handle the case when no results are available. So, if you throw a random term in there (e.g. `njaksdcas`) and then look at the response the `list` array should be empty. Now you are ready to start writing!
+Ahora, si miras el JSON, puedes ver que tiene una propiedad `list`, que es un array de objetos que contienen varias definiciones para el término (máximo 10). Algo que siempre hay que hacer cuando se crean comandos basados en la API es manejar el caso de que no haya resultados disponibles. Así, si introduces un término aleatorio (por ejemplo, `njaksdcas`) y luego miras la respuesta, la array `list` debería estar vacía. ¡Ahora ya puedes empezar a escribir!
 
-As explained above, you'll want to check if the API returned any answers for your query, and send back the definition if that's the case:
+Como se explicó anteriormente, querrás comprobar si la API devolvió alguna respuesta para tu consulta, y devolver la definición si ese es el caso:
 
 ```js {3-5,7}
 if (commandName === 'urban') {
 	// ...
 	if (!list.length) {
-		return interaction.editReply(`No results found for **${term}**.`);
+		return interaction.editReply(`No se encontraron resultados para **${term}**.`);
 	}
 
 	interaction.editReply(`**${term}**: ${list[0].definition}`);
 }
 ```
 
-Here, you are only getting the first object from the array of objects called `list` and grabbing its `definition` property.
+Aquí sólo se obtiene el primer objeto del array de objetos llamado `list` y se toma la propiedad `definition`.
 
-If you've followed the tutorial, you should have something like this:
+Si has seguido el tutorial, deberías tener algo así:
 
 <DiscordMessages>
 	<DiscordMessage profile="bot">
@@ -163,7 +163,7 @@ If you've followed the tutorial, you should have something like this:
 				:command="true"
 			>urban</DiscordInteraction>
 		</template>
-		<DiscordMention :highlight="true" profile="user" />, No results for <strong>njaksdcas</strong>
+		<DiscordMention :highlight="true" profile="user" />, No se encontraron resultados para <strong>njaksdcas</strong>
 	</DiscordMessage>
 	<DiscordMessage profile="bot">
 		<template #interactions>
@@ -176,15 +176,15 @@ If you've followed the tutorial, you should have something like this:
 	</DiscordMessage>
 </DiscordMessages>
 
-Now, you can make it an [embed](/popular-topics/embeds.md) for easier formatting.
+Ahora, puedes hacerlo en un [embed](/guide/popular-topics/embeds.md) para un formateo sencillo.
 
-You can define the following helper function at the top of your file. In the code below, you can use this function to truncate the returned data and make sure the embed doesn't error, because field values exceed 1024 characters.
+Puedes definir la siguiente función de ayuda en la parte superior de tu archivo. En el siguiente código, puedes utilizar esta función para truncar los datos devueltos y asegurarte de que el embed no da error, porque los valores de los campos superan los 1024 caracteres.
 
 ```js
 const trim = (str, max) => (str.length > max ? `${str.slice(0, max - 3)}...` : str);
 ```
 
-And here is how you can build the embed from the API data:
+Y así es como se puede construir el embed a partir de los datos de la API:
 
 ```js
 const [answer] = list;
@@ -193,12 +193,12 @@ const embed = new EmbedBuilder()
 	.setColor(0xEFFF00)
 	.setTitle(answer.word)
 	.setURL(answer.permalink)
-	.addFields({ name: 'Definition', value: trim(answer.definition, 1024) }, { name: 'Example', value: trim(answer.example, 1024) }, { name: 'Rating', value: `${answer.thumbs_up} thumbs up. ${answer.thumbs_down} thumbs down.` });
+	.addFields({ name: 'Definición', value: trim(answer.definition, 1024) }, { name: 'Ejemplo', value: trim(answer.example, 1024) }, { name: 'Valoración', value: `${answer.thumbs_up} 👍. ${answer.thumbs_down} 👎.` });
 
 interaction.editReply({ embeds: [embed] });
 ```
 
-Now, if you execute that same command again, you should get this:
+Ahora, si ejecutas el comando nuevamente, deberías obtener algo así:
 
 <DiscordMessages>
 	<DiscordMessage profile="bot">
@@ -212,19 +212,19 @@ Now, if you execute that same command again, you should get this:
 			<DiscordEmbed border-color="#EFFF00" embed-title="hello world" url="https://www.urbandictionary.com/define.php?term=hello%20world">
 				<template #fields>
 					<DiscordEmbedFields>
-						<DiscordEmbedField field-title="Definition">
+						<DiscordEmbedField field-title="Definición">
 							The easiest, and first program any newbie would write. Applies for any language. Also what you would see in the first chapter of most programming books. 
 						</DiscordEmbedField>
-						<DiscordEmbedField field-title="Example">
+						<DiscordEmbedField field-title="Ejemplo">
 							programming noob: Hey I just attended my first programming lesson earlier! <br>
 							.NET Veteran: Oh? What can you do? <br>
 							programming noob: I could make a dialog box pop up which says "Hello World!" !!! <br>
 							.NET Veteran: lmao.. hey guys! look.. check out this "hello world" programmer <br><br>
 							Console.WriteLine("Hello World")
 						</DiscordEmbedField>
-						<DiscordEmbedField field-title="Rating">
-							122 thumbs up. <br>
-							42 thumbs down.
+						<DiscordEmbedField field-title="Valoración">
+							122 👍. <br>
+							42 👎.
 						</DiscordEmbedField>
 					</DiscordEmbedFields>
 				</template>
@@ -233,6 +233,6 @@ Now, if you execute that same command again, you should get this:
 	</DiscordMessage>
 </DiscordMessages>
 
-## Resulting code
+## Resultado final
 
 <ResultingCode />
