@@ -1,6 +1,6 @@
 # Usando una REST API
 
-Las API REST son extremadamente populares en la web pues permiten obtener libremente los datos de un sitio si éste dispone de una API a través de una conexión HTTP.
+Las API REST son extremadamente populares en la web, pues permiten obtener libremente los datos de un sitio si éste dispone de una API a través de una conexión HTTP.
 
 ## Haciendo peticiones HTTP con Node
 
@@ -34,7 +34,7 @@ pnpm add undici
 
 ## Código base
 
-Para empezar, utilizarás la siguiente estructura de código. Para empezar, utilizarás el siguiente esqueleto de código. Dado que los dos comandos que añadirás en esta sección requieren una interacción con APIs externas, diferirás la respuesta, por lo que tu aplicación responderá con un estado "pensando...". Luego podrás editar la respuesta una vez que tengas los datos que necesitas:
+Para empezar, utilizarás la siguiente estructura de código. Dado que los dos comandos que añadirás en esta sección requieren una interacción con APIs externas, diferirás la respuesta, por lo que tu aplicación responderá con un estado "pensando...". Luego podrás editar la respuesta una vez que tengas los datos que necesitas:
 
 <!-- eslint-disable require-await -->
 
