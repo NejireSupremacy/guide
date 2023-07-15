@@ -41,7 +41,6 @@ La expresión `...T` significa un parámetro rest de tipo `T`. Esto significa qu
 
 El operador `|`, que puede leerse como "o", crea un tipo de unión, p. ej. `A|B|C`. Simplemente significa que el valor puede ser de cualquiera de los tipos indicados.
 
-The angle brackets `<>` are used for generic types or parameterized types, signifying a type that uses another type(s). The notation looks like `A<B>` where `A` is the type and `B` is a type parameter. If this is hard to follow, it is enough to keep in mind that whenever you see `A<B>`, you can think of an `A` containing `B`. Examples:
 Los paréntesis angulares `<>` son usados para tipos genéricos o tipos parametrizados, significa que un tipo utiliza otro(s) tipo(s). La notación es `A<B>` donde `A` es el tipo y `B` es un parámetro de tipo.
 
 - `Array<String>` significa un array de strings.

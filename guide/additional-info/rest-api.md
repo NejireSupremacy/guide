@@ -136,7 +136,7 @@ Si hiciera `/urban hello world`, la URL pasaría a ser https://api.urbandictiona
 
 Puede obtener las propiedades respectivas del JSON devuelto. Si lo vieras en tu navegador, normalmente parecería un montón de tonterías. Si no es así, ¡genial! Si lo hace, entonces deberías conseguir un formateador/visualizador JSON. Si usas Chrome, [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa) es una de las extensiones más populares. Si no usas Chrome, busca "JSON formatter/viewer &lt;tu navegador&gt;" y consigue uno.
 
-Ahora, si miras el JSON, puedes ver que tiene una propiedad `list`, que es un array de objetos que contienen varias definiciones para el término (máximo 10). Algo que siempre hay que hacer cuando se crean comandos basados en la API es manejar el caso de que no haya resultados disponibles. Así, si introduces un término aleatorio (por ejemplo, `njaksdcas`) y luego miras la respuesta, la array `list` debería estar vacía. ¡Ahora ya puedes empezar a escribir!
+Ahora, si miras el JSON, puedes ver que tiene una propiedad `list`, que es un array de objetos que contienen varias definiciones para el término (máximo 10). Algo que siempre hay que hacer cuando se crean comandos basados en la API es manejar el caso de que no haya resultados disponibles. Así, si introduces un término aleatorio (por ejemplo, `njaksdcas`) y luego miras la respuesta, el array `list` debería estar vacía. ¡Ahora ya puedes empezar a escribir!
 
 Como se explicó anteriormente, querrás comprobar si la API devolvió alguna respuesta para tu consulta, y devolver la definición si ese es el caso:
 

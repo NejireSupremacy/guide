@@ -1,8 +1,8 @@
-# ES6 syntax examples
+# Ejemplos de sintaxis ES6
 
-If you've used JavaScript for only a (relatively) small amount of time or don't have much experience with it, you might not be aware of what ES6 is and what beneficial features it includes. Since this is a guide primarily for Discord bots, we'll be using some discord.js code as an example of what you might have versus what you could do to benefit from ES6.
+Si has usado JavaScript durante un período de tiempo (relativamente) corto o no tienes mucha experiencia con él, es posible que no sepas qué es ES6 y qué características y beneficios incluye. Dado que esta es una guía principalmente para bots de Discord, usaremos algo de código de discord.js como ejemplo de lo que podrías tener frente a lo que puedes hacer para beneficiarte de ES6.
 
-Here's the startup code we'll be using:
+Este es el código de inicio que utilizaremos:
 
 <!-- eslint-disable prefer-template -->
 <!-- eslint-disable prefer-destructuring -->
@@ -14,7 +14,7 @@ const config = require('./config.json');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.once(Events.ClientReady, () => {
-	console.log('Ready!');
+	console.log('¡Encendido!');
 });
 
 client.on(Events.InteractionCreate, interaction => {
@@ -27,29 +27,30 @@ client.on(Events.InteractionCreate, interaction => {
 	} else if (commandName === 'beep') {
 		interaction.reply('Boop.');
 	} else if (commandName === 'server') {
-		interaction.reply('Guild name: ' + interaction.guild.name + '\nTotal members: ' + interaction.guild.memberCount);
+		interaction.reply('Nombre del servidor: ' + interaction.guild.name + '\nTotal de miembros: ' + interaction.guild.memberCount);
 	} else if (commandName === 'user-info') {
-		interaction.reply('Your username: ' + interaction.user.username + '\nYour ID: ' + interaction.user.id);
+		interaction.reply('Tu nombre de usuario: ' + interaction.user.username + '\nTu ID: ' + interaction.user.id);
 	}
 });
 
 client.login(config.token);
 ```
 
-If you haven't noticed, this piece of code is already using a bit of ES6 here! The `const` keyword and arrow function declaration (`() => ...`) is ES6 syntax, and we recommend using it whenever possible.
+Por si no te has dado cuenta, ¡este trozo de código ya está utilizando un poco de sintaxis ES6 aquí! La palabra clave `const` y la declaración de función de flecha (`() => ...`) es sintaxis ES6, y recomendamos usarla siempre que sea posible
 
-As for the code above, there are a few places where things can be done better. Let's look at them.
+En cuanto al código anterior, hay algunos lugares donde las cosas se pueden hacer mejor. Veámoslos.
 
-## Template literals
+## Plantillas literarias
 
 If you check the code above, it's currently doing things like `'Guild name: ' + interaction.guild.name` and `'Your username: ' + interaction.user.username`, which is perfectly valid. It is a bit hard to read, though, and it's not too fun to constantly type out. Fortunately, there's a better alternative.
+Si compruebas el código anterior, actualmente está haciendo cosas como `'Nombre del servidor: ' + interaction.guild.name` y `'Tu nombre de usuario: ' + interaction.user.username`, que es perfectamente válido. Sin embargo, es un poco difícil de leer y no es demasiado divertido teclearlo constantemente. Afortunadamente, hay una alternativa mejor
 
 <!-- eslint-skip -->
 
 ```js
-// ES5 version, as we currently have it
+// Versión ES5, tal como la tenemos actualmente
 else if (commandName === 'server') {
-	interaction.reply('Guild name: ' + interaction.guild.name + '\nTotal members: ' + interaction.guild.memberCount);
+	interaction.reply('Nombre del servidor: ' + interaction.guild.name + '\nMiembros totales: ' + interaction.guild.memberCount);
 }
 else if (commandName === 'user-info') {
 	interaction.reply('Your username: ' + interaction.user.username + '\nYour ID: ' + interaction.user.id);

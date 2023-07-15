@@ -1,19 +1,20 @@
-# Buttons
+# Botones
 
-With the components API, you can create interactive message components. On this page, we'll cover how to send, receive, and respond to buttons using discord.js!
+Con la API de componentes, puedes crear componentes de mensajes interactivos. En esta página, aprenderás cómo enviar, recibir y responder a interacción de botones con discord.js.
 
 ::: tip CONSEJO
-This page is a follow-up to the [slash commands page](/slash-commands/advanced-creation.md). Please carefully read those first so that you can understand the methods used in this section.
+Esta página es una continuación de la página de [creación de comandos avanzados](/guide/slash-commands/advanced-creation.md). Por favor, leé primero con atención para que puedas entender los métodos utilizados en esta sección.
 :::
 
-## Building and sending buttons
+## Construyendo y enviando botones
 
-Buttons are one of the `MessageComponent` classes, which can be sent via messages or interaction responses. A button, as any other message component, must be in an `ActionRow`.
+Los botones son una de las clases `MessageComponent`, que pueden enviarse a través de mensajes o respuestas de interacción. Un botón, como cualquier otro componente de mensaje, debe estar en una `ActionRow`.
+
 
 ::: warning ADVERTENCIA
-You can have a maximum of five `ActionRow`s per message, and five buttons within an `ActionRow`.
+Puedes tener un máximo de cinco `ActionRow` por mensaje, y cinco botones dentro de un `ActionRow`.
 
-If you're using TypeScript you'll need to specify the type of components your action row holds. This can be done by specifying the component builder you will add to it using a generic parameter in <DocsLink path="class/ActionRowBuilder"/>.
+Si estás utilizando TypeScript, necestiarás especificar el tipo de componentes que contiene tu `ActionRow`. Esto se puede hacer especificando el constructor del componente que le añadirás utilizando un parámetro genérico en <DocsLink path="class/ActionRowBuilder"/>.
 
 ```diff
 - new ActionRowBuilder()
@@ -21,7 +22,7 @@ If you're using TypeScript you'll need to specify the type of components your ac
 ```
 :::
 
-To create your buttons, use the <DocsLink path="class/ActionRowBuilder"/> and <DocsLink path="class/ButtonBuilder"/> classes. Then, pass the resulting row object to <DocsLink path="class/ChatInputCommandInteraction?scrollTo=reply" /> in the `components` array of <DocsLink path="typedef/InteractionReplyOptions" />:
+Para crear tus botones, haz uso de las clases <DocsLink path="class/ActionRowBuilder"/> y <DocsLink path="class/ButtonBuilder"/>. A continuación, pasa el `ActionRow` a <DocsLink path="class/ChatInputCommandInteraction?scrollTo=reply" /> en el array `components` de <DocsLink path="typedef/InteractionReplyOptions" />:
 
 ```js {1,7-13,15}
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, Events } = require('discord.js');
@@ -34,36 +35,36 @@ client.on(Events.InteractionCreate, async interaction => {
 			.addComponents(
 				new ButtonBuilder()
 					.setCustomId('primary')
-					.setLabel('Click me!')
+					.setLabel('¡Presionarme!')
 					.setStyle(ButtonStyle.Primary),
 			);
 
-		await interaction.reply({ content: 'I think you should,', components: [row] });
+		await interaction.reply({ content: 'Creo que deberías...', components: [row] });
 	}
 });
 ```
 
 ::: tip CONSEJO
-The custom id is a developer-defined string of up to 100 characters. Use this field to ensure you can uniquely define all incoming interactions from your buttons!
+La id personalizada (`custom_id`) es una string definida por ti de hasta 100 caracteres. Utiliza este campo para asegurarte de que puedas definir de forma única todas las interacciones procedentes de tus botones.
 :::
 
-Restart your bot and then send the command to a channel your bot has access to. If all goes well, you should see something like this:
+Reinicia tu bot y luego envía el comando a un canal al que tu bot tenga acceso. Si todo va bien, deberías ver algo como esto:
 
 <DiscordMessages>
 	<DiscordMessage profile="bot">
 		<template #interactions>
 			<DiscordInteraction profile="user" :command="true">button</DiscordInteraction>
 		</template>
-		I think you should,
+		Creo que deberías...
 		<template #actions>
 			<DiscordButtons>
-				<DiscordButton>Click me!</DiscordButton>
+				<DiscordButton>¡Presionarme!</DiscordButton>
 			</DiscordButtons>
 		</template>
 	</DiscordMessage>
 </DiscordMessages>
 
-You can also send message components within an ephemeral response or alongside message embeds.
+También puede enviar componentes de mensajes dentro de una respuesta efímera o junto a embeds.
 
 ```js {1,12-16,18}
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, Events } = require('discord.js');
@@ -79,11 +80,11 @@ client.on(Events.InteractionCreate, async interaction => {
 
 		const embed = new EmbedBuilder()
 			.setColor(0x0099FF)
-			.setTitle('Some title')
+			.setTitle('Titulo ingenioso')
 			.setURL('https://discord.js.org')
-			.setDescription('Some description here');
+			.setDescription('Una descripción');
 
-		await interaction.reply({ content: 'I think you should,', ephemeral: true, embeds: [embed], components: [row] });
+		await interaction.reply({ content: 'Creo que deberías...', ephemeral: true, embeds: [embed], components: [row] });
 	}
 });
 ```
@@ -97,32 +98,32 @@ client.on(Events.InteractionCreate, async interaction => {
 				:ephemeral="true"
 			>button</DiscordInteraction>
 		</template>
-		I think you should,
+		Creo que deberías...
 		<template #embeds>
 			<DiscordEmbed
 				border-color="#0099ff"
-				embed-title="Some title"
+				embed-title="Titulo ingenioso"
 				url="https://discord.js.org"
 			>
-				Some description here
+				Una descripción
 			</DiscordEmbed>
 		</template>
 		<template #actions>
 			<DiscordButtons>
-				<DiscordButton>Click me!</DiscordButton>
+				<DiscordButton>¡Presionarme!</DiscordButton>
 			</DiscordButtons>
 		</template>
 	</DiscordMessage>
 </DiscordMessages>
 
-### Disabled buttons
+### Deshabilitar botones
 
-If you want to prevent a button from being used, but not remove it from the message, you can disable it with the <DocsLink path="class/ButtonBuilder?scrollTo=setDisabled"/> method:
+Si deseas evitar que se utilice un botón, pero sin eliminarlo del mensaje, puedes desactivarlo con el método <DocsLink path="class/ButtonBuilder?scrollTo=setDisabled"/>:
 
 ```js {5}
 const button = new ButtonBuilder()
 	.setCustomId('primary')
-	.setLabel('Click me!')
+	.setLabel('¡Presionarme!')
 	.setStyle(ButtonStyle.Primary)
 	.setDisabled(true);
 ```
@@ -132,44 +133,44 @@ const button = new ButtonBuilder()
 		<template #interactions>
 			<DiscordInteraction profile="user" :command="true">button</DiscordInteraction>
 		</template>
-		I think you should,
+		Creo que deberías...
 		<template #actions>
 			<DiscordButtons>
-				<DiscordButton :disabled="true">Click me!</DiscordButton>
+				<DiscordButton :disabled="true">¡Presionarme!</DiscordButton>
 			</DiscordButtons>
 		</template>
 	</DiscordMessage>
 </DiscordMessages>
 
-### Emoji buttons
+### Botones con emojis
 
-If you want to use a guild emoji within a <DocsLink path="class/ButtonBuilder"/>, you can use the <DocsLink path="class/ButtonBuilder?scrollTo=setEmoji"/> method:
+Si deseas usar un emoji con un <DocsLink path="class/ButtonBuilder"/>, puedes utilizar el método <DocsLink path="class/ButtonBuilder?scrollTo=setEmoji"/>:
 
 ```js {5}
 const button = new ButtonBuilder()
 	.setCustomId('primary')
-	.setLabel('Primary')
+	.setLabel('Botón con emoji')
 	.setStyle(ButtonStyle.Primary)
 	.setEmoji('123456789012345678');
 ```
 
-Now you know all there is to building and sending a Button! Let's move on to receiving button interactions!
+Ahora ya sabes todo lo que hay que hacer para crear y enviar un botón. Pasemos ahora a recibir las interacciones de los botones.
 
-## Receiving button interactions
+## Recibiendo interacción de botones
 
-### Component collectors
+### Colectores de componentes
 
-Message component interactions can be collected within the scope of the slash command that sent them by utilising an <DocsLink path="class/InteractionCollector"/>, or their promisified `awaitMessageComponent` variant. These both provide instances of the <DocsLink path="class/MessageComponentInteraction"/> class as collected items.
+Las interacciones de los componentes de mensajes pueden ser recolectados dentro del ámbito del comando de barra que las envió con un <DocsLink path="class/InteractionCollector"/>, o con su variante `awaitMessageComponent` a base de promesa. Ambas proporcionan instancias de la clase <DocsLink path="class/MessageComponentInteraction"/> como elementos recogidos.
 
 ::: tip CONSEJO
-You can create the collectors on either a `message` or a `channel`.
+Puedes crear los colectores en un `message` o en un `channel`.
 :::
 
-For a detailed guide on receiving message components via collectors, please refer to the [collectors guide](/popular-topics/collectors.md#interaction-collectors).
+Para obtener una guía detallada sobre la recepción de componentes de mensaje a través de colectores, puedes consultar la [guía de colectores](/guide/popular-topics/collectors.md#interaction-collectors).
 
-### The interactionCreate event
+### El evento interactionCreate
 
-To receive a <DocsLink path="class/ButtonInteraction"/> event, attach an <DocsLink path="class/Client?scrollTo=e-interactionCreate"/> event listener to your client and use the <DocsLink path="class/BaseInteraction?scrollTo=isButton"/> type guard to make sure you only receive buttons:
+Para recibir un evento <DocsLink path="class/ButtonInteraction"/>, adjunta un oyente de evento <DocsLink path="class/Client?scrollTo=e-interactionCreate"/> a tu cliente y usa la protección de tipado <DocsLink path="class/BaseInteraction?scrollTo=isButton"/> para asegurarte que solo estás recibiendo botones:
 
 ```js {2}
 client.on(Events.InteractionCreate, interaction => {
@@ -178,9 +179,9 @@ client.on(Events.InteractionCreate, interaction => {
 });
 ```
 
-## Responding to buttons
+## Respondiendo a botones
 
-The <DocsLink path="class/MessageComponentInteraction"/> class provides the same methods as the <DocsLink path="class/ChatInputCommandInteraction"/> class. These methods behave equally:
+La clase <DocsLink path="class/MessageComponentInteraction"/> proporciona los mismos métodos que la clase <DocsLink path="class/ChatInputCommandInteraction"/>. Estos métodos se comportan igual:
 - `reply()`
 - `editReply()`
 - `deferReply()`
@@ -188,11 +189,11 @@ The <DocsLink path="class/MessageComponentInteraction"/> class provides the same
 - `deleteReply()`
 - `followUp()`
 
-### Updating the button message
+### Actualizar el mensaje del botón
 
-The <DocsLink path="class/MessageComponentInteraction"/> class also provides an <DocsLink path="class/MessageComponentInteraction?scrollTo=update"/> method to update the message the button is attached to. Passing an empty array to the `components` option will remove any buttons after one has been clicked.
+La clase <DocsLink path="class/MessageComponentInteraction"/> también proporciona el método <DocsLink path="class/MessageComponentInteraction?scrollTo=update"/> para actualizar el mensaje del botón al que fue adjuntado. Pasar un array vacío a la opción `components` hará que se remuevan todos los botones que se hayan presionado.
 
-This method should be used in favour of `editReply()` on the original interaction, to ensure you respond to the button interaction.
+Este método debería usarse en lugar de `editReply()` en la interacción original, para asegurarse de que responde a la interacción del botón.
 
 <!-- eslint-skip -->
 
@@ -202,15 +203,15 @@ const filter = i => i.customId === 'primary' && i.user.id === '12215728579018753
 const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
 
 collector.on('collect', async i => {
-	await i.update({ content: 'A button was clicked!', components: [] });
+	await i.update({ content: '¡Un botón fue presionado!', components: [] });
 });
 
-collector.on('end', collected => console.log(`Collected ${collected.size} items`));
+collector.on('end', collected => console.log(`${collected.size} elementos recolectados`));
 ```
 
-### Deferring and updating the button message
+### Aplazar y actualizar el mensaje del botón
 
-In addition to deferring an interaction response, you can defer the button update, which will trigger a loading state and then revert to its original state:
+Además de aplazar una respuesta de interacción, puede aplazar la actualización del botón, que activará un estado de carga y luego volverá a su estado original:
 
 <!-- eslint-skip -->
 
@@ -223,21 +224,21 @@ collector.on('collect', async i => {
 	if (i.customId === 'primary') {
 		await i.deferUpdate();
 		await wait(4000);
-		await i.editReply({ content: 'A button was clicked!', components: [] });
+		await i.editReply({ content: '¡Un botón fue presionado!', components: [] });
 	}
 });
 
-collector.on('end', collected => console.log(`Collected ${collected.size} items`));
+collector.on('end', collected => console.log(`${collected.size} elementos recolectados`));
 ```
 
-## Button styles
+## Estilos de botones
 
-Currently there are five different button styles available:
-- `Primary`, a blurple button;
-- `Secondary`, a grey button;
-- `Success`, a green button;
-- `Danger`, a red button;
-- `Link`, a button that navigates to a URL.
+Actualmente hay cinco estilos de botón disponibles:
+- `Primary`, un botón blurple;
+- `Secondary`, un botón gris;
+- `Success`, un botón verde;
+- `Danger`, un botón rojo;
+- `Link`, un botón que te dirige a una URL.
 
 <DiscordMessages>
 	<DiscordMessage profile="bot">
@@ -254,5 +255,5 @@ Currently there are five different button styles available:
 </DiscordMessages>
 
 ::: warning ADVERTENCIA
-Only `Link` buttons can have a `url`. `Link` buttons _cannot_ have a `customId` and _do not_ send an interaction event when clicked.
+Solo los botones `Link` pueden contener una `url`. Los botones `Link` _no pueden_ tener una `customId` y _no envían_ un evento de interacción cuando son pulsados.
 :::

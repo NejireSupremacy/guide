@@ -1,20 +1,20 @@
-# Modals
+# Modales
 
-With modals you can create pop-up forms that allow users to provide you with formatted inputs through submissions. We'll cover how to create, show, and receive modal forms using discord.js!
-
-::: tip CONSEJO
-This page is a follow-up to the [interactions (slash commands) page](/interactions/slash-commands.md). Please carefully read that section first, so that you can understand the methods used in this section.
-:::
-
-## Building and responding with modals
-
-Unlike message components, modals aren't strictly components themselves. They're a callback structure used to respond to interactions.
+Con los modales (modals) puedes crear formularios emergentes que permiten a los usuarios proporcionar entradas formateadas a través de envíos. Cubriremos cómo crear, mostrar y recibir formularios modales utilizando discord.js.
 
 ::: tip CONSEJO
-You can have a maximum of five <DocsLink path="class/ActionRowBuilder" />s per modal builder, and one <DocsLink path="class/TextInputBuilder" /> within an <DocsLink path="class/ActionRowBuilder" />. Currently, you cannot use <DocsLink path="class/StringSelectMenuBuilder" />s or <DocsLink path="class/ButtonBuilder" />s in modal action rows builders.
+Esta página es un seguimiento de la sección de [interacciones (comandos de barra)](/guide/slash-commands/advanced-creation.md). Por favor, lee atentamente esa sección primero para que puedas comprender los métodos utilizados en esta sección.
 :::
 
-To create a modal you construct a new <DocsLink path="class/ModalBuilder" />. You can then use the setters to add the custom id and title.
+## Construyendo y respondiendo con modales
+
+A diferencia de los componentes de mensaje, los modales no son estrictamente componentes en sí mismos. Son una estructura de devolución de llamada (callback) utilizada para responder a las interacciones.
+
+::: tip CONSEJO
+Puedes tener un máximo de cinco <DocsLink path="class/ActionRowBuilder" /> por constructor de modales y un <DocsLink path="class/TextInputBuilder" /> dentro de un <DocsLink path="class/ActionRowBuilder" />. Actualmente, no puedes usar <DocsLink path="class/StringSelectMenuBuilder" /> p <DocsLink path="class/ButtonBuilder" /> en los contenedores de componentes de los modales.
+:::
+
+Para crear un modal, crea un nuevo <DocsLink path="class/ModalBuilder" />. Luego puedes usar los métodos "setters" para agregar el ID personalizado (`custom_id`) y el título (`title`).
 
 ```js {1,7-13}
 const { Events, ModalBuilder } = require('discord.js');
@@ -24,23 +24,22 @@ client.on(Events.InteractionCreate, async interaction => {
 
 	if (interaction.commandName === 'ping') {
 		const modal = new ModalBuilder()
-			.setCustomId('myModal')
-			.setTitle('My Modal');
+			.setCustomId('miModal')
+			.setTitle('Mi Modal');
 
-		// TODO: Add components to modal...
+		// TODO: Agregar componentes al modal...
 	}
 });
 ```
 ::: tip CONSEJO
-The custom id is a developer-defined string of up to 100 characters. Use this field to ensure you can uniquely define all incoming interactions from your modals!
+La id personalizada (`custom_id`) es una string definida por ti de hasta 100 caracteres. Utiliza este campo para asegurarte de que puedas definir de forma única todas las interacciones procedentes de tus modales.
 :::
+El siguiente paso es agregar los campos de entrada en los cuales los usuarios pueden ingresar texto libremente al responder. Agregar los campos de entrada es similar a agregar componentes a los mensajes.
 
-The next step is to add the input fields in which users responding can enter free-text. Adding inputs is similar to adding components to messages.
-
-At the end, we then call <DocsLink path="class/ChatInputCommandInteraction?scrollTo=showModal" /> to display the modal to the user.
+Al final, llamamos a <DocsLink path="class/ChatInputCommandInteraction?scrollTo=showModal" /> para mostrar el modal al usuario.
 
 ::: warning ADVERTENCIA
-If you're using typescript you'll need to specify the type of components your action row holds. This can be done by specifying the generic parameter in <DocsLink path="class/ActionRowBuilder" />
+Si estás utilizando TypeScript, deberás especificar el tipo de componentes que contiene tu contenedor de componentes. Esto se puede hacer especificando el parámetro genérico en <DocsLink path="class/ActionRowBuilder" />.
 
 ```diff
 - new ActionRowBuilder()
@@ -55,84 +54,84 @@ client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 
 	if (interaction.commandName === 'ping') {
-		// Create the modal
+		// Crear el modal
 		const modal = new ModalBuilder()
-			.setCustomId('myModal')
-			.setTitle('My Modal');
+			.setCustomId('miModal')
+			.setTitle('Mi Modal');
 
-		// Add components to modal
+		// Añadir componentes al modal
 
-		// Create the text input components
+		// Crear los componentes de entrada de texto
 		const favoriteColorInput = new TextInputBuilder()
-			.setCustomId('favoriteColorInput')
-		    // The label is the prompt the user sees for this input
+			.setCustomId('entradaColorFavorito')
+		    // La etiqueta es el indicador que el usuario ve para esta entrada
 			.setLabel("What's your favorite color?")
-		    // Short means only a single line of text
+		    // Corto significa una sola línea de texto
 			.setStyle(TextInputStyle.Short);
 
 		const hobbiesInput = new TextInputBuilder()
-			.setCustomId('hobbiesInput')
-			.setLabel("What's some of your favorite hobbies?")
-		    // Paragraph means multiple lines of text.
+			.setCustomId('entradaPasatiempos')
+			.setLabel('¿Cuáles son tus aficiones favoritas?')
+		    // Párrafo significa varias líneas de texto.
 			.setStyle(TextInputStyle.Paragraph);
 
-		// An action row only holds one text input,
-		// so you need one action row per text input.
+		// Un contenedor de componentes solo contiene una entrada de texto,
+		// por lo que necesita un contenedor de componentes por cada entrada de texto.
 		const firstActionRow = new ActionRowBuilder().addComponents(favoriteColorInput);
 		const secondActionRow = new ActionRowBuilder().addComponents(hobbiesInput);
 
-		// Add inputs to the modal
+		// Añadir entradas al modal
 		modal.addComponents(firstActionRow, secondActionRow);
 
-		// Show the modal to the user
+		// Mostrar el modal al usuario
 		await interaction.showModal(modal);
 	}
 });
 ```
 
-Restart your bot and invoke the `/ping` command again. You should see a popup form resembling the image below:
+Reinicia tu bot y vuelve a utilizar el comando `/ping`. Deberías ver un formulario emergente parecido a la imagen de abajo:
 
 <img width=450 src="./images/modal-example.png">
 
 ::: warning ADVERTENCIA
-Showing a modal must be the first response to an interaction. You cannot `defer()` or `deferUpdate()` then show a modal later.
+Mostrar un modal debe ser la primera respuesta a una interacción. No se puede `defer()` o `deferUpdate()` y mostrar un modal más tarde.
 :::
 
-### Input styles
+### Estilos de entrada
 
-Currently there are two different input styles available:
-- `Short`, a single-line text entry;
-- `Paragraph`, a multi-line text entry similar to the HTML `<textarea>`;
+Actualmente hay dos estilos de entrada disponibles::
+- `Short`, una entrada de texto de una sola línea;
+- `Paragraph`, una entrada de texto de varias líneas similar a la etiqueta HTML `<textarea>`;
 
-### Input properties
+### Propiedades de entradas
 
-In addition to the `customId`, `label` and `style`, a text input can be customised in a number of ways to apply validation, prompt the user, or set default values via the <DocsLink path="class/TextInputBuilder" /> methods:
+Además del `customId`, `label` y `style`, una entrada de texto puede personalizarse de varias formas para aplicar validación, preguntar al usuario o establecer valores por defecto a través de los métodos <DocsLink path="class/TextInputBuilder" />:
 
 ```js
 const input = new TextInputBuilder()
-	// set the maximum number of characters to allow
+	// establece el número máximo de caracteres permitidos
 	.setMaxLength(1000)
-	// set the minimum number of characters required for submission
+	// establece el número mínimo de caracteres necesarios para el envío
 	.setMinLength(10)
-	// set a placeholder string to prompt the user
-	.setPlaceholder('Enter some text!')
-	// set a default value to pre-fill the input
-	.setValue('Default')
-	 // require a value in this input field
+	// establece un marcador de posición de cadena para preguntar al usuario
+	.setPlaceholder('¡Ingresa un texto!')
+	// establecer un valor por defecto para pre-llenar la entrada
+	.setValue('Predeterminado')
+	// requiere un valor en este campo de entrada
 	.setRequired(true);
 ```
 
-## Receiving modal submissions
+## Recibiendo envíos de modales
 
-### Interaction collectors
+### Colectores de interacciones
 
-Modal submissions can be collected within the scope of the interaction that showed it by utilising an <DocsLink path="class/InteractionCollector"/>, or the <DocsLink path="class/ChatInputCommandInteraction?scrollTo=awaitModalSubmit" /> promisified method. These both provide instances of the <DocsLink path="class/ModalSubmitInteraction"/> class as collected items.
+Los envíos de modales se pueden recopilar dentro del ámbito de la interacción que los mostró utilizando un <DocsLink path="class/InteractionCollector"/>, o el método <DocsLink path="class/ChatInputCommandInteraction?scrollTo=awaitModalSubmit" /> a modo de promesa. Ambos proporcionan instancias de la clase <DocsLink path="class/ModalSubmitInteraction"/> como elementos recogidos.
 
-For a detailed guide on receiving message components via collectors, please refer to the [collectors guide](/popular-topics/collectors.md#interaction-collectors).
+Para obtener una guía detallada sobre la recepción de componentes de mensajes a través de recopiladores, consulte la [guía de recopiladores](/guide/popular-topics/collectors.md#interaction-collectors).
 
-### The interactionCreate event
+### El evento interactionCreate
 
-To receive a <DocsLink path="class/ModalSubmitInteraction"/> event, attach an <DocsLink path="class/Client?scrollTo=e-interactionCreate"/> event listener to your client and use the <DocsLink path="class/BaseInteraction?scrollTo=isModalSubmit"/> type guard to make sure you only receive modals:
+Para recibir un evento <DocsLink path="class/ModalSubmitInteraction"/>, adjunta un receptor de eventos <DocsLink path="class/Client?scrollTo=e-interactionCreate"/> a su cliente y usa la protección de tipado <DocsLink path="class/BaseInteraction?scrollTo=isModalSubmit"/> para asegurarte de que solo recibe modales:
 
 ```js {1,4}
 client.on(Events.InteractionCreate, interaction => {
@@ -141,9 +140,9 @@ client.on(Events.InteractionCreate, interaction => {
 });
 ```
 
-## Responding to modal submissions
+## Responder a los envíos de modales
 
-The <DocsLink path="class/ModalSubmitInteraction"/> class provides the same methods as the <DocsLink path="class/ChatInputCommandInteraction"/> class. These methods behave equally:
+La clase <DocsLink path="class/ModalSubmitInteraction"/> proporciona los mismos métodos que la clase <DocsLink path="class/ChatInputCommandInteraction"/>. Estos métodos se comportan igual:
 - `reply()`
 - `editReply()`
 - `deferReply()`
@@ -151,34 +150,34 @@ The <DocsLink path="class/ModalSubmitInteraction"/> class provides the same meth
 - `deleteReply()`
 - `followUp()`
 
-If the modal was shown from a <DocsLink path="class/ButtonInteraction"/> or <DocsLink path="class/StringSelectMenuInteraction"/>, it will also provide these methods, which behave equally:
+Si el modal se mostró desde un <DocsLink path="class/ButtonInteraction"/> o <DocsLink path="class/StringSelectMenuInteraction"/>, también proporcionará estos métodos, que se comportan igual:
 - `update()`
 - `deferUpdate()`
 
 ```js{1,3-5}
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isModalSubmit()) return;
-	if (interaction.customId === 'myModal') {
-		await interaction.reply({ content: 'Your submission was received successfully!' });
+	if (interaction.customId === 'miModal') {
+		await interaction.reply({ content: '¡Tu envío se ha recibido correctamente!' });
 	}
 });
 ```
 
 ::: tip CONSEJO
-If you're using typescript, you can use the <DocsLink path="class/ModalSubmitInteraction?scrollTo=isFromMessage"/> typeguard, to make sure the received interaction was from a `MessageComponentInteraction`.
+Si estás usando typescript, puedes usar la protección de tipado <DocsLink path="class/ModalSubmitInteraction?scrollTo=isFromMessage"/>, para asegurarte de que la interacción recibida proviene de un `MessageComponentInteraction`.
 :::
 
-## Extracting data from modal submissions
+## Extrayendo datos desde un modal recibido
 
-You'll most likely need to read the data sent by the user in the modal. You can do this by accessing the <DocsLink path="class/ModalSubmitInteraction?scrollTo=fields"/>. From there you can call <DocsLink path="class/ModalSubmitFields?scrollTo=getTextInputValue"/> with the custom id of the text input to get the value.
+Lo más probable es que necesites leer los datos enviados por el usuario en el modal. Puedes hacerlo accediendo al <DocsLink path="class/ModalSubmitInteraction?scrollTo=fields"/>. Desde ahí puedes llamar a <DocsLink path="class/ModalSubmitFields?scrollTo=getTextInputValue"/> con el id personalizado de la entrada de texto para obtener el valor.
 
 ```js{5-7}
 client.on(Events.InteractionCreate, interaction => {
 	if (!interaction.isModalSubmit()) return;
 
-	// Get the data entered by the user
-	const favoriteColor = interaction.fields.getTextInputValue('favoriteColorInput');
-	const hobbies = interaction.fields.getTextInputValue('hobbiesInput');
+	// Obtener los datos introducidos por el usuario
+	const favoriteColor = interaction.fields.getTextInputValue('entradaColorFavorito');
+	const hobbies = interaction.fields.getTextInputValue('entradaPasatiempos');
 	console.log({ favoriteColor, hobbies });
 });
 ```

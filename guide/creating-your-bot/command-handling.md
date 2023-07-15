@@ -50,9 +50,9 @@ for (const file of commandFiles) {
 }
 ```
 
-Primero, [`path.join()`](https://nodejs.org/api/path.html) ayuda a construir una ruta al directorio `commands`. A continuación, el método [`fs.readdirSync()`](https://nodejs.org/api/fs.html#fs_fs_readdirsync_path_options) lee la ruta al directorio y devuelve una lista con todos los nombres de archivos que contiene, actualmente `['ping.js', 'server.js', 'user.js']`. Para garantizar que sólo se procesan los archivos de comandos, `Array.filter()` elimina cualquier archivo no JavaScript de la matriz.
+Primero, [`path.join()`](https://nodejs.org/api/path.html) ayuda a construir una ruta al directorio `commands`. A continuación, el método [`fs.readdirSync()`](https://nodejs.org/api/fs.html#fs_fs_readdirsync_path_options) lee la ruta al directorio y devuelve una lista con todos los nombres de archivos que contiene, actualmente `['ping.js', 'server.js', 'user.js']`. Para garantizar que sólo se procesan los archivos de comandos, `Array.filter()` elimina cualquier archivo no JavaScript del array.
 
-Una vez identificados los archivos correctos, el último paso es recorrer la matriz y colocar dinámicamente cada comando en la colección `client.commands`. Para cada archivo que se carga, comprueba que tiene al menos las propiedades `data` y `execute`. Esto ayuda a prevenir errores resultantes de la carga de archivos de comandos vacíos, inacabados o incorrectos mientras aún estás desarrollando.
+Una vez identificados los archivos correctos, el último paso es recorrer el array y colocar dinámicamente cada comando en la colección `client.commands`. Para cada archivo que se carga, comprueba que tiene al menos las propiedades `data` y `execute`. Esto ayuda a prevenir errores resultantes de la carga de archivos de comandos vacíos, inacabados o incorrectos mientras aún estás desarrollando.
 
 ## Recibiendo comandos
 

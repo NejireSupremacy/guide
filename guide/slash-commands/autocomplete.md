@@ -91,7 +91,7 @@ Puede que ya hayas movido este código a `events/interactionCreate.js` si tambi�
 
 ### Envío de resultados
 
-La clase <DocsLink path="class/AutocompleteInteraction"/> proporciona el método <DocsLink path="class/AutocompleteInteraction?scrollTo=respond"/> para enviar una respuesta. Usando esto, puede enviar una matriz de objetos <DocsLink path="typedef/ApplicationCommandOptionChoiceData" /> para que el usuario elija. Si se pasa una matriz vacía, se mostrará al usuario el mensaje "No hay opciones que coincidan con su búsqueda".
+La clase <DocsLink path="class/AutocompleteInteraction"/> proporciona el método <DocsLink path="class/AutocompleteInteraction?scrollTo=respond"/> para enviar una respuesta. Usando esto, puede enviar un array de objetos <DocsLink path="typedef/ApplicationCommandOptionChoiceData" /> para que el usuario elija. Si se pasa un array vacío, se mostrará al usuario el mensaje "No hay opciones que coincidan con su búsqueda".
 
 ::: warning ADVERTENCIA
 A diferencia de las opciones estáticas, las sugerencias de autocompletado *no* son obligatorias, y los usuarios pueden introducir texto libre.

@@ -1,20 +1,21 @@
-# Select menus
+# Menús de selección
 
-With the components API, you can create interactive message components. On this page, we'll cover how to send, receive, and respond to select menus using discord.js!
+Con la API de componentes, puedes crear componentes de mensajes interactivos. En esta página, veremos cómo enviar, recibir y responder a menús de selección con discord.js.
 
 ::: tip CONSEJO
-This page is a follow-up to the [slash commands](/slash-commands/advanced-creation.md) section. Please carefully read those pages first so that you can understand the methods used in this section.
+Esta página es un seguimiento de la sección de [interacciones (comandos de barra)](/guide/slash-commands/advanced-creation.md). Por favor, lee atentamente esa sección primero para que puedas comprender los métodos utilizados en esta sección.
+
 :::
 
-## Building and sending select menus
+## Creación y envío de menús de selección
 
-Select menus are one of the `MessageComponent` classes, which can be sent via messages or interaction responses. A select menu, as any other message component, must be in an `ActionRow`.
+Los menús de selección son una de las clases `MessageComponent`, que pueden enviarse a través de mensajes o respuestas de interacción. Un menú de selección, como cualquier otro componente de mensaje, debe estar en una `ActionRow`.
 
 ::: warning ADVERTENCIA
-You can have a maximum of five `ActionRow`s per message, and one select menu within an `ActionRow`.
+Puede tener un máximo de cinco `ActionRow` por mensaje, y un menú de selección dentro de un `ActionRow`.
 :::
 
-To create a select menu, use the <DocsLink path="class/ActionRowBuilder"/> and <DocsLink path="class/StringSelectMenuBuilder"/> classes. Then, pass the resulting row object to <DocsLink path="class/ChatInputCommandInteraction?scrollTo=reply" /> in the `components` array of <DocsLink path="typedef/InteractionReplyOptions" />:
+Para crear un menú de selección, utilice las clases <DocsLink path="class/ActionRowBuilder"/> y <DocsLink path="class/StringSelectMenuBuilder"/>. A continuación, pase el contenedor de componentes resultante a <DocsLink path="class/ChatInputCommandInteraction?scrollTo=reply" /> en el array `components` de <DocsLink path="typedef/InteractionReplyOptions" />:
 
 ```js {1,7-24,26}
 const { ActionRowBuilder, Events, StringSelectMenuBuilder } = require('discord.js');
@@ -26,32 +27,32 @@ client.on(Events.InteractionCreate, async interaction => {
 		const row = new ActionRowBuilder()
 			.addComponents(
 				new StringSelectMenuBuilder()
-					.setCustomId('select')
-					.setPlaceholder('Nothing selected')
+					.setCustomId('selección')
+					.setPlaceholder('Nada seleccionado')
 					.addOptions(
 						{
-							label: 'Select me',
-							description: 'This is a description',
-							value: 'first_option',
+							label: 'Seleccioname',
+							description: 'Esto es una descripción',
+							value: 'primera_opción',
 						},
 						{
-							label: 'You can select me too',
-							description: 'This is also a description',
-							value: 'second_option',
+							label: 'También puedes seleccionarme',
+							description: 'Esto también es otra descripción',
+							value: 'segunda_opción',
 						},
 					),
 			);
 
-		await interaction.reply({ content: 'Pong!', components: [row] });
+		await interaction.reply({ content: '¡Pong!', components: [row] });
 	}
 });
 ```
 
 ::: tip CONSEJO
-The custom id is a developer-defined string of up to 100 characters. Use this field to ensure you can uniquely define all incoming interactions from your select menus!
+La id personalizada (`custom_id`) es una string definida por ti de hasta 100 caracteres. Utiliza este campo para asegurarte de que puedas definir de forma única todas las interacciones procedentes de tus menús de selección.
 :::
 
-Restart your bot and then send the command to a channel your bot has access to. If all goes well, you should see something like this:
+Reinicia tu bot y luego envía el comando a un canal al que tu bot tenga acceso. Si todo va bien, deberías ver algo como esto:
 
 <!--- vue-discord-message doesn't yet have support for select menus
 <DiscordMessages>
@@ -65,7 +66,7 @@ Restart your bot and then send the command to a channel your bot has access to. 
 -->
 ![select](./images/select.png)
 
-You can also send message components within an ephemeral response or alongside message embeds.
+También puede enviar componentes de mensajes dentro de una respuesta efímera o junto a embeds.
 
 ```js {1,12-16,18}
 const { ActionRowBuilder, EmbedBuilder, Events, StringSelectMenuBuilder } = require('discord.js');
@@ -81,16 +82,16 @@ client.on(Events.InteractionCreate, async interaction => {
 
 		const embed = new EmbedBuilder()
 			.setColor(0x0099FF)
-			.setTitle('Some title')
+			.setTitle('Titulo ingenioso')
 			.setURL('https://discord.js.org/')
-			.setDescription('Some description here');
+			.setDescription('Alguna descripción');
 
-		await interaction.reply({ content: 'Pong!', ephemeral: true, embeds: [embed], components: [row] });
+		await interaction.reply({ content: '¡Pong!', ephemeral: true, embeds: [embed], components: [row] });
 	}
 });
 ```
 
-Restart your bot and then send the command to a channel your bot has access to. If all goes well, you should see something like this:
+Reinicia tu bot y luego envía el comando a un canal al que tu bot tenga acceso. Si todo va bien, deberías ver algo como esto:
 
 <!--- vue-discord-message doesn't yet have support for select menus
 <DiscordMessages>
@@ -118,7 +119,7 @@ Restart your bot and then send the command to a channel your bot has access to. 
 ![selectephem](./images/selectephem.png)
 
 ::: warning ADVERTENCIA
-If you're using TypeScript you'll need to specify the type of components your action row holds. This can be done by specifying the component builder you will add to it using a generic parameter in <DocsLink path="class/ActionRowBuilder"/>.
+Si estás usando TypeScript necesitarás especificar el tipo de componentes que contiene tu contenedor de componentes. Esto se puede hacer especificando el constructor de componentes que le añadirás utilizando un parámetro genérico en <DocsLink path="class/ActionRowBuilder"/>.
 
 ```diff
 - new ActionRowBuilder()
@@ -126,23 +127,23 @@ If you're using TypeScript you'll need to specify the type of components your ac
 ```
 :::
 
-Now you know all there is to building and sending a `SelectMenu`! Let's move on to how to receive menus!
+¡Ahora ya sabes todo lo que hay que saber para construir y enviar un `SelectMenu`! Pasemos ahora a cómo recibir menús.
 
-## Receiving select menu interactions
+## Recibiendo interacciones de menús de selección
 
-### Component collectors
+### Colectores de componentes
 
-Message component interactions can be collected within the scope of the slash command that sent them by utilising an <DocsLink path="class/InteractionCollector"/>, or their promisified `awaitMessageComponent` variant. These both provide instances of the <DocsLink path="class/MessageComponentInteraction"/> class as collected items.
+Las interacciones de componentes de mensajes se pueden recopilar dentro del ámbito del comando de barra que las envió utilizando un <DocsLink path="class/InteractionCollector"/>, o su variante `awaitMessageComponent` a base de promesa. Ambos proporcionan instancias de la clase <DocsLink path="class/MessageComponentInteraction"/> como elementos recogidos.
 
 ::: tip CONSEJO
-You can create the collectors on either a `message` or a `channel`.
+Puede crear los colectores en un `message` o en un `channel`.
 :::
 
-For a detailed guide on receiving message components via collectors, please refer to the [collectors guide](/popular-topics/collectors.md#interaction-collectors).
+Para obtener una guía detallada sobre la recepción de componentes de mensajes a través de recopiladores, consulta la [guía de recopiladores](/guide/popular-topics/collectors.md#interaction-collectors).
 
-### The interactionCreate event
+### El evento interactionCreate
 
-To receive a <DocsLink path="class/StringSelectMenuInteraction"/>, attach an <DocsLink path="class/Client?scrollTo=e-interactionCreate" /> event listener to your client and use the <DocsLink path="class/BaseInteraction?scrollTo=isStringSelectMenu"/> type guard to make sure you only receive select menus:
+Para recibir un <DocsLink path="class/StringSelectMenuInteraction"/>, adjunta un oyente de evento <DocsLink path="class/Client?scrollTo=e-interactionCreate" /> a su cliente y utilice la protección de tipado <DocsLink path="class/BaseInteraction?scrollTo=isStringSelectMenu"/> para asegurarte de que sólo recibe menús de selección:
 
 ```js {2}
 client.on(Events.InteractionCreate, interaction => {
@@ -151,9 +152,9 @@ client.on(Events.InteractionCreate, interaction => {
 });
 ```
 
-## Responding to select menus
+## Respondiendo a menús de selección
 
-The <DocsLink path="class/MessageComponentInteraction"/> class provides the same methods as the <DocsLink path="class/ChatInputCommandInteraction"/> class. These methods behave equally:
+La clase <DocsLink path="class/MessageComponentInteraction"/> proporciona los mismos métodos que la clase <DocsLink path="class/ChatInputCommandInteraction"/>. Estos métodos se comportan igual:
 - `reply()`
 - `editReply()`
 - `deferReply()`
@@ -161,9 +162,9 @@ The <DocsLink path="class/MessageComponentInteraction"/> class provides the same
 - `deleteReply()`
 - `followUp()`
 
-### Updating the select menu's message
+### Actualización del mensaje del menú de selección
 
-The <DocsLink path="class/MessageComponentInteraction"/> class provides an <DocsLink path="class/MessageComponentInteraction?scrollTo=update" /> method to update the message the select menu is attached to. Passing an empty array to the `components` option will remove any menus after an option has been selected.
+La clase <DocsLink path="class/MessageComponentInteraction"/> proporciona un método <DocsLink path="class/MessageComponentInteraction?scrollTo=update" /> para actualizar el mensaje al que se adjuntó el menú de selección. Si se pasa un array vacío a la opción `components` se eliminarán todos los menús una vez seleccionada una opción.
 
 This method should be used in favour of `editReply()` on the original interaction, to ensure you respond to the select menu interaction.
 
@@ -179,7 +180,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
 ### Deferring and updating the select menu's message
 
-Additionally to deferring the response of the interaction, you can defer the menu, which will trigger a loading state and then revert back to its original state:
+Este método debe usarse en lugar de `editReply()` en la interacción original, para asegurar que respondes a la interacción del menú de selección.
 
 ```js {1,6-10}
 const wait = require('node:timers/promises').setTimeout;
@@ -190,14 +191,14 @@ client.on(Events.InteractionCreate, async interaction => {
 	if (interaction.customId === 'select') {
 		await interaction.deferUpdate();
 		await wait(4000);
-		await interaction.editReply({ content: 'Something was selected!', components: [] });
+		await interaction.editReply({ content: '¡Se seleccionó algo!', components: [] });
 	}
 });
 ```
 
-## Multi-select menus
+## Menús multiselección
 
-A select menu is not bound to only one selection; you can specify a minimum and maximum amount of options that must be selected. You can use <DocsLink path="class/SelectMenuBuilder?scrollTo=setMinValues" /> and <DocsLink path="class/StringSelectMenuBuilder?scrollTo=setMaxValues" /> to determine these values.
+Un menú de selección no está vinculado a una única selección; puede especificar una cantidad mínima y máxima de opciones que deben seleccionarse. Puede utilizar los métodos <DocsLink path="class/SelectMenuBuilder?scrollTo=setMinValues" /> y <DocsLink path="class/StringSelectMenuBuilder?scrollTo=setMaxValues" /> para determinar estos valores.
 
 ```js {1,7-31,33}
 const { ActionRowBuilder, Events, StringSelectMenuBuilder } = require('discord.js');
@@ -209,39 +210,39 @@ client.on(Events.InteractionCreate, async interaction => {
 		const row = new ActionRowBuilder()
 			.addComponents(
 				new StringSelectMenuBuilder()
-					.setCustomId('select')
-					.setPlaceholder('Nothing selected')
+					.setCustomId('selección')
+					.setPlaceholder('Nada seleccionado')
 					.setMinValues(2)
 					.setMaxValues(3)
 					.addOptions([
 						{
-							label: 'Select me',
-							description: 'This is a description',
-							value: 'first_option',
+							label: 'Seleccioname',
+							description: 'Esto es una descripción',
+							value: 'primera_opción',
 						},
 						{
-							label: 'You can select me too',
-							description: 'This is also a description',
-							value: 'second_option',
+							label: 'También puedes seleccionarme',
+							description: 'Esto también es una descripción',
+							value: 'segunda_opción',
 						},
 						{
-							label: 'I am also an option',
-							description: 'This is a description as well',
-							value: 'third_option',
+							label: 'También soy una opción',
+							description: 'Esta es una descripción también',
+							value: 'tercera_opción',
 						},
 					]),
 			);
 
-		await interaction.reply({ content: 'Pong!', components: [row] });
+		await interaction.reply({ content: '¡Pong!', components: [row] });
 	}
 });
 ```
 
-## Accessing select menu interaction values
+## Accediendo a los valores de interacción del menú de selección
 
-After receiving your <DocsLink path="class/StringSelectMenuInteraction"/>, you will be able to access the selected values from <DocsLink path="class/StringSelectMenuInteraction?scrollTo=values"/>. This will return an array of string values associated with the selected options in your select menu.
+Después de recibir su <DocsLink path="class/StringSelectMenuInteraction"/>, podrás acceder a los valores seleccionados desde <DocsLink path="class/StringSelectMenuInteraction?scrollTo=values"/>. Esto devolverá un array de string asociados a las opciones seleccionadas en su menú de selección.
 
-By default, select menus only accept a single selection. You can retrieve the selected value by accessing the first index of the returned array, as demonstrated in the snippet below:
+Por defecto, los menús de selección sólo aceptan una única selección. Puede recuperar el valor seleccionado accediendo al primer índice del array devuelta, como se muestra en el siguiente fragmento:
 
 ```js {4,6-10}
 client.on(Events.InteractionCreate, async interaction => {
@@ -250,14 +251,14 @@ client.on(Events.InteractionCreate, async interaction => {
 	const selected = interaction.values[0];
 
 	if (selected === 'ping') {
-		await interaction.update('The Ping option has been selected!');
+		await interaction.update('¡Se ha seleccionado la opción ping!');
 	} else if (selected === 'pong') {
-		await interaction.update('The Pong option has been selected!');
+		await interaction.update('¡Se ha seleccionado la opción Pong!');
 	}
 });
 ```
 
-In the case of a multi-select menu, the received <DocsLink path="class/StringSelectMenuInteraction?scrollTo=values"/> may contain more than one value, and should be handled accordingly:
+En el caso de un menú de selección múltiple, el <DocsLink path="class/StringSelectMenuInteraction?scrollTo=values"/> recibido puede contener más de un valor, y debe tratarse en consecuencia:
 
 ```js {4,6}
 client.on(Events.InteractionCreate, async interaction => {
@@ -265,6 +266,6 @@ client.on(Events.InteractionCreate, async interaction => {
 
 	const selected = interaction.values.join(', ');
 
-	await interaction.update(`The user selected ${selected}!`);
+	await interaction.update(`¡El usuario ha seleccionado ${selected}!`);
 });
 ```

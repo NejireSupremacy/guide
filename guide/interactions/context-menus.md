@@ -1,26 +1,26 @@
-# Context Menus
+# Menús contextuales
 
-Context Menus are application commands which appear when right clicking or tapping a user or a message, in the Apps submenu.
+Los menús contextuales son comandos de aplicación que aparecen al hacer clic con el botón derecho del ratón al pulsar sobre un usuario o mensaje, en el submenú Aplicaciones.
 
 ::: tip CONSEJO
-This page is a follow-up to the [slash commands](/slash-commands/advanced-creation.md) section. Please carefully read those pages first so that you can understand the methods used in this section.
+Esta página es una continuación de la sección de [comandos de barra](/guide/slash-commands/advanced-creation.md). Por favor, lee cuidadosamente esas páginas primero para que puedas comprender los métodos utilizados en esta sección.
 :::
 
-## Registering context menu commands
+## Registro de comandos de menú contextual
 
-To create a context menu command, use the <DocsLink section="builders" path="class/ContextMenuCommandBuilder" /> class. You can then set the type of the context menu (user or message) using the `setType()` method.
+Para crear un comando de menú contextual, utiliza la clase <DocsLink section="builders" path="class/ContextMenuCommandBuilder" />. Luego puedes establecer el tipo de menú contextual (usuario o mensaje) utilizando el método `setType()`.
 
 ```js
 const { ContextMenuCommandBuilder, ApplicationCommandType } = require('discord.js');
 
 const data = new ContextMenuCommandBuilder()
-	.setName('User Information')
+	.setName('Información de Usuario')
 	.setType(ApplicationCommandType.User);
 ```
 
-## Receiving context menu command interactions
+## Recibiendo interacciones de menús contextuales
 
-Context menus commands, just like slash commands, are received via an interaction. You can check if a given interaction is a context menu by invoking the `isContextMenuCommand()` method, or the `isMessageContextMenuCommand()` and `isUserContextMenuCommand()` methods to check for the specific type of context menu interaction:
+Los comandos de menú contextual, al igual que los comandos de barra, se reciben a través de una interacción. Puedes verificar si una interacción dada es un comando de menú contextual usando el método `isContextMenuCommand()`, o los métodos `isMessageContextMenuCommand()` y `isUserContextMenuCommand()` para verificar el tipo específico de interacción.
 
 ```js {2}
 client.on(Events.InteractionCreate, interaction => {
@@ -29,23 +29,23 @@ client.on(Events.InteractionCreate, interaction => {
 });
 ```
 
-## Extracting data from context menus
+## Extrayendo información de menús contextuales
 
-For user context menus, you can get the targeted user by accessing the `targetUser` or `targetMember` property from the <DocsLink path="class/UserContextMenuCommandInteraction" />.
+Para los menús contextuales de usuario, puedes obtener el usuario accediendo a la propiedad `targetUser` o `targetMember` desde <DocsLink path="class/UserContextMenuCommandInteraction" />.
 
-For message contenxt menus, you can get the targeted message by accessing the `targetMessage` property from the <DocsLink path="class/MessageContextMenuCommandInteraction" />.
+Para los menús contextuales de mensajes, puedes obtener el mensaje accediendo a la propiedad `targetMessage` desde <DocsLink path="class/MessageContextMenuCommandInteraction" />.
 
 ```js {4}
 client.on(Events.InteractionCreate, interaction => {
 	if (!interaction.isUserContextMenuCommand()) return;
-	// Get the User's username from context menu
+	// Obtener el nombre de usuario del menú contextual de usuario.
 	const { username } = interaction.targetUser;
 	console.log(username);
 });
 ```
 
-## Notes
+## Notas
 
-- Context menu commands cannot have subcommands or any options.
-- Responding to context menu commands functions the same as slash commands. Refer to our [slash command responses](/slash-commands/response-methods) guide for more information.
-- Context menu command permissions also function the same as slash commands. Refer to our [slash command permissions](/slash-commands/permissions) guide for more information.
+- Los comandos de menú contextual no pueden tener subcomandos ni opciones adicionales.
+- Responder a las funciones de los comandos de menú contextual se realiza de la misma manera que con los comandos de barra. Consulta nuestra guía de [métodos de respuesta de comandos de barra](/guide/slash-commands/response-methods)  para obtener más información al respecto.
+- Los permisos de los comandos de menú contextual también funcionan de la misma manera que los permisos de los comandos de barra. Consulta muestra guía de [permisos de comando de barra](/guide/slash-commands/permissions) para obtener más información al respecto.
