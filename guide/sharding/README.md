@@ -1,49 +1,50 @@
-# Getting started
+# Primeros pasos
 
-## When to shard
+## ¿Cuándo hacer sharding?
 
-Before you dive into this section, please note that sharding may not be necessary for you. Sharding is only required at 2,500 guilds—at that point, Discord will not allow your bot to login without sharding. With that in mind, you should consider this when your bot is around 2,000 guilds, which should be enough time to get this working. Contrary to popular belief, sharding itself is very simple. It can be complicated depending on your bot's needs, however. If your bot is in a total of 2,000 or more servers, then please continue with this guide. Otherwise, it may be a good idea to wait until then.
+Antes de sumergirte en esta sección, ten en cuenta que es posible que no necesites el sharding. El sharding sólo es necesario a partir de los 2,500 servidores; a partir de ese momento, Discord no permitirá que tu bot inicie sesión sin sharding. Teniendo esto en cuenta, deberías considerar esta opción cuando tu bot tenga alrededor de 2,000 servidores, lo que debería ser tiempo suficiente para que funcione. Contrariamente a la creencia popular, el sharding en sí es muy sencillo. Sin embargo, puede ser complicado dependiendo de las necesidades de tu bot. Si tu bot está en un total de 2.000 o más servidores, entonces por favor continúa con esta guía. De lo contrario, puede ser una buena idea esperar hasta entonces.
 
-## How does sharding work?
+## ¿Cómo funciona el sharding?
 
-As an application grows large, a developer may find it necessary to split their process to run parallel to maximize efficiency. On a much larger scale of things, the developer might notice their process slow down, amongst other problems.
-[Check out the official Discord documentation on the topic.](https://discord.com/developers/docs/topics/gateway#sharding)
+A medida que una aplicación crece, un desarrollador puede encontrar necesario dividir su proceso para ejecutarlo en paralelo y maximizar la eficiencia. A mayor escala, el desarrollador puede notar que su proceso se ralentiza, entre otros problemas.
+[Consulta la documentación oficial de Discord sobre el tema.](https://discord.com/developers/docs/topics/gateway#sharding)
 
 ::: warning ADVERTENCIA
-This guide only explains the basics of sharding using the built-in ShardingManager, which can run shards as separate processes or threads on a single machine. If you need to scale beyond that (e.g., running shards on multiple machines/containers), you can still do it with discord.js by passing appropriate options to the Client constructor. Nevertheless, you will be on your own regarding managing shards and sharing information between them.
+Esta guía sólo explica los fundamentos del sharding utilizando el ShardingManager incorporado, que puede ejecutar shards como procesos separados o hilos en una sola máquina. Si necesitas escalar más allá de eso (por ejemplo, ejecutar shards en múltiples máquinas/contenedores), puedes hacerlo con discord.js pasando las opciones apropiadas al constructor Client. Sin embargo, estarás por tu cuenta en lo que respecta a la gestión de shards y el intercambio de información entre ellos.
 :::
 
 ::: tip CONSEJO
 Apart from ShardingManager, discord.js also supports a sharding mode known as Internal sharding. Internal sharding creates multiple websocket connections from the same process, and does not require major code changes. To enable it, simply pass `shards: 'auto'` as ClientOptions to the Client constructor. However, internal sharding is not ideal for bigger bots due to high memory usage of the single main process and will not be further discussed in this guide.
+Aparte de ShardingManager, discord.js también soporta un modo de sharding conocido como sharding interno. El sharding interno crea múltiples conexiones websocket desde el mismo proceso, y no requiere grandes cambios de código. Para activarlo, simplemente pasa `shards: 'auto'` como ClientOptions al constructor del Cliente. Sin embargo, el sharding interno no es ideal para bots grandes debido al alto uso de memoria del único proceso principal y no será discutido en esta guía.
 :::
 
-## Sharding file
+## Archivo de sharding
 
-First, you'll need to have a file that you'll be launching from now on, rather than your original `index.js` file. It's highly recommended renaming that to `bot.js` and naming this new file to `index.js` instead. Copy & paste the following snippet into your new `index.js` file.
+En primer lugar, necesitarás tener un archivo que ejecutarás a partir de ahora, en lugar de tu archivo original `index.js`. Es muy recomendable renombrarlo a `bot.js` y nombrar este nuevo archivo como `index.js` en su lugar. Copia y pega el siguiente fragmento en tu nuevo archivo `index.js`.
 
 ```js
 const { ShardingManager } = require('discord.js');
 
-const manager = new ShardingManager('./bot.js', { token: 'your-token-goes-here' });
+const manager = new ShardingManager('./bot.js', { token: 'tu-token-va-aquí' });
 
-manager.on('shardCreate', shard => console.log(`Launched shard ${shard.id}`));
+manager.on('shardCreate', shard => console.log(`Shard ${shard.id} desplegada.`));
 
 manager.spawn();
 ```
 
-The above code utilizes the discord.js sharding manager to spawn the recommended amount of shards for your bot. The recommended amount should be approximately 1,000 guilds per shard. Note that you have to attach the event listener to `shardCreate` before calling `.spawn()` to prevent a race condition possibly preventing shard 0 from logging the successful launch. Even though you provide the token here, you will still need to send it over to the main bot file in `client.login()`, so don't forget to do that.
+El código anterior utiliza el gestor de shards de discord.js para generar la cantidad recomendada de shards para tu bot. La cantidad recomendada debería ser de aproximadamente 1.000 servidores por shard. Ten en cuenta que tienes que adjuntar el oyente de eventos a `shardCreate` antes de llamar a `.spawn()` para evitar una condición de carrera que posiblemente impida que el shard 0 registre el arranque exitoso. Aunque proporciones el token aquí, necesitarás enviarlo al archivo principal del bot en `client.login()`, así que no olvides hacerlo.
 
 ::: tip CONSEJO
-You can find the methods available for the ShardingManager class <DocsLink path="class/ShardingManager">here</DocsLink>. Though, you may not be making much use of this section, unlike the next feature we will explore, which you may learn about by clicking [this link](/sharding/additional-information.md).
+Puedes encontrar los métodos disponibles para la clase <DocsLink path="class/ShardingManager">aquí</DocsLink>. Aunque, puede que no hagas mucho uso de esta sección, a diferencia de la siguiente característica que exploraremos, la cual puedes conocer haciendo clic en [este enlace](/guide/sharding/additional-information.md).
 :::
 
-## Getting started
+## Primeros pasos
 
-You will most likely have to change some code to get your newly sharded bot to work. If your bot is very basic, then you're in luck! We assume you probably have some form of a `stats` command, by which you can quickly view your bot's statistics, such as its server count. We will use it as an example that needs to adapt to running with shards.
+Lo más probable es que tengas que cambiar algo de código para que tu nuevo bot sharded funcione. Si tu bot es muy básico, ¡estás de suerte! Asumimos que probablemente tienes algún tipo de comando `stats`, mediante el cual puedes ver rápidamente las estadísticas de tu bot, como su recuento de servidores. Lo usaremos como un ejemplo que necesita adaptarse a funcionar con shards.
 
-In this code, you likely have the snippet `client.guilds.cache.size`, which counts the number of *cached* guilds attached to that client. Since sharding will launch multiple processes, each process (each shard) will now have its subset collection of guilds it is responsible for. This means that your original code will not function as you might expect.
+En este código, es probable que tengas el fragmento `client.guilds.cache.size`, que cuenta el número de servidores *cacheados* adjuntos a ese cliente. Dado que el sharding lanzará múltiples procesos, cada proceso (cada shard) tendrá su propio subconjunto de guilds del que será responsable. Esto significa que tu código original no funcionará como cabría esperar.
 
-Here is some sample code for a `stats` command, without sharding taken into consideration:
+A continuación se muestra un ejemplo de código para un comando `stats`, sin tener en cuenta el sharding:
 
 ```js
 // bot.js
@@ -57,42 +58,42 @@ client.on(Events.InteractionCreate, interaction => {
 	const { commandName } = interaction;
 
 	if (commandName === 'stats') {
-		return interaction.reply(`Server count: ${client.guilds.cache.size}.`);
+		return interaction.reply(`Servidores totales: ${client.guilds.cache.size}.`);
 	}
 });
 
-client.login('your-token-goes-here');
+client.login('tu-token-va-aquí');
 ```
 
-Let's say your bot is in a total of 3,600 guilds. Using the recommended shard count, you might end up at four shards, each containing approximately 900 guilds. If a guild is on a specific shard (shard #2, for example) and receives this command, the guild count will be close to 900, which is not the "correct" number of guilds for your bot. Let's take a look at how to fix that.
+Digamos que tu bot está en un total de 3.600 servidores. Utilizando el recuento de shards recomendado, podrías acabar en cuatro shards, cada uno de los cuales contendría aproximadamente 900 servidores. Si un servidor está en un shard específico (shard #2, por ejemplo) y recibe este comando, el recuento de servidores será cercano a 900, que no es el número "correcto" de servidores para tu bot. Veamos cómo solucionarlo.
 
 ## FetchClientValues
 
-One of the most common sharding utility methods you'll be using is <DocsLink path="class/ShardClientUtil?scrollTo=fetchClientValues" type="method" />. This method retrieves a property on the Client object of all shards.
+Uno de los métodos de utilidad del sharding más comun es <DocsLink path="class/ShardClientUtil?scrollTo=fetchClientValues" type="method" />. Este método recupera una propiedad en el objeto Cliente de todos los shards.
 
-Take the following snippet of code:
+Toma el siguiente fragmento de código:
 
 ```js
 client.shard.fetchClientValues('guilds.cache.size').then(console.log);
 ```
 
-If you run it, you will notice an output like `[898, 901, 900, 901]`. You will be correct in assuming that that's the total number of guilds per shard stored in an array in the Promise. This probably isn't the ideal output for guild count, so let's use [Array.reduce()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce) to provide a better output.
+Si lo ejecutas, verás un resultado como `[898, 901, 900, 901]`. Estarás en lo cierto al asumir que ese es el número total de servidores por fragmento almacenado en un array en la Promise. Probablemente no sea la salida ideal para el recuento de servidores, así que utilicemos [Array.reduce()](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce) para obtener un resultado mejor.
 
 ::: tip CONSEJO
-It's highly recommended for you to visit [the documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce) to understand how the `reduce()` method works, as you will probably find great use of it in sharding.
+Es muy recomendable que visites [la documentación](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce) para entender cómo funciona el método `reduce()`, ya que probablemente le encuentres un gran uso en el sharding.
 :::
 
-In this case, this method iterates through the array and adds each current value to the total amount:
+En este caso, este método itera a través del array y añade cada valor actual a la cantidad total:
 
 ```js
 client.shard.fetchClientValues('guilds.cache.size')
 	.then(results => {
-		console.log(`${results.reduce((acc, guildCount) => acc + guildCount, 0)} total guilds`);
+		console.log(`${results.reduce((acc, guildCount) => acc + guildCount, 0)} servidores totales`);
 	})
 	.catch(console.error);
 ```
 
-While it's a bit unattractive to have more nesting in your commands, it is necessary when not using `async`/`await`. Now, the code at the top should look something like the below:
+Si bien es un poco poco atractivo tener más anidamiento en tus comandos, es necesario cuando no se utiliza `async`/`await`. Ahora, el código en la parte superior debe ser algo como lo siguiente:
 
 ```js {4-8}
 client.on(Events.InteractionCreate, interaction => {
@@ -100,7 +101,7 @@ client.on(Events.InteractionCreate, interaction => {
 	if (commandName === 'stats') {
 		return client.shard.fetchClientValues('guilds.cache.size')
 			.then(results => {
-				return interaction.reply(`Server count: ${results.reduce((acc, guildCount) => acc + guildCount, 0)}`);
+				return interaction.reply(`Servidores totales: ${results.reduce((acc, guildCount) => acc + guildCount, 0)}`);
 			})
 			.catch(console.error);
 	}
@@ -109,7 +110,7 @@ client.on(Events.InteractionCreate, interaction => {
 
 ## BroadcastEval
 
-Next, check out another handy sharding method known as <DocsLink path="class/ShardClientUtil?scrollTo=broadcastEval" type="method" />. This method makes all of the shards evaluate a given method, which receives a `client` and a `context` argument. The `client` argument refers to the Client object of the shard evaluating it. You can read about the `context` argument [here](/sharding/additional-information.md#eval-arguments).
+A continuación, echa un vistazo a otro método práctico del sharding conocido como <DocsLink path="class/ShardClientUtil?scrollTo=broadcastEval" type="method" />. Este método hace que todas los shards evalúen un método dado, que recibe un argumento `client` y un argumento `context`. El argumento `client` se refiere al objeto Client del shard que lo evalúa. Puedes leer sobre el argumento `context` [aquí](/guide/sharding/additional-information.md#eval-arguments).
 
 ```js
 client.shard
@@ -118,19 +119,20 @@ client.shard
 ```
 
 This will run the code given to `broadcastEval` on each shard and return the results to the Promise as an array, once again. You should see something like `[9001, 16658, 13337, 15687]` logged. The code sent to each shard adds up the `memberCount` property of every guild that shard is handling and returns it, so each shard's total guild member count. Of course, if you want to total up the member count of *every* shard, you can do the same thing again on the Promise results.
+Esto ejecutará el código dado a `broadcastEval` en cada shard y devolverá los resultados a la Promise como un array, una vez más. Deberías ver algo como `[9001, 16658, 13337, 15687]` registrado. El código enviado a cada shard suma la propiedad `memberCount` de cada servidor que esa shard está manejando y lo devuelve, o sea el recuento total de miembros de servidor de cada shard. Por supuesto, si quieres sumar el número de miembros de *cada* shard, puedes hacer lo mismo en los resultados de Promise.
 
 ```js
 client.shard
 	.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0))
 	.then(results => {
-		return interaction.reply(`Total member count: ${results.reduce((acc, memberCount) => acc + memberCount, 0)}`);
+		return interaction.reply(`Miembros totales: ${results.reduce((acc, memberCount) => acc + memberCount, 0)}`);
 	})
 	.catch(console.error);
 ```
 
-## Putting them together
+## Poniéndolos juntos
 
-You'd likely want to output both pieces of information in the stats command. You can combine these two results with [Promise.all()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all):
+Lo más probable es que desee mostrar ambas informaciones en el comando stats. Puede combinar estos dos resultados con [Promise.all()](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Promise/all):
 
 ```js
 const promises = [
@@ -142,12 +144,12 @@ Promise.all(promises)
 	.then(results => {
 		const totalGuilds = results[0].reduce((acc, guildCount) => acc + guildCount, 0);
 		const totalMembers = results[1].reduce((acc, memberCount) => acc + memberCount, 0);
-		return interaction.reply(`Server count: ${totalGuilds}\nMember count: ${totalMembers}`);
+		return interaction.reply(`Servidores totales: ${totalGuilds}\nMiembros totales: ${totalMembers}`);
 	})
 	.catch(console.error);
 ```
 
-`Promise.all()` runs every Promise you pass inside an array in parallel and waits for each to finish before returning their results simultaneously. The result is an array that corresponds with the array of Promises you pass–so the first result element will be from the first Promise. With that, your stats command should look something like this:
+`Promise.all()` ejecuta cada Promise que pases dentro de un array en paralelo y espera a que cada una termine antes de devolver sus resultados simultáneamente. El resultado es un array que se corresponde con el array de promesas que pases, de modo que el primer elemento resultante será el de la primera promesa. Con esto, tu comando stats debería tener este aspecto:
 
 ```js {4-15}
 client.on(Events.InteractionCreate, interaction => {
@@ -162,15 +164,15 @@ client.on(Events.InteractionCreate, interaction => {
 			.then(results => {
 				const totalGuilds = results[0].reduce((acc, guildCount) => acc + guildCount, 0);
 				const totalMembers = results[1].reduce((acc, memberCount) => acc + memberCount, 0);
-				return interaction.reply(`Server count: ${totalGuilds}\nMember count: ${totalMembers}`);
+				return interaction.reply(`Servidores totales: ${totalGuilds}\nMiembros totales: ${totalMembers}`);
 			})
 			.catch(console.error);
 	}
 });
 ```
 
-The next section contains additional changes you might want to consider, which you may learn about by clicking [this link](/sharding/additional-information.md).
+La siguiente sección contiene cambios adicionales que podrías considerar, y que puede conocer haciendo clic en [este enlace](/guide/sharding/additional-information.md).
 
-## Resulting code
+## Resultado final
 
 <ResultingCode path="sharding/getting-started" />

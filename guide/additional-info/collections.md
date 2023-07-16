@@ -1,96 +1,96 @@
-# Collections
+# Colecciones
 
-discord.js comes with a utility class known as `Collection`.
-It extends JavaScript's native `Map` class, so it has all the `Map` features and more!  
+discord.js viene con una clase de utilidad conocida como `Collection`.
+Extiende la clase nativa `Map` de JavaScript, por lo que tiene todas las características de `Map` y más.
 
 ::: warning ADVERTENCIA
-If you're not familiar with `Map`, read [MDN's page on it](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) before continuing. You should be familiar with `Array` [methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) as well. We will also use some ES6 features, so read up [here](/additional-info/es6-syntax.md) if you do not know what they are.
+Si no estás familiarizado con `Map`, lee [su página en MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Map) antes de continuar. También deberías estar familiarizado con los `métodos` de [Array](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array). También usaremos algunas características de ES6, así que lee [aquí](/guide/additional-info/es6-syntax.md) si no sabes lo que son.
 :::
 
-A `Map` allows for an association between unique keys and their values.
-For example, how can you transform every value or filter the entries in a `Map` easily?
-This is the point of the `Collection` class!
+Un `Mapa` permite una asociación entre claves únicas y sus valores.
+Por ejemplo, ¿cómo transformar fácilmente cada valor o filtrar las entradas de un `Map`?
+Este es el objetivo de la clase `Collection`.
 
-## Array-like Methods
+## Métodos tipo array
 
-Many of the methods on `Collection` correspond to their namesake in `Array`. One of them is `find`:
+Muchos de los métodos de `Collection` se corresponden con sus homónimos de `Array`. Uno de ellos es `find`:
 
 ```js
-// Assume we have an array of users and a collection of the same users.
+// Supongamos que tenemos un array de usuarios y una colección de los mismos usuarios.
 array.find(u => u.discriminator === '1000');
 collection.find(u => u.discriminator === '1000');
 ```
 
-The interface of the callback function is very similar between the two.
-For arrays, callbacks usually pass the parameters `(value, index, array)`, where `value` is the value iterated to,
-`index` is the current index, and `array` is the array. For collections, you would have `(value, key, collection)`.
-Here, `value` is the same, but `key` is the key of the value, and `collection` is the collection itself instead.  
+La interfaz de la función de devolución de llamada (callback) es muy similar entre los dos.
+Para los arrays, las retrollamadas suelen pasar los parámetros `(value, index, array)`, donde `value` es el valor iterado,
+`index` es el índice actual, y `array` es el array. Para colecciones, tendrías `(value, key, collection)`.
+Aquí, `value` es lo mismo, pero `key` es la clave del valor, y `collection` es la colección en sí.
 
-Methods that follow this philosophy of staying close to the `Array` interface are as follows:
+Los métodos que siguen esta filosofía de permanecer cerca de la interfaz `Array` son los siguientes:
 
 - `find`
-- `filter` - Note that this returns a `Collection` rather than an `Array`.
-- `map` - Yet this returns an `Array` of values instead of a `Collection`!
+- `filter` - Ten en cuenta que devuelve una `Collection` en lugar de un `Array`.
+- `map` - Devuelve un `Array` de valores en lugar de una `Collection`.
 - `every`
 - `some`
 - `reduce`
 - `concat`
 - `sort`
 
-## Converting to Array
+## Convirtiendo a Array
 
-Since `Collection` extends `Map`, it is an [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols), and can be converted to an `Array` through either `Array.from()` or spread syntax (`...collection`).
+Dado que `Collection` extiende `Map`, es un [iterable](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Iteration_protocols), y puede convertirse en un `Array` mediante `Array.from()` o la sintaxis spread (`...collection`).
 
 ```js
-// For values.
+// Para valores.
 Array.from(collection.values());
 [...collection.values()];
 
-// For keys.
+// Para claves.
 Array.from(collection.keys());
 [...collection.keys()];
 
-// For [key, value] pairs.
+// Para pares [clave, valor].
 Array.from(collection);
 [...collection];
 ```
 
 ::: warning ADVERTENCIA
-Many people convert Collections to Arrays way too much! This can lead to unnecessary and confusing code. Before you use `Array.from()` or similar, ask yourself if whatever you are trying to do can't be done with the given `Map` or `Collection` methods or with a for-of loop.
+Mucha gente convierte colecciones en arrays con demasiada frecuencia. Esto puede dar lugar a código innecesario y confuso. Antes de utilizar `Array.from()` o similar, pregúntate si lo que estás intentando hacer no se puede hacer con los métodos `Map` o `Collection` o con un bucle for-of.
 :::
 
-## Extra Utilities
+## Utilidades extra
 
-Some methods are not from `Array` and are instead entirely new to standard JavaScript.
+Algunos métodos no proceden de `Array`, sino que son completamente nuevos en JavaScript estándar.
 
 ```js
-// A random value.
+// Un valor aleatorio.
 collection.random();
 
-// The first value.
+// El primer valor.
 collection.first();
 
-// The first 5 values.
+// Los primeros cinco valores.
 collection.first(5);
 
-// Similar to `first`, but from the end.
+// Similar a `first`, pero desde el fin.
 collection.last();
 collection.last(2);
 
-// Removes anything that meets the condition from the collection.
-// Sort of like `filter`, but in-place.
+// Elimina de la colección todo lo que cumpla la condición.
+// Algo así como `filter`, pero en el lugar.
 collection.sweep(user => user.username === 'Bob');
 ```
 
-A more complicated method is `partition`, which splits a single Collection into two new Collections based on the provided function.
-You can think of it as two `filter`s, but done at the same time:
+Un método más complicado es `partition`, que divide una única Colección en dos nuevas Colecciones basándose en la función proporcionada.
+Se puede pensar que son dos `filtros`, pero hechos al mismo tiempo:
 
 ```js
-// `bots` is a Collection of users where their `bot` property was true.
-// `humans` is a Collection where the property was false instead!
+// `bots` es una colección de usuarios cuya propiedad `bot` es verdadera.
+// `humans` es una Colección donde la propiedad era falsa en su lugar.
 const [bots, humans] = collection.partition(u => u.bot);
 
-// Both return true.
+// Ambos devuelven verdadero.
 bots.every(b => b.bot);
 humans.every(h => !h.bot);
 ```

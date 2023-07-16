@@ -42,13 +42,13 @@ module.exports = {
 
 Dado que `reason` no es una opción obligatoria, el ejemplo anterior utiliza el `??` [nullish coalescing operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator) para establecer un valor predeterminado en caso de que el usuario no proporcione un valor por `reason`.
 
-Si el usuario objetivo todavía está en el gremio donde se ejecuta el comando, también puedes usar `.getMember('target')` para obtener su objeto `GuildMember`.
+Si el usuario objetivo todavía está en el servidor donde se ejecuta el comando, también puedes usar `.getMember('target')` para obtener su objeto `GuildMember`.
 
 ::: tip CONSEJO
 Si desea el Snowflake de una estructura, tome la opción a través de `get()` y acceda al Snowflake a través de la propiedad `value`. Tenga en cuenta que debe usar `const { value: name } = ...` aquí para [desestructurar y cambiar el nombre](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) el valor obtenido de la estructura <DocsLink path="typedef/CommandInteractionOption" /> para evitar conflictos de nombres de identificadores.
 :::
 
-De la misma manera que en los ejemplos anteriores, puede obtener valores de cualquier tipo utilizando el método `CommandInteractionOptionResolver#get_____()` correspondiente. Las opciones `String`, `Integer`, `Number` y `Boolean` proporcionan los respectivos tipos primitivos, mientras que las opciones `User`, `Channel`, `Role` y `Mentionable` proporcionarán la respectiva clase de discord.js instanciada si su aplicación tiene un usuario bot en el gremio o una estructura de API sin procesar para implementaciones de solo comandos.
+De la misma manera que en los ejemplos anteriores, puede obtener valores de cualquier tipo utilizando el método `CommandInteractionOptionResolver#get_____()` correspondiente. Las opciones `String`, `Integer`, `Number` y `Boolean` proporcionan los respectivos tipos primitivos, mientras que las opciones `User`, `Channel`, `Role` y `Mentionable` proporcionarán la respectiva clase de discord.js instanciada si su aplicación tiene un usuario bot en el servidor o una estructura de API sin procesar para implementaciones de solo comandos.
 
 ### Opciones
 

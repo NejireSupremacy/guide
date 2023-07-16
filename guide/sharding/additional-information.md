@@ -1,19 +1,19 @@
-# Additional information
+# Información adicional
 
 ::: tip CONSEJO
-This page is a follow-up and bases its code on [the previous page](/sharding/).
+Esta página es una continuación y basa su código en [la página anterior](/guide/sharding/).
 :::
 
-Here are some extra topics covered about sharding that might have raised concerns.
+Estos son algunos de los temas adicionales tratados sobre sharding que podrían haber despertado inquietudes.
 
-## Legend
+## Aspectos
 
-* `manager` is an instance of `ShardingManager`, e.g. `const manager = new ShardingManager(file, options);`
-* `client.shard` refers to the current shard.
+* `manager` es una instancia de `ShardingManager`, p.ej. `const manager = new ShardingManager(file, options);`
+* `client.shard` se refiere al shard actual.
 
-## Shard messages
+## Mensajes de shards
 
-For shards to communicate, they have to send messages to one another, as they each have another process. You must wait for each shard to finish spawning before you can listen to their events, otherwise `ShardingManager#shards` will be an empty `Collection`. You can listen for these messages on the individual shards by adding the following lines in your `index.js` file:
+Para que los shards se comuniquen, tienen que enviarse mensajes entre ellos, ya que cada uno tiene otro proceso. Debes esperar a que cada fragmento termine de generarse para poder escuchar sus eventos, de lo contrario `ShardingManager#shards` será una `Collection` vacía. Puedes escuchar estos mensajes en las shards individuales añadiendo las siguientes líneas en tu archivo `index.js`:
 
 ```js
 manager.spawn()
@@ -27,16 +27,16 @@ manager.spawn()
 	.catch(console.error);
 ```
 
-As the property names imply, the `_eval` property is what the shard is attempting to evaluate, and the `_result` property is the output of said evaluation. However, these properties are only guaranteed if a _shard_ is sending a message. There will also be an `_error` property, should the evaluation have thrown an error.
+Como los nombres de las propiedades implican, la propiedad `_eval` es lo que el fragmento está intentando evaluar, y la propiedad `_result` es el resultado de dicha evaluación. Sin embargo, estas propiedades sólo están garantizadas si un _shard_ está enviando un mensaje. También habrá una propiedad `_error`, en caso de que la evaluación haya arrojado un error.
 
-You can also send messages via `process.send('hello')`, which would not contain the same information. This is why the `.message` property's type is declared as `*` in the <DocsLink path="class/Shard?scrollTo=e-message" /> documentation.
+También puede enviar mensajes a través de `process.send('hola')`, que no contendría la misma información. Esta es la razón por la que el tipo de la propiedad `.message` se declara como `*` en la documentación <DocsLink path="class/Shard?scrollTo=e-message" />.
 
-## Specific shards
+## Shards específicas
 
-There might be times where you want to target a specific shard. An example would be to kill a specific shard that isn't working as intended. You can achieve this by taking the following snippet (in a command, preferably):
+Puede haber ocasiones en las que quieras centrarte en una shard específica. Un ejemplo sería matar una shard en específico que no está funcionando según lo previsto. Puede conseguirlo tomando el siguiente fragmento de código (en un comando, preferiblemente):
 
 ::: tip CONSEJO
-In discord.js v13, <DocsLink path="class/ShardClientUtil?scrollTo=ids">`Client#shard`</DocsLink> can hold multiple ids. If you use the default sharding manager, the `.ids` array will only have one entry.
+En discord.js v13, <DocsLink path="class/ShardClientUtil?scrollTo=ids">`Client#shard`</DocsLink> puede contener múltiples ids. Si utilizas el gestor de fragmentación por defecto, el array `.ids` sólo tendrá una entrada.
 :::
 
 ```js
@@ -45,39 +45,39 @@ client.shard.broadcastEval(c => {
 });
 ```
 
-If you're using something like [PM2](http://pm2.keymetrics.io/) or [Forever](https://github.com/foreverjs/forever), this is an easy way to restart a specific shard. Remember, <DocsLink path="class/ShardClientUtil?scrollTo=broadcastEval" type="method" /> sends a message to **all** shards, so you have to check if it's on the shard you want.
+Si estás usando algo como [PM2](http://pm2.keymetrics.io/) o [Forever](https://github.com/foreverjs/forever), esta es una forma fácil de reiniciar un shard específico. Recuerda, <DocsLink path="class/ShardClientUtil?scrollTo=broadcastEval" type="method" /> envía un mensaje a **todos** los shards, así que tienes que comprobar si está en el shard que quieres.
 
-## `ShardingManager#shardArgs` and `ShardingManager#execArgv`
+## `ShardingManager#shardArgs` y `ShardingManager#execArgv`
 
-Consider the following example of creating a new `ShardingManager` instance:
+Considera el siguiente ejemplo de creación de una nueva instancia de `ShardingManager`:
 
 ```js
 const manager = new ShardingManager('./bot.js', {
 	execArgv: ['--trace-warnings'],
 	shardArgs: ['--ansi', '--color'],
-	token: 'your-token-goes-here',
+	token: 'tu-token-va-aquí',
 });
 ```
 
-The `execArgv` property is what you would usually pass to Node without sharding, e.g.:
+La propiedad `execArgv` es la que normalmente pasarías a Node sin sharding, p.ej:
 
 ```sh:no-line-numbers
 node --trace-warnings bot.js
 ```
 
-You can find a list of command-line options for Node [here](https://nodejs.org/api/cli.html).
+Puede encontrar una lista de opciones de línea de comandos para Node [aquí](https://nodejs.org/api/cli.html).
 
-The `shardArgs` property is what you would usually pass to your bot without sharding, e.g.:
+La propiedad `shardArgs` es lo que normalmente pasarías a tu bot sin sharding, por ejemplo:
 
 ```sh:no-line-numbers
 node bot.js --ansi --color
 ```
 
-You can access them later as usual via `process.argv`, which contains an array of executables, your main file, and the command-line arguments used to execute the script.
+Puede acceder a ellos más tarde como de costumbre a través de `process.argv`, que contiene un array de ejecutables, su archivo principal, y los argumentos de línea de comandos utilizados para ejecutar el script.
 
-## Eval arguments
+## Argumentos para evaluación
 
-There may come the point where you will want to pass arguments from the outer scope into a `.broadcastEval()` call.
+Puede llegar un momento en el que quieras pasar argumentos del ámbito externo a una llamada `.broadcastEval()`.
 
 ```js
 function funcName(c, { arg }) {
@@ -87,13 +87,13 @@ function funcName(c, { arg }) {
 client.shard.broadcastEval(funcName, { context: { arg: 'arg' } });
 ```
 
-The <DocsLink path="typedef/BroadcastEvalOptions" /> typedef was introduced in discord.js v13 as the second parameter in `.broadcastEval()`.
-It accepts two properties: `shard` and `context`. The `context` property will be sent as the second argument to your function.
+El <DocsLink path="typedef/BroadcastEvalOptions" /> typedef se introdujo en discord.js v13 como segundo parámetro en `.broadcastEval()`.
+Acepta dos propiedades: `shard` y `context`. La propiedad `context` se enviará como segundo argumento a su función.
 
-In this small snippet, an argument is passed to the `funcName` function through this parameter.
-The function will receive the arguments as an object as the second parameter.
+En este pequeño fragmento, se pasa un argumento a la función `funcName` a través de este parámetro.
+La función recibirá los argumentos como un objeto como segundo parámetro.
 
 ::: warning ADVERTENCIA
-The `context` option only accepts properties which are JSON-serializable. This means you cannot pass complex data types in the context directly.
-For example, if you sent a `User` instance, the function would receive the raw data object.
+La opción `context` sólo acepta propiedades que sean serializables en JSON. Esto significa que no puedes pasar tipos de datos complejos en el contexto directamente.
+Por ejemplo, si enviara una instancia de `Usuario`, la función recibiría el objeto de datos sin procesar.
 :::

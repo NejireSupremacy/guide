@@ -10,9 +10,9 @@ En esta sección, veremos cómo registrar tus comandos en Discord utilizando dis
 
 ## Registro de comandos
 
-Los comandos Slash se pueden registrar de dos formas: en un servidor específico o para todos los servidores en los que esté el bot. Vamos a ver primero el registro en un solo gremio, ya que es una buena manera de desarrollar y probar tus comandos antes de un despliegue global.
+Los comandos Slash se pueden registrar de dos formas: en un servidor específico o para todos los servidores en los que esté el bot. Vamos a ver primero el registro en un solo servidor, ya que es una buena manera de desarrollar y probar tus comandos antes de un despliegue global.
 
-Tu aplicación necesitará el ámbito `applications.commands` autorizado en un servidor para que cualquiera de sus comandos de barra aparezca, y para poder registrarlos en un gremio específico sin error.
+Tu aplicación necesitará el ámbito `applications.commands` autorizado en un servidor para que cualquiera de sus comandos de barra aparezca, y para poder registrarlos en un servidor específico sin error.
 
 Los comandos de barra sólo deben registrarse una vez y actualizarse cuando se modifique su definición (descripción, opciones, etc.). Como hay un límite diario en la creación de comandos, no es necesario ni deseable conectar un cliente entero a la pasarela o hacer esto en cada evento `ready`. Por ello, es preferible un script independiente que utilice el gestor REST más ligero.
 
@@ -64,7 +64,7 @@ const rest = new REST({ version: '10' }).setToken(token);
 	try {
 		console.log(`Se comenzaron a actualizar ${commands.length} comandos de tu aplicación (/).`);
 
-		// El método put se utiliza para actualizar completamente todos los comandos del gremio con el conjunto actual
+		// El método PUT se utiliza para actualizar completamente todos los comandos del servidor con el conjunto actual
 		const data = await rest.put(
 			Routes.applicationGuildCommands(clientId, guildId),
 			{ body: commands },
@@ -78,7 +78,7 @@ const rest = new REST({ version: '10' }).setToken(token);
 })();
 ```
 
-Una vez rellenados estos valores, ejecuta `node deploy-commands.js` en el directorio de tu proyecto para registrar tus comandos en el gremio especificado. Si ves el mensaje de éxito, comprueba si los comandos están en el servidor escribiendo `/`. Si todo va bien, deberías poder ejecutarlos y ver la respuesta de tu bot en Discord.
+Una vez rellenados estos valores, ejecuta `node deploy-commands.js` en el directorio de tu proyecto para registrar tus comandos en el servidor especificado. Si ves el mensaje de éxito, comprueba si los comandos están en el servidor escribiendo `/`. Si todo va bien, deberías poder ejecutarlos y ver la respuesta de tu bot en Discord.
 
 <DiscordMessages>
 	<DiscordMessage profile="bot">
@@ -107,7 +107,7 @@ await rest.put(
 ### Dónde desplegar
 
 ::: tip CONSEJO
-El despliegue de comandos basado en servidores es más adecuado para el desarrollo y las pruebas en propio servidor personal. Una vez que estés satisfecho, despliega el comando globalmente para publicarlo en todos los gremios en los que esté tu bot.
+El despliegue de comandos basado en servidores es más adecuado para el desarrollo y las pruebas en propio servidor personal. Una vez que estés satisfecho, despliega el comando globalmente para publicarlo en todos los servidores en los que esté tu bot.
 
 Es posible que desees tener una aplicación y un token separados en el portal de desarrollo de Discord para tu aplicación de desarrollo, para evitar la duplicación entre tus comandos basados en servidores y el despliegue global.
 :::

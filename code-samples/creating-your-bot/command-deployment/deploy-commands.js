@@ -22,7 +22,7 @@ const rest = new REST({ version: '10' }).setToken(token);
 	try {
 		console.log(`Se comenzaron a actualizar ${commands.length} comandos de tu aplicación (/).`);
 
-		// El método put se utiliza para actualizar completamente todos los comandos del gremio con el conjunto actual
+		// El método put se utiliza para actualizar completamente todos los comandos del servidor con el conjunto actual
 		const data = await rest.put(
 			Routes.applicationGuildCommands(clientId, guildId),
 			{ body: commands },

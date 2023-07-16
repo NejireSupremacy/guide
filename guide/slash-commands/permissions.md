@@ -5,12 +5,12 @@ Los comandos de barra tienen su propio sistema de permisos. Este sistema le perm
 Los permisos del comando de barra para los servidores son sólo por defecto y pueden ser alterados por los administradores de los servidores, permitiéndoles configurar el acceso de la forma que mejor se adapte a sus roles de moderación y servidor. Tu código no debe tratar de imponer su propia gestión de permisos, ya que esto puede dar lugar a un conflicto entre los permisos configurados por el servidor y el código de tu bot.
 
 ::: warning ADVERTENCIA
-No es posible impedir que los usuarios con permisos de administrador utilicen comandos desplegados globalmente o específicamente para su gremio. Piénselo dos veces antes de crear comandos "sólo para desarrolladores" como `eval`.
+No es posible impedir que los usuarios con permisos de administrador utilicen comandos desplegados globalmente o específicamente para su servidor. Piénselo dos veces antes de crear comandos "sólo para desarrolladores" como `eval`.
 :::
 
 ## Permisos de los miembros
 
-Puede utilizar <DocsLink section="builders" path="class/SlashCommandBuilder?scrollTo=setDefaultMemberPermissions" type="method" /> para establecer los permisos predeterminados necesarios para que un miembro ejecute el comando. Establecerlo a `0` prohibirá a cualquier miembro de un gremio utilizar el comando a menos que se configure una sobre escritura (overwrite) específica o que el usuario tenga el permiso de Administrador.
+Puede utilizar <DocsLink section="builders" path="class/SlashCommandBuilder?scrollTo=setDefaultMemberPermissions" type="method" /> para establecer los permisos predeterminados necesarios para que un miembro ejecute el comando. Establecerlo a `0` prohibirá a cualquier miembro de un servidor utilizar el comando a menos que se configure una sobre escritura (overwrite) específica o que el usuario tenga el permiso de Administrador.
 
 Para ello, vamos a introducir dos comandos de moderación comunes y simples: `ban` y `kick`. Para un comando de ban, un valor por defecto sensato es asegurarse de que los usuarios ya tienen el permiso Discord `BanMembers` con el fin de utilizarlo.
 
@@ -55,7 +55,7 @@ En realidad, probablemente querrás tener un paso de confirmación adicional ant
 
 ## Permiso DM
 
-Por defecto, los comandos desplegados globalmente también están disponibles para su uso en DMs. Puedes utilizar <DocsLink section="builders" path="class/SlashCommandBuilder?scrollTo=setDMPermission" type="method" /> para desactivar este comportamiento. Los comandos desplegados a gremios específicos no están disponibles en los DM.
+Por defecto, los comandos desplegados globalmente también están disponibles para su uso en DMs. Puedes utilizar <DocsLink section="builders" path="class/SlashCommandBuilder?scrollTo=setDMPermission" type="method" /> para desactivar este comportamiento. Los comandos desplegados a servidores específicos no están disponibles en los DM.
 
 No tiene mucho sentido que tu comando `ban` esté disponible en los DMs, así que puedes añadir `setDMPermission(false)` al constructor para eliminarlo:
 

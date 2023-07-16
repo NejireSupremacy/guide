@@ -131,7 +131,7 @@ Aunque por lo general no recomendamos utilizar editores en línea como solucione
 
 ## Git y `.gitignore`
 
-Git es una herramienta fantástica para hacer un seguimiento de tus cambios de código y te permite subir el progreso a servicios como [GitHub](https://github.com/), [GitLab](https://about.gitlab.com/) o [Bitbucket](https://bitbucket.org/product). Aunque esto es súper útil para compartir código con otros desarrolladores, ¡también conlleva el riesgo de subir tus archivos de configuración con valores sensibles!
+Git es una herramienta fantástica para hacer un seguimiento de tus cambios de código y te permite subir el progreso a servicios como [GitHub](https://github.com/), [GitLab](https://about.gitlab.com/) o [Bitbucket](https://bitbucket.org/product). Aunque esto es super útil para compartir código con otros desarrolladores, ¡también conlleva el riesgo de subir tus archivos de configuración con valores sensibles!
 
 Puedes especificar archivos que Git debería ignorar en sus sistemas de versionado con un archivo `.gitignore`. Crea un archivo `.gitignore` en el directorio de tu proyecto y añade los nombres de los archivos y carpetas que quieras ignorar:
 

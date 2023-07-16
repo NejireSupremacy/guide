@@ -197,7 +197,7 @@ Es probable que desee configurar una validación adicional, como los permisos re
 
 ## Siguientes pasos
 
-Muchas otras aplicaciones pueden usar Keyv, como la configuración de gremios; crea otra instancia con un [namepace](https://github.com/jaredwray/keyv/tree/main/packages/keyv#namespaces) diferente para cada configuración. Además, puede [extenderse](https://github.com/jaredwray/keyv/tree/main/packages/keyv#third-party-storage-adapters) para trabajar con cualquier backend de almacenamiento que prefieras.
+Muchas otras aplicaciones pueden usar Keyv, como la configuración de servidores; crea otra instancia con un [namepace](https://github.com/jaredwray/keyv/tree/main/packages/keyv#namespaces) diferente para cada configuración. Además, puede [extenderse](https://github.com/jaredwray/keyv/tree/main/packages/keyv#third-party-storage-adapters) para trabajar con cualquier backend de almacenamiento que prefieras.
 
 Dale un vistazo al repositorio de [Keyv](https://github.com/jaredwray/keyv/tree/main/packages/keyv)) para más información
 
