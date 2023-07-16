@@ -1,6 +1,6 @@
-# Setting up package.json scripts
+# Configurando scripts en tu package.json
 
-An easy way to run scripts like a script to start your bot, a script to lint your bot's files, or whatever scripts you use is by storing them in your `package.json` file. After you store these scripts in your `package.json` file, you can run the `start` script to start your bot or the `lint` script to lint your code for errors.
+Una forma fácil de ejecutar scripts como el script para iniciar tu bot, un script para limpiar los archivos de tu bot, o cualquier otro script que utilices, es almacenándolos en tu archivo `package.json`. Después de almacenar estos scripts en tu archivo `package.json`, puedes ejecutar el script `start` para iniciar tu bot o el script `lint` para detectar errores en tu código.
 
 :::: code-group
 ::: code-group-item npm
@@ -23,10 +23,10 @@ pnpm run lint
 :::
 ::::
 
-## Getting started
+## Primeros pasos
 
 ::: tip CONSEJO
-Before getting started, you'll need to have a `package.json` file. If you don't have a `package.json` file yet, you can run the following command in the console to generate one.
+Antes de empezar, necesitarás tener un archivo `package.json`. Si aún no tienes un archivo `package.json`, puedes ejecutar el siguiente comando en la consola para generar uno.
 
 <CodeGroup>
   <CodeGroupItem title="npm">
@@ -53,13 +53,13 @@ pnpm init
 </CodeGroup>
 :::
 
-If you haven't touched your `package.json` file yet (excluding installing dependencies), your `package.json` file should look similar to the following:
+Si aún no has tocado tu archivo `package.json` (excluyendo la instalación de dependencias), tu archivo `package.json` debería tener un aspecto similar al siguiente:
 
 ```json
 {
-	"name": "my-bot",
+	"name": "mi-bot",
 	"version": "1.0.0",
-	"description": "A Discord bot!",
+	"description": "¡Un bot de Discord!",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
@@ -70,25 +70,25 @@ If you haven't touched your `package.json` file yet (excluding installing depend
 }
 ```
 
-Let's zoom in more. Below `main`, you'll see `scripts`. You can specify your scripts there. In this guide, we'll show how to start and lint your bot using a `package.json` script.
+Acerquémonos más. Debajo de `main`, verás `scripts`. Ahí puedes especificar tus scripts. En esta guía, vamos a mostrar cómo iniciar tu bot usando un script `package.json`.
 
-## Adding your first script
+## Añadiendo tu primer script
 
 ::: tip CONSEJO
-We'll assume you have finished the [creating your first bot](/creating-your-bot/) section of the guide. If you haven't, ensure to follow it first!
+Supondremos que has terminado la sección [crear tu primer bot](/guide/creating-your-bot) de la guía. Si no lo has hecho, ¡asegúrate de seguirla primero!
 :::
 
-Over at your `package.json` file, add the following line to the `scripts`:
+En tu archivo `package.json`, añade la siguiente línea a `scripts`:
 
 ```json
 "start": "node ."
 ```
 
 ::: tip CONSEJO
-The `node .` script will run the file you have specified at the `main` entry in your `package.json` file. If you don't have it set yet, make sure to select your bot's main file as `main`!
+El script `node .` ejecutará el archivo que hayas especificado en la entrada `main` de tu archivo `package.json`. Si aún no lo tienes configurado, ¡asegúrate de seleccionar el archivo principal de tu bot como `main`!
 :::
 
-Now, whenever you run the `start` script in your bot's directory, it will run the `node .` command.
+Ahora, cada vez que ejecutes el script `start` en el directorio de tu bot, se ejecutará el comando `node .`.
 
 :::: code-group
 ::: code-group-item npm
@@ -108,19 +108,19 @@ pnpm run start
 :::
 ::::
 
-Let's create another script to lint your code via the command line.
+Vamos a crear otro script para eliminar la pelusa de su código a través de la línea de comandos.
 
 ::: tip CONSEJO
-If you do not have ESLint installed globally, you can use [npx](https://alligator.io/workflow/npx/) to run the ESLint script for your local directory. For more info on how to set it up, you can read the site [here](https://alligator.io/workflow/npx/).
+Si no tienes ESLint instalado globalmente, puedes usar [npx](https://alligator.io/workflow/npx/) para ejecutar el script ESLint para tu directorio local. Para más información sobre cómo configurarlo, puedes leer el sitio [aquí](https://alligator.io/workflow/npx/).
 :::
 
-Add the following line to your scripts:
+Añade la siguiente línea a tus scripts:
 
 ```json
 "lint": "eslint ."
 ```
 
-Now, whenever you run the `lint` script, ESLint will lint your `index.js` file.
+Ahora, cada vez que ejecutes el script `lint`, ESLint limpiará tu archivo `index.js`.
 
 :::: code-group
 ::: code-group-item npm
@@ -140,13 +140,13 @@ pnpm run lint
 :::
 ::::
 
-Your `package.json` file should now look similar to the following:
+Su archivo `package.json` debería tener ahora un aspecto similar al siguiente:
 
 ```json
 {
-	"name": "my-bot",
+	"name": "mi-bot",
 	"version": "1.0.0",
-	"description": "A Discord bot!",
+	"description": "¡Un bot de Discord!",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
@@ -159,7 +159,7 @@ Your `package.json` file should now look similar to the following:
 }
 ```
 
-And that's it! You can always add more scripts now, running them with:
+Y ya está. Siempre se puede añadir más secuencias de comandos ahora, ejecutándolos con:
 
 :::: code-group
 ::: code-group-item npm
@@ -180,5 +180,5 @@ pnpm run <script-name>
 ::::
 
 ::: tip CONSEJO
-Package scripts allow some more configuration (like pre-, post- and lifecycle scripts) than we can cover in this guide. Check out the official documentation on [docs.npmjs.com](https://docs.npmjs.com/cli/v7/using-npm/scripts) for more information.
+Los scripts de paquetes permiten algunas configuraciones más (como scripts de pre, post y ciclo de vida) de las que podemos cubrir en esta guía. Consulta la documentación oficial en [docs.npmjs.com](https://docs.npmjs.com/cli/v7/using-npm/scripts) para obtener más información.
 :::

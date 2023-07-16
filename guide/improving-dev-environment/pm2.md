@@ -1,10 +1,10 @@
-# Managing your bot process with PM2
+# Gestión del proceso de tu bot con PM2
 
-PM2 is a process manager. It manages your applications' states, so you can start, stop, restart, and delete processes. It offers features such as monitoring running processes and setting up a "start with operating system" (be that Windows, Linux, or Mac) so your processes start when you boot your system.
+PM2 es un gestor de procesos. Gestiona los estados de tus aplicaciones para que puedas iniciar, detener, reiniciar y eliminar procesos. Ofrece funciones como la supervisión de los procesos en ejecución y la configuración de un "inicio con el sistema operativo" (ya sea Windows, Linux o Mac) para que los procesos se inicien al arrancar el sistema.
 
-## Installation
+## Instalación
 
-You can install PM2 via the following command:
+Puedes instalar PM2 utilizando el siguiente comando:
 
 :::: code-group
 ::: code-group-item npm
@@ -24,55 +24,55 @@ pnpm add --global pm2
 :::
 ::::
 
-## Starting your app
+## Iniciando tu app
 
-After you install PM2, the easiest way you can start your app is by going to the directory your bot is in and then run the following:
+Después de instalar PM2, la forma más fácil de iniciar tu aplicación es ir al directorio en el que se encuentra tu bot y ejecutar lo siguiente:
 
 ```sh:no-line-numbers
 pm2 start your-app-name.js
 ```
 
-### Additional notes
+### Notas adicionales
 
-The `pm2 start` script allows for more optional command-line arguments.
+El script `pm2 start` permite más argumentos opcionales en la línea de comandos.
 
-- `--name`: This allows you to set the name of your process when listing it up with `pm2 list` or `pm2 monit`:
+- `--name`: Esto te permite establecer el nombre de tu proceso cuando lo listes con `pm2 list` o `pm2 monit`:
 
 ```sh:no-line-numbers
-pm2 start your-app-name.js --name "Some cool name"
+pm2 start app.js --name "Un nombre genial"
 ```
 
-- `--watch`: This option will automatically restart your process as soon as a file change is detected, which can be useful for development environments:
+- `--watch`: Esta opción reiniciará automáticamente su proceso en cuanto se detecte un cambio en un archivo, lo que puede ser útil para entornos de desarrollo:
 
 ```bash
-pm2 start your-app-name.js --watch
+pm2 start app.js --watch
 ```
 
 ::: tip CONSEJO
-The `pm2 start` command can take more optional parameters, but only these two are relevant. If you want to see all the parameters available, you can check the documentation of pm2 [here](https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/).
+El comando `pm2 start` puede tomar más parámetros opcionales, pero sólo estos dos son relevantes. Si quieres ver todos los parámetros disponibles, puedes consultar la documentación de pm2 [aquí](https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/).
 :::
 
-Once the process launches with pm2, you can run `pm2 monit` to monitor all console outputs from the processes started by pm2. This accounts for any `console.log()` in your code or outputted errors.
+Una vez que el proceso se inicia con pm2, puede ejecutar `pm2 monit` para supervisar todas las salidas de la consola de los procesos iniciados por pm2. Esto tiene en cuenta cualquier `console.log()` en tu código o errores de salida.
 
-In a similar fashion to how you start the process, running `pm2 stop` will stop the current process without removing it from PM2's interface:
+De forma similar a como se inicia el proceso, ejecutar `pm2 stop` detendrá el proceso actual sin eliminarlo de la interfaz de PM2:
 
 ```sh:no-line-numbers
-pm2 stop your-app-name.js
+pm2 stop app.js
 ```
 
-## Setting up booting with your system
+## Configurar el arranque con tu sistema
 
-Perhaps one of the more useful features of PM2 is being able to boot up with your Operating System. This feature will ensure that your bot processes will always be started after an (unexpected) reboot (e.g., after a power outage).
+Quizás una de las características más útiles de PM2 es ser capaz de arrancar con su Sistema Operativo. Esta característica asegurará que los procesos de tu bot siempre se inicien después de un reinicio (inesperado) (por ejemplo, después de un corte de energía).
 
-The initial steps differ per OS. In this guide, we'll cover those for Windows and Linux/MacOS.
+Los pasos iniciales difieren según el sistema operativo. En esta guía, cubriremos los de Windows y Linux/MacOS.
 
-### Initial steps for Windows
+### Primeros pasos para Windows
 
 ::: tip CONSEJO
-Run these from an administrative command prompt to avoid getting hit with a bunch of UAC dialogs.
+Ejecútalos desde un símbolo del sistema administrativo para evitar ser golpeado con un montón de cuadros de diálogo UAC.
 :::
 
-**Install the [pm2-windows-service](https://www.npmjs.com/package/pm2-windows-service) package from npm:**
+**Instala el paquete [pm2-windows-service](https://www.npmjs.com/package/pm2-windows-service) desde npm:**
 
 :::: code-group
 ::: code-group-item npm
@@ -92,50 +92,50 @@ pnpm add --global pm2-windows-service
 :::
 ::::
 
-**After installation has finished, install the service by running the following command:**
+**Una vez finalizada la instalación, instala el servicio ejecutando el siguiente comando:**
 
 ```sh:no-line-numbers
 pm2-service-install
 ```
 ::: tip CONSEJO
-You can use the `-n` parameter to set the service name: `pm2-service-install -n "the-service-name"`
+Puede utilizar el parámetro `-n` para definir el nombre del servicio: `pm2-service-install -n "nombre-del-servicio"`.
 :::
 
-### Initial steps for Linux/MacOS
+### Primeros pasos para Linux/MacOS
 
-You'll need a start script, which you can get by running the following command:
+Necesitarás un script de inicio, que puedes obtener ejecutando el siguiente comando:
 
 ```sh:no-line-numbers
-# Detects the available init system, generates the config, and enables startup system
+# Detecta el sistema de inicio disponible, genera la configuración y activa el sistema de inicio.
 pm2 startup
 ```
 
-Or, if you want to specify your machine manually, select one of the options with the command:
+O, si desea especificar su máquina manualmente, seleccione una de las opciones con el comando:
 
 ```sh:no-line-numbers
 pm2 startup [ubuntu | ubuntu14 | ubuntu12 | centos | centos6 | arch | oracle | amazon | macos | darwin | freesd | systemd | systemv | upstart | launchd | rcd | openrc]
 ```
 
-The output of running one of the commands listed above will output a command for you to run with all environment variables and options configured.
+La salida de ejecutar uno de los comandos listados arriba mostrará un comando para que usted lo ejecute con todas las variables de entorno y opciones configuradas.
 
-**Example output for an Ubuntu user:**
+**Ejemplo de salida para un usuario de Ubuntu:**
 
 ```sh:no-line-numbers
 [PM2] You have to run this command as root. Execute the following command:
       sudo su -c "env PATH=$PATH:/home/user/.nvm/versions/node/v8.9/bin pm2 startup ubuntu -u user --hp /home/user
 ```
 
-After running that command, you can continue to the next step.
+Después de ejecutar ese comando, puede continuar con el siguiente paso.
 
-### Saving the current process list
+### Guardar la lista de procesos actual
 
-To save the current process list so it will automatically get started after a restart, run the following command:
+Para guardar la lista de procesos actual de forma que se inicie automáticamente tras un reinicio, ejecute el siguiente comando:
 
 ```sh:no-line-numbers
 pm2 save
 ```
 
-To disable this, you can run the following command:
+Para desactivarlo, puede ejecutar el siguiente comando:
 
 ```sh:no-line-numbers
 pm2 unstartup
